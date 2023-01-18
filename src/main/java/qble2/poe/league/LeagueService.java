@@ -34,4 +34,11 @@ public class LeagueService {
     return this.leagueMapper.toDtoListFromEntityList(this.leagueRepository.findAll());
   }
 
+  public LeagueDto reloadLeague(String leagueId) {
+    LeagueDto leagueDto = this.leagueWebClientGgg.retrieveLeague(leagueId);
+    this.leagueRepository.save(this.leagueMapper.toEntityFromDto(leagueDto));
+
+    return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId).get());
+  }
+
 }

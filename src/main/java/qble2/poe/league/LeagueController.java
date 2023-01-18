@@ -32,4 +32,9 @@ public class LeagueController {
     return this.leagueService.reloadLeagues();
   }
 
+  @PostMapping("/{leagueId}")
+  public LeagueDto reloadLeague(@PathVariable(name = "leagueId", required = true) String leagueId) {
+    return this.leagueService.reloadLeague(leagueId);
+  }
+
 }

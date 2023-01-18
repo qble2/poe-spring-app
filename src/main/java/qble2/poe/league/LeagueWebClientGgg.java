@@ -21,7 +21,7 @@ public class LeagueWebClientGgg {
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";
 
   private static final String GGG_API_BASE_URL = "https://api.pathofexile.com";
-  private static final String GET_LEAGUES_URI = "/leagues?type=main&compact=1";
+  private static final String GET_LEAGUES_URI = "/leagues";
 
   private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
 
@@ -36,7 +36,7 @@ public class LeagueWebClientGgg {
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
       }).baseUrl(GGG_API_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
-  // https://api.pathofexile.com/leagues?type=main&compact=1
+  // https://api.pathofexile.com/leagues
   public List<LeagueDto> retrieveLeagues() {
     log.info("retrieving leagues from GGG...");
     Mono<LeagueGgg[]> mono = webClient.get().uri(GET_LEAGUES_URI)
@@ -46,6 +46,18 @@ public class LeagueWebClientGgg {
     log.info("leagues have been retrieved from GGG.");
 
     return this.leagueMapper.toDtoListFromGggList(listOfLeagueGgg);
+  }
+
+  // https://api.pathofexile.com/leagues/Sanctum
+  public LeagueDto retrieveLeague(String leagueId) {
+    log.info("retrieving league (id: {}) from GGG...", leagueId);
+    Mono<LeagueGgg> mono = webClient.get().uri(GET_LEAGUES_URI + "/" + leagueId)
+        .header("User-Agent", BROWSER_USER_AGENT).retrieve().bodyToMono(LeagueGgg.class);
+
+    LeagueGgg leagueGgg = mono.block();
+    log.info("league ({}) has been retrieved from GGG.", leagueId);
+
+    return this.leagueMapper.toDtoFromGgg(leagueGgg);
   }
 
 }
