@@ -1,0 +1,51 @@
+package qble2.poe.league;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
+import org.springframework.web.reactive.function.client.WebClient;
+import lombok.extern.slf4j.Slf4j;
+import qble2.poe.RequestLogUtils;
+import qble2.poe.ladder.LeagueDto;
+import reactor.core.publisher.Mono;
+
+@Component
+@Slf4j
+public class LeagueWebClientGgg {
+
+  @Autowired
+  private LeagueMapper leagueMapper;
+
+  private static final String BROWSER_USER_AGENT =
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";
+
+  private static final String GGG_API_BASE_URL = "https://api.pathofexile.com";
+  private static final String GET_LEAGUES_URI = "/leagues?type=main&compact=1";
+
+  private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
+
+  // handling DataBufferLimitException: Exceeded limit on max bytes to buffer
+  private static final ExchangeStrategies exchangeStrategies =
+      ExchangeStrategies.builder().codecs(configurer -> configurer.defaultCodecs()
+          .maxInMemorySize(MAX_IN_MEMORY_SIZE_IN_MB * 1024 * 1024)).build();
+
+  private static final WebClient webClient =
+      WebClient.builder().filters(exchangeFilterFunctions -> {
+        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+      }).baseUrl(GGG_API_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+
+  // https://api.pathofexile.com/leagues?type=main&compact=1
+  public List<LeagueDto> retrieveLeagues() {
+    log.info("retrieving leagues from GGG...");
+    Mono<LeagueGgg[]> mono = webClient.get().uri(GET_LEAGUES_URI)
+        .header("User-Agent", BROWSER_USER_AGENT).retrieve().bodyToMono(LeagueGgg[].class);
+
+    List<LeagueGgg> listOfLeagueGgg = List.of(mono.block());
+    log.info("leagues have been retrieved from GGG.");
+
+    return this.leagueMapper.toDtoListFromGggList(listOfLeagueGgg);
+  }
+
+}
