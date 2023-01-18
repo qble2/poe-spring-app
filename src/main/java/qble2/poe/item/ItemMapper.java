@@ -90,7 +90,7 @@ public interface ItemMapper {
   @Mapping(target = "h", source = "h")
   @Mapping(target = "x", source = "y")
   @Mapping(target = "descrText", source = "descrText")
-  // @Mapping(target = "enchantMods", source = "enchantMods")
+  // @Mapping(target = "enchantMods", source = "enchantMods") // @AfterMapping
   @Mapping(target = "implicitMods", source = "implicitMods")
   @Mapping(target = "explicitMods", source = "explicitMods")
   @Mapping(target = "craftedMods", source = "craftedMods")
@@ -127,7 +127,7 @@ public interface ItemMapper {
   @Mapping(target = "h", source = "h")
   @Mapping(target = "x", source = "y")
   @Mapping(target = "descrText", source = "descrText")
-  // @Mapping(target = "enchantMods", source = "enchantMods")
+  // @Mapping(target = "enchantMods", source = "enchantMods") // TODO BKE
   @Mapping(target = "implicitMods", source = "implicitMods")
   @Mapping(target = "explicitMods", source = "explicitMods")
   @Mapping(target = "craftedMods", source = "craftedMods")

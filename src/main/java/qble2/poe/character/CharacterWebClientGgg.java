@@ -26,10 +26,10 @@ public class CharacterWebClientGgg {
 
   private static final String BROWSER_USER_AGENT =
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";
+  private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
   private static final String GGG_BASE_URL = "https://www.pathofexile.com";
   public static final String GET_CHARACTERS_URI = "/character-window/get-characters";
   public static final String GET_CHARACTER_ITEMS_URI = "/character-window/get-items";
-  private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
 
   // handling DataBufferLimitException: Exceeded limit on max bytes to buffer
   private static final ExchangeStrategies exchangeStrategies =
@@ -68,7 +68,7 @@ public class CharacterWebClientGgg {
   public List<ItemDto> retrieveCharacterItems(String accountName, String characterName) {
     log.info("retrieving character items (accountName: {} , characterName: {}) from GGG...",
         accountName, characterName);
-    Mono<CharacterGetItemsGgg> mono = webClient.get()
+    Mono<GetCharacterItemsGgg> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_CHARACTER_ITEMS_URI)
             .queryParam("accountName", accountName).queryParam("realm", "pc")
             .queryParam("character", characterName).build())
@@ -80,13 +80,13 @@ public class CharacterWebClientGgg {
               Integer.class);
           return Mono.error(new TooManyRequestsException(
               "Rate limit exceeded, Please try again later.", retryAfter));
-        }).bodyToMono(CharacterGetItemsGgg.class);
+        }).bodyToMono(GetCharacterItemsGgg.class);
 
-    CharacterGetItemsGgg characterGetItemsGgg = mono.block();
+    GetCharacterItemsGgg getCharacterItemsGgg = mono.block();
     log.info("character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
         accountName, characterName);
 
-    return this.itemMapper.toDtoListFromGggList(characterGetItemsGgg.getItems());
+    return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.getItems());
   }
 
 }

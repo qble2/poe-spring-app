@@ -6,7 +6,7 @@ import lombok.Data;
 import qble2.poe.item.ItemGgg;
 
 @Data
-public class CharacterGetItemsGgg {
+public class GetCharacterItemsGgg {
 
   @JsonProperty("items")
   private List<ItemGgg> items;
