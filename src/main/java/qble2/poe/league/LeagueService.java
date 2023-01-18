@@ -3,6 +3,7 @@ package qble2.poe.league;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qble2.poe.exception.LeagueNotFoundException;
 import qble2.poe.ladder.LeagueDto;
 
 @Service
@@ -24,7 +25,7 @@ public class LeagueService {
 
   public LeagueDto getLeague(String leagueId) {
     return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId)
-        .orElseThrow(() -> new RuntimeException("League does not exist")));
+        .orElseThrow(() -> new LeagueNotFoundException(leagueId)));
   }
 
   public List<LeagueDto> reloadLeagues() {
@@ -38,7 +39,8 @@ public class LeagueService {
     LeagueDto leagueDto = this.leagueWebClientGgg.retrieveLeague(leagueId);
     this.leagueRepository.save(this.leagueMapper.toEntityFromDto(leagueDto));
 
-    return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId).get());
+    return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId)
+        .orElseThrow(() -> new LeagueNotFoundException(leagueId)));
   }
 
 }

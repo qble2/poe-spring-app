@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qble2.poe.enchant.EnchantRepository;
+import qble2.poe.exception.CharacterNotFoundException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
 
@@ -66,8 +67,8 @@ public class CharacterService {
   public List<ItemDto> reloadCharacterItems(String accountName, String characterName) {
     updateCharacterItems(accountName, characterName);
 
-    return this.itemMapper
-        .toDtoListFromEntityList(this.characterRepository.findById(characterName).get().getItems());
+    return this.itemMapper.toDtoListFromEntityList(this.characterRepository.findById(characterName)
+        .orElseThrow(() -> new CharacterNotFoundException(characterName)).getItems());
   }
 
   public Character updateCharacterItems(String accountName, String characterName) {
@@ -90,7 +91,7 @@ public class CharacterService {
 
   private Character findCharacterByIdOrThrow(String characterName) {
     return this.characterRepository.findById(characterName)
-        .orElseThrow(() -> new RuntimeException("Character does not exist"));
+        .orElseThrow(() -> new CharacterNotFoundException(characterName));
   }
 
 }

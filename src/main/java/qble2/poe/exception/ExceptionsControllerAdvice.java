@@ -16,6 +16,12 @@ public class ExceptionsControllerAdvice {
   public static final String INTERNAL_SERVER_ERROR_MESSAGE =
       "Internal Server Error (Please contact the administrator)";
 
+  @ExceptionHandler(AbstractResourceNotFoundException.class)
+  public ResponseEntity<ResponseErrorDto> handleResourceNotFoundException(
+      HttpServletRequest request, Exception exception) {
+    return createErrorResponseEntity(request, HttpStatus.NOT_FOUND, exception);
+  }
+
   // at last, as a fail-safe, to catch any unhandled server exception
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ResponseErrorDto> unhandledExceptions(HttpServletRequest request,
@@ -28,6 +34,12 @@ public class ExceptionsControllerAdvice {
   /////
   /////
   /////
+
+  private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(HttpServletRequest request,
+      HttpStatus httpStatus, Exception exception) {
+    return createErrorResponseEntity(request.getRequestURI(), httpStatus, exception.getMessage(),
+        null);
+  }
 
   private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(String requestUri,
       HttpStatus httpStatus, String message, List<String> details) {
