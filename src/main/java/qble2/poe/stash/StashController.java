@@ -32,7 +32,7 @@ public class StashController {
     return this.stashService.reloadStashTabs(accountName, leagueId);
   }
 
-  @GetMapping("/tabs/{stashTabId}/items")
+  @GetMapping(path = "/tabs/{stashTabId}/items")
   public List<ItemDto> getStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId) {
     return this.stashService.getStashTabItems(stashTabId);

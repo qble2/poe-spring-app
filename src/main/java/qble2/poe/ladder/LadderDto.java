@@ -13,7 +13,7 @@ public class LadderDto {
   private String leagueId;
 
   @JsonProperty("total")
-  private long total;
+  private int total;
 
   @JsonProperty("cachedSince")
   private Date cachedSince;

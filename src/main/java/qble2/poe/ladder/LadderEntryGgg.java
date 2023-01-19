@@ -7,7 +7,7 @@ import lombok.Data;
 public class LadderEntryGgg {
 
   @JsonProperty("rank")
-  private long rank;
+  private int rank;
 
   @JsonProperty("dead")
   private boolean isDead;

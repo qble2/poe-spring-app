@@ -9,7 +9,7 @@ import qble2.poe.character.CharacterDto;
 public class LadderEntryDto {
 
   @JsonProperty("rank")
-  private long rank;
+  private int rank;
 
   @JsonProperty("leagueId")
   private String leagueId;

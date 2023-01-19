@@ -10,7 +10,7 @@ import lombok.Data;
 public class LadderGgg {
 
   @JsonProperty("total")
-  private long total;
+  private int total;
 
   @JsonProperty("cachedSince")
   private Date cachedSince;

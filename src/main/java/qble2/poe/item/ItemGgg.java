@@ -23,10 +23,10 @@ public class ItemGgg {
   private String baseType;
 
   @JsonProperty("frameType")
-  private long frameType;
+  private int frameType;
 
   @JsonProperty("ilvl")
-  private long ilvl;
+  private int ilvl;
 
   @JsonProperty("inventoryId")
   private String inventoryId;
@@ -47,16 +47,16 @@ public class ItemGgg {
   private Boolean fractured;
 
   @JsonProperty("w")
-  private long w;
+  private int w;
 
   @JsonProperty("h")
-  private long h;
+  private int h;
 
   @JsonProperty("x")
-  private long x;
+  private int x;
 
   @JsonProperty("y")
-  private long y;
+  private int y;
 
   @JsonProperty("descrText")
   private String descrText;

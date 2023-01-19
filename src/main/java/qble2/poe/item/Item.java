@@ -46,10 +46,10 @@ public class Item {
   private String baseType;
 
   @Column(name = "frameType")
-  private long frameType;
+  private int frameType;
 
   @Column(name = "ilvl")
-  private long ilvl;
+  private int ilvl;
 
   @Column(name = "inventoryId")
   private String inventoryId;
@@ -70,16 +70,16 @@ public class Item {
   private Boolean fractured;
 
   @Column(name = "w")
-  private long w;
+  private int w;
 
   @Column(name = "h")
-  private long h;
+  private int h;
 
   @Column(name = "x")
-  private long x;
+  private int x;
 
   @Column(name = "y")
-  private long y;
+  private int y;
 
   @Column(name = "descrText")
   private String descrText;
