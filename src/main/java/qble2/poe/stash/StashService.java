@@ -4,7 +4,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import qble2.poe.enchant.EnchantRepository;
 import qble2.poe.exception.StashTabNotFoundException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -28,9 +27,6 @@ public class StashService {
   @Autowired
   private ItemMapper itemMapper;
 
-  @Autowired
-  private EnchantRepository enchantRepository;
-
   public List<StashTabDto> getStashTabs(String accountName, String leagueId) {
     return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
   }
@@ -38,8 +34,7 @@ public class StashService {
   public List<StashTabDto> reloadStashTabs(String accountName, String leagueId) {
     List<StashTabDto> listOfStashTabDto =
         this.stashWebClientGgg.retrieveStashTabs(POE_SESSION_ID, accountName, leagueId);
-    this.stashTabRepository
-        .saveAll(this.stashMapper.toEntityListFromDtoList(listOfStashTabDto, enchantRepository));
+    this.stashTabRepository.saveAll(this.stashMapper.toEntityListFromDtoList(listOfStashTabDto));
 
     return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
   }
@@ -57,8 +52,7 @@ public class StashService {
         accountName, stashTab.getLeagueId(), stashTab.getIndex());
 
     stashTab.getItems().clear();
-    this.itemMapper.toEntityListFromDtoList(listOfItemDto, enchantRepository).stream()
-        .forEach(stashTab::addItem);
+    this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(stashTab::addItem);
     stashTab = this.stashTabRepository.save(stashTab);
 
     return this.stashMapper.toDtoFromEntity(stashTab).getItems();

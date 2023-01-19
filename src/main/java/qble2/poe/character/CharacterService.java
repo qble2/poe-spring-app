@@ -4,7 +4,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import qble2.poe.enchant.EnchantRepository;
 import qble2.poe.exception.CharacterNotFoundException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -24,9 +23,6 @@ public class CharacterService {
 
   @Autowired
   private ItemMapper itemMapper;
-
-  @Autowired
-  private EnchantRepository enchantRepository;
 
   // TODO BKE Spring Data specifications
   public List<CharacterDto> getCharacters(String leagueId, String accountName) {
@@ -78,8 +74,7 @@ public class CharacterService {
         this.characterWebClientGgg.retrieveCharacterItems(accountName, characterName);
 
     character.getItems().clear();
-    this.itemMapper.toEntityListFromDtoList(listOfItemDto, enchantRepository).stream()
-        .forEach(character::addItem);
+    this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(character::addItem);
     this.characterRepository.save(character);
 
     return character;

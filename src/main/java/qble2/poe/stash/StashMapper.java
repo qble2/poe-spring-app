@@ -7,7 +7,6 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import qble2.poe.enchant.EnchantRepository;
 import qble2.poe.item.ItemMapper;
 
 @Mapper(componentModel = "spring", uses = ItemMapper.class)
@@ -33,8 +32,7 @@ public interface StashMapper {
 
   @Named(value = "toStashTabEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toStashTabEntityFromDto")
-  List<StashTab> toEntityListFromDtoList(List<StashTabDto> listOfStashDtoSource,
-      @Context EnchantRepository enchantRepository);
+  List<StashTab> toEntityListFromDtoList(List<StashTabDto> listOfStashDtoSource);
 
   @Named(value = "toStashTabEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -44,8 +42,7 @@ public interface StashMapper {
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemEntityListFromDtoList")
-  StashTab toEntityFromDto(StashTabDto stashDtoSource,
-      @Context EnchantRepository enchantRepository);
+  StashTab toEntityFromDto(StashTabDto stashDtoSource);
 
   /////
   /////

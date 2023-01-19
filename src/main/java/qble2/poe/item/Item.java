@@ -2,14 +2,12 @@ package qble2.poe.item;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -91,9 +89,9 @@ public class Item {
   // private Socket[] sockets;
   // private SocketedItem[] socketedItems;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "item")
+  @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
-  private List<ItemEnchantMod> enchantMods = new ArrayList<>();
+  private List<String> enchantMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
@@ -127,12 +125,5 @@ public class Item {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private StashTab stashTab;
-
-  public Item addEnchantMod(ItemEnchantMod itemEnchantMod) {
-    this.enchantMods.add(itemEnchantMod);
-    itemEnchantMod.setItem(this);
-
-    return this;
-  }
 
 }
