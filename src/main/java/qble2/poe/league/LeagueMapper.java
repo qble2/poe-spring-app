@@ -13,7 +13,7 @@ import qble2.poe.ladder.LeagueDto;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface LeagueMapper {
 
-  @Named(value = "toLeagueDtoListFromGgg")
+  @Named(value = "toLeagueDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toLeagueDtoFromGgg")
   List<LeagueDto> toDtoListFromGggList(List<LeagueGgg> listOfLeagueGggSource);
 

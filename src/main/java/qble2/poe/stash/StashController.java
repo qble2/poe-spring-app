@@ -18,26 +18,31 @@ public class StashController {
   @Autowired
   private StashService stashService;
 
-  @GetMapping("/tabs/{tabIndex}")
-  public List<ItemDto> getStashTabItems(
-      @PathVariable(name = "tabIndex", required = true) int tabIndex,
+  @GetMapping(path = "/tabs")
+  public List<StashTabDto> getStashTabs(
       @RequestParam(name = "accountName", required = true) String accountName,
-      @RequestParam(name = "leagueId", required = true) String leagueId,
-      @RequestParam(name = "isRetrieveTabHeaders", required = false,
-          defaultValue = "false") boolean isRetrieveTabHeaders) {
-    return this.stashService.getStashTabItems(accountName, leagueId, tabIndex,
-        isRetrieveTabHeaders);
+      @RequestParam(name = "leagueId", required = true) String leagueId) {
+    return this.stashService.getStashTabs(accountName, leagueId);
   }
 
-  @PostMapping("/tabs/{tabIndex}")
-  public List<ItemDto> reloadStashTabItems(
-      @PathVariable(name = "tabIndex", required = true) int tabIndex,
+  @PostMapping(path = "/tabs")
+  public List<StashTabDto> reloadStashTabs(
       @RequestParam(name = "accountName", required = true) String accountName,
-      @RequestParam(name = "leagueId", required = true) String leagueId,
-      @RequestParam(name = "isRetrieveTabHeaders", required = false,
-          defaultValue = "false") boolean isRetrieveTabHeaders) {
-    return this.stashService.reloadStashTabItems(accountName, leagueId, tabIndex,
-        isRetrieveTabHeaders);
+      @RequestParam(name = "leagueId", required = true) String leagueId) {
+    return this.stashService.reloadStashTabs(accountName, leagueId);
+  }
+
+  @GetMapping("/tabs/{stashTabId}/items")
+  public List<ItemDto> getStashTabItems(
+      @PathVariable(name = "stashTabId", required = true) String stashTabId) {
+    return this.stashService.getStashTabItems(stashTabId);
+  }
+
+  @PostMapping("/tabs/{stashTabId}/items")
+  public List<ItemDto> reloadStashTabItems(
+      @PathVariable(name = "stashTabId", required = true) String stashTabId,
+      @RequestParam(name = "accountName", required = true) String accountName) {
+    return this.stashService.reloadStashTabItems(stashTabId, accountName);
   }
 
 }

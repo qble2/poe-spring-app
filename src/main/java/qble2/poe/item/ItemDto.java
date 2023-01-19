@@ -1,13 +1,17 @@
 package qble2.poe.item;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ItemDto {
 
   @JsonProperty("id")
+  @EqualsAndHashCode.Include
   private String id;
 
   @JsonProperty("leagueId")
@@ -74,25 +78,25 @@ public class ItemDto {
   // private SocketedItem[] socketedItems;
 
   @JsonProperty("enchantMods")
-  private List<String> enchantMods;
+  private List<String> enchantMods = new ArrayList<>();;
 
   @JsonProperty("implicitMods")
-  private List<String> implicitMods;
+  private List<String> implicitMods = new ArrayList<>();;
 
   @JsonProperty("explicitMods")
-  private List<String> explicitMods;
+  private List<String> explicitMods = new ArrayList<>();;
 
   @JsonProperty("craftedMods")
-  private List<String> craftedMods;
+  private List<String> craftedMods = new ArrayList<>();;
 
   @JsonProperty("fracturedMods")
-  private List<String> fracturedMods;
+  private List<String> fracturedMods = new ArrayList<>();;
 
   @JsonProperty("utilityMods")
-  private List<String> utilityMods;
+  private List<String> utilityMods = new ArrayList<>();;
 
   @JsonProperty("flavourText")
-  private List<String> flavourText;
+  private List<String> flavourText = new ArrayList<>();;
 
   @JsonProperty("icon")
   private String icon;

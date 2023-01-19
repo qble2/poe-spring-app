@@ -2,6 +2,7 @@ package qble2.poe.enchant;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ import lombok.experimental.Accessors;
 public class Enchant {
 
   @Id
+  @Column(name = "id", updatable = false, nullable = false)
   @EqualsAndHashCode.Include
   private String id;
 

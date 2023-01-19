@@ -18,8 +18,8 @@ import lombok.experimental.Accessors;
 public class League {
 
   @Id
-  @EqualsAndHashCode.Include
   @Column(name = "id", updatable = false, nullable = false)
+  @EqualsAndHashCode.Include
   private String id;
 
   @Column(name = "realm")

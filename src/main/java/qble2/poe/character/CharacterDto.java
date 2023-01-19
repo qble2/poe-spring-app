@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import qble2.poe.item.ItemDto;
 
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CharacterDto {
 
   @JsonProperty("name")
+  @EqualsAndHashCode.Include
   private String name;
 
   @JsonProperty("accountName")

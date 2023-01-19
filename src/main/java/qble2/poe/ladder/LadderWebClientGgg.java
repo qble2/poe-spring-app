@@ -24,9 +24,9 @@ public class LadderWebClientGgg {
 
   private static final String BROWSER_USER_AGENT =
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36";
+  private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
   private static final String GGG_BASE_URL = "https://www.pathofexile.com";
   private static final String GET_LADDER_URI = "/api/ladders";
-  private static final int MAX_IN_MEMORY_SIZE_IN_MB = 1;
 
   // handling DataBufferLimitException: Exceeded limit on max bytes to buffer
   private static final ExchangeStrategies exchangeStrategies =
@@ -39,7 +39,7 @@ public class LadderWebClientGgg {
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
       }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
-  // https://www.pathofexile.com/api/ladders?offset=0&limit=20&id=Kalandra&type=league&realm=pc
+  // https://www.pathofexile.com/api/ladders?offset=0&limit=20&id=Sanctum&type=league&realm=pc
   // offset 0 = rank 1
   // offset 0 + limit 200 => rank 1 to rank 200 both included
   // offset 200 + limit 200 => rank 201 to rank 400 both included

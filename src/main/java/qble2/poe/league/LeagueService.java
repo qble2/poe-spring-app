@@ -24,8 +24,9 @@ public class LeagueService {
   }
 
   public LeagueDto getLeague(String leagueId) {
-    return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId)
-        .orElseThrow(() -> new LeagueNotFoundException(leagueId)));
+    League league = findLeagueByIdOrThrow(leagueId);
+
+    return this.leagueMapper.toDtoFromEntity(league);
   }
 
   public List<LeagueDto> reloadLeagues() {
@@ -36,11 +37,21 @@ public class LeagueService {
   }
 
   public LeagueDto reloadLeague(String leagueId) {
+    findLeagueByIdOrThrow(leagueId);
+
     LeagueDto leagueDto = this.leagueWebClientGgg.retrieveLeague(leagueId);
     this.leagueRepository.save(this.leagueMapper.toEntityFromDto(leagueDto));
 
-    return this.leagueMapper.toDtoFromEntity(this.leagueRepository.findById(leagueId)
-        .orElseThrow(() -> new LeagueNotFoundException(leagueId)));
+    return this.leagueMapper.toDtoFromEntity(findLeagueByIdOrThrow(leagueId));
+  }
+
+  /////
+  /////
+  /////
+
+  private League findLeagueByIdOrThrow(String leagueId) {
+    return this.leagueRepository.findById(leagueId)
+        .orElseThrow(() -> new LeagueNotFoundException(leagueId));
   }
 
 }

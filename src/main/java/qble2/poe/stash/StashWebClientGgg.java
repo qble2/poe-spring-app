@@ -12,12 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.exception.TooManyRequestsException;
 import qble2.poe.item.ItemDto;
+import qble2.poe.item.ItemGgg;
 import qble2.poe.item.ItemMapper;
 import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
 public class StashWebClientGgg {
+
+  @Autowired
+  private StashMapper stashMapper;
 
   @Autowired
   private ItemMapper itemMapper;
@@ -39,11 +43,41 @@ public class StashWebClientGgg {
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
       }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
-  // https://www.pathofexile.com/character-window/get-stash-items?accountName=QbleD3&realm=pc&league=Sanctum&tabs=1&tabIndex=0
-  public List<ItemDto> retrieveStashItems(String poeSessionId, String accountName, String leagueId,
-      int tabIndex, boolean isRetrieveTabHeaders) {
-    log.info("retrieving stash items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
+  // GGG does not provide a dedicated enpoint to retrieve stash tab headers alone
+  // https://www.pathofexile.com/character-window/get-stash-items?accountName=QbleD3&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
+  public List<StashTabDto> retrieveStashTabs(String poeSessionId, String accountName,
+      String leagueId) {
+    log.info("retrieving stash tabs headers (accountName: {} , leagueId: {}) from GGG...",
+        accountName, leagueId);
+    List<StashTabGgg> listOfStashTabGgg =
+        retrieveStash(poeSessionId, accountName, leagueId, 0, true).getTabs();
+    log.info("stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
+        accountName, leagueId);
+
+    return this.stashMapper.toDtoListFromGggList(listOfStashTabGgg, leagueId);
+  }
+
+  // https://www.pathofexile.com/character-window/get-stash-items?accountName=QbleD3&realm=pc&league=Sanctum?tabIndex=0
+  public List<ItemDto> retrieveStashTabItems(String poeSessionId, String accountName,
+      String leagueId, int tabIndex) {
+    log.info(
+        "retrieving stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
         accountName, leagueId, tabIndex);
+    List<ItemGgg> listOfItemGgg =
+        retrieveStash(poeSessionId, accountName, leagueId, tabIndex, false).getItems();
+    log.info(
+        "stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
+        accountName, leagueId, tabIndex);
+
+    return this.itemMapper.toDtoListFromGggList(listOfItemGgg);
+  }
+
+  /////
+  /////
+  /////
+
+  private GetStashItemsGgg retrieveStash(String poeSessionId, String accountName, String leagueId,
+      int tabIndex, boolean isRetrieveTabHeaders) {
     Mono<GetStashItemsGgg> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_STASH_ITEMS_URI)
             .queryParam("accountName", accountName).queryParam("realm", "pc")
@@ -57,12 +91,7 @@ public class StashWebClientGgg {
               "Rate limit exceeded, Please try again later.", retryAfter));
         }).bodyToMono(GetStashItemsGgg.class);
 
-    GetStashItemsGgg getStashItemsGgg = mono.block();
-    log.info(
-        "stash items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
-        accountName, leagueId, tabIndex);
-
-    return this.itemMapper.toDtoListFromGggList(getStashItemsGgg.getItems());
+    return mono.block();
   }
 
 }

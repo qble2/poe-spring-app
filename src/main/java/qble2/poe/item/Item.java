@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import qble2.poe.character.Character;
+import qble2.poe.stash.StashTab;
 
 @Entity(name = "Item")
 @Table(name = "Item")
@@ -90,9 +91,6 @@ public class Item {
   // private Socket[] sockets;
   // private SocketedItem[] socketedItems;
 
-  // @ElementCollection(fetch = FetchType.LAZY)
-  // @Builder.Default
-  // private List<String> enchantMods = new ArrayList<>();
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "item")
   @Builder.Default
   private List<ItemEnchantMod> enchantMods = new ArrayList<>();
@@ -126,6 +124,9 @@ public class Item {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private Character character;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = true)
+  private StashTab stashTab;
 
   public Item addEnchantMod(ItemEnchantMod itemEnchantMod) {
     this.enchantMods.add(itemEnchantMod);

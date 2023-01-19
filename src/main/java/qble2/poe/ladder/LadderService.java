@@ -85,7 +85,6 @@ public class LadderService {
 
   private void reloadLadderFragmentRetryOnError(String leagueId, int start, int end) {
     try {
-
       LadderDto ladderDto = this.ladderWebClientGgg.retrieveLadder(leagueId, start, end);
       this.ladderRepository.saveAll(this.ladderMapper.toListFromDtoList(ladderDto.getEntries()));
     } catch (TooManyRequestsException e) {
