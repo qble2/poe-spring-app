@@ -1,24 +1,16 @@
 package qble2.poe.item;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Builder;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface ItemMapper {
-
-  Logger log = LoggerFactory.getLogger(ItemMapper.class);
-
-  static final String ENCHANT_REGEX = "^[^\\d+%]*((\\d+)?%)?.*$";
-  static final Pattern ENCHANT_PATTERN = Pattern.compile(ENCHANT_REGEX);
 
   @Named("toItemDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toItemDtoFromGgg")
