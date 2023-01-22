@@ -42,7 +42,7 @@
 
 	<logger name="org.hibernate.type" level="INFO" /> <!-- "ALL" -->
 	<logger name="org.hibernate" level="INFO" /> <!-- "DEBUG" -->
-	<logger name="io.github.qble2.poe" level="DEBUG" />
+	<logger name="qble2.poe" level="DEBUG" />
 	<!-- <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter"> 
 		<level value="DEBUG" /> </logger> -->
 	<logger name="qble2.poe.RequestLoggingFilter">
