@@ -44,27 +44,27 @@ public class StashWebClientGgg {
       }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
   // GGG does not provide a dedicated enpoint to retrieve stash tab headers alone
-  // https://www.pathofexile.com/character-window/get-stash-items?accountName=QbleD3&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
-  public List<StashTabDto> retrieveStashTabs(String poeSessionId, String accountName,
+  // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
+  public List<StashTabDto> retrieveStashTabs(String accountName, String poeSessionId,
       String leagueId) {
     log.info("retrieving stash tabs headers (accountName: {} , leagueId: {}) from GGG...",
         accountName, leagueId);
     List<StashTabGgg> listOfStashTabGgg =
-        retrieveStash(poeSessionId, accountName, leagueId, 0, true).getTabs();
+        retrieveStash(accountName, poeSessionId, leagueId, 0, true).getTabs();
     log.info("stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
         accountName, leagueId);
 
     return this.stashMapper.toDtoListFromGggList(listOfStashTabGgg, leagueId);
   }
 
-  // https://www.pathofexile.com/character-window/get-stash-items?accountName=QbleD3&realm=pc&league=Sanctum?tabIndex=0
-  public List<ItemDto> retrieveStashTabItems(String poeSessionId, String accountName,
+  // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0
+  public List<ItemDto> retrieveStashTabItems(String accountName, String poeSessionId,
       String leagueId, int tabIndex) {
     log.info(
         "retrieving stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
         accountName, leagueId, tabIndex);
     List<ItemGgg> listOfItemGgg =
-        retrieveStash(poeSessionId, accountName, leagueId, tabIndex, false).getItems();
+        retrieveStash(accountName, poeSessionId, leagueId, tabIndex, false).getItems();
     log.info(
         "stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
         accountName, leagueId, tabIndex);
@@ -76,7 +76,7 @@ public class StashWebClientGgg {
   /////
   /////
 
-  private GetStashItemsGgg retrieveStash(String poeSessionId, String accountName, String leagueId,
+  private GetStashItemsGgg retrieveStash(String accountName, String poeSessionId, String leagueId,
       int tabIndex, boolean isRetrieveTabHeaders) {
     Mono<GetStashItemsGgg> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_STASH_ITEMS_URI)

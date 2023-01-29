@@ -64,7 +64,7 @@ public class CharacterWebClientGgg {
     return this.characterMapper.toDtoListFromGggList(listOfCharacterGgg, accountName);
   }
 
-  // https://www.pathofexile.com/character-window/get-items?accountName=QbleD3&character=QbleSanctum
+  // https://www.pathofexile.com/character-window/get-items?accountName=${accountName}&character=QbleSanctum
   public List<ItemDto> retrieveCharacterItems(String accountName, String characterName) {
     log.info("retrieving character items (accountName: {} , characterName: {}) from GGG...",
         accountName, characterName);

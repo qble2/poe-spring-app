@@ -10,7 +10,7 @@ import qble2.poe.item.ItemGgg;
 public class GetCharacterItemsGgg {
 
   @JsonProperty("items")
-  private List<ItemGgg> items = new ArrayList<>();;
+  private List<ItemGgg> items = new ArrayList<>();
 
   @JsonProperty("character")
   private CharacterGgg character;

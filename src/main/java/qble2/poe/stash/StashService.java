@@ -12,9 +12,6 @@ import qble2.poe.item.ItemMapper;
 @Transactional
 public class StashService {
 
-  // TODO BKE config
-  private static final String POE_SESSION_ID = "06f836f7d8f5e2b852ca590ee68d3088";
-
   @Autowired
   private StashWebClientGgg stashWebClientGgg;
 
@@ -31,9 +28,10 @@ public class StashService {
     return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
   }
 
-  public List<StashTabDto> reloadStashTabs(String accountName, String leagueId) {
+  public List<StashTabDto> reloadStashTabs(String accountName, String poeSessionId,
+      String leagueId) {
     List<StashTabDto> listOfStashTabDto =
-        this.stashWebClientGgg.retrieveStashTabs(POE_SESSION_ID, accountName, leagueId);
+        this.stashWebClientGgg.retrieveStashTabs(accountName, poeSessionId, leagueId);
     this.stashTabRepository.saveAll(this.stashMapper.toEntityListFromDtoList(listOfStashTabDto));
 
     return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
@@ -45,11 +43,12 @@ public class StashService {
     return this.itemMapper.toDtoListFromEntityList(stashTab.getItems());
   }
 
-  public List<ItemDto> reloadStashTabItems(String stashTabId, String accountName) {
+  public List<ItemDto> reloadStashTabItems(String stashTabId, String accountName,
+      String poeSessionId) {
     StashTab stashTab = findStashTabByIdOrThrow(stashTabId);
 
-    List<ItemDto> listOfItemDto = this.stashWebClientGgg.retrieveStashTabItems(POE_SESSION_ID,
-        accountName, stashTab.getLeagueId(), stashTab.getIndex());
+    List<ItemDto> listOfItemDto = this.stashWebClientGgg.retrieveStashTabItems(accountName,
+        poeSessionId, stashTab.getLeagueId(), stashTab.getIndex());
 
     stashTab.getItems().clear();
     this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(stashTab::addItem);

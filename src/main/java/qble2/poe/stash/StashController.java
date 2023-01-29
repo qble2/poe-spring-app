@@ -28,8 +28,9 @@ public class StashController {
   @PostMapping(path = "/tabs")
   public List<StashTabDto> reloadStashTabs(
       @RequestParam(name = "accountName", required = true) String accountName,
+      @RequestParam(name = "poeSessionId", required = true) String poeSessionId,
       @RequestParam(name = "leagueId", required = true) String leagueId) {
-    return this.stashService.reloadStashTabs(accountName, leagueId);
+    return this.stashService.reloadStashTabs(accountName, poeSessionId, leagueId);
   }
 
   @GetMapping(path = "/tabs/{stashTabId}/items")
@@ -41,8 +42,9 @@ public class StashController {
   @PostMapping("/tabs/{stashTabId}/items")
   public List<ItemDto> reloadStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId,
-      @RequestParam(name = "accountName", required = true) String accountName) {
-    return this.stashService.reloadStashTabItems(stashTabId, accountName);
+      @RequestParam(name = "accountName", required = true) String accountName,
+      @RequestParam(name = "poeSessionId", required = true) String poeSessionId) {
+    return this.stashService.reloadStashTabItems(stashTabId, accountName, poeSessionId);
   }
 
 }

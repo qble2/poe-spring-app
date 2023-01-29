@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,12 @@ public class ExceptionsControllerAdvice {
 
   public static final String INTERNAL_SERVER_ERROR_MESSAGE =
       "Internal Server Error (Please contact the administrator)";
+
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<ResponseErrorDto> handleMissingParams(HttpServletRequest request,
+      Exception exception) {
+    return createErrorResponseEntity(request, HttpStatus.BAD_REQUEST, exception);
+  }
 
   @ExceptionHandler(AbstractResourceNotFoundException.class)
   public ResponseEntity<ResponseErrorDto> handleResourceNotFoundException(

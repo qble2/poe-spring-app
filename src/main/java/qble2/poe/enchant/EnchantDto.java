@@ -15,6 +15,6 @@ public class EnchantDto {
   private String id;
 
   @JsonProperty("tradeIds")
-  private List<String> tradeIds = new ArrayList<>();;
+  private List<String> tradeIds = new ArrayList<>();
 
 }

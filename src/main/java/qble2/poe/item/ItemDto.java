@@ -78,25 +78,25 @@ public class ItemDto {
   // private SocketedItem[] socketedItems;
 
   @JsonProperty("enchantMods")
-  private List<String> enchantMods = new ArrayList<>();;
+  private List<String> enchantMods = new ArrayList<>();
 
   @JsonProperty("implicitMods")
-  private List<String> implicitMods = new ArrayList<>();;
+  private List<String> implicitMods = new ArrayList<>();
 
   @JsonProperty("explicitMods")
-  private List<String> explicitMods = new ArrayList<>();;
+  private List<String> explicitMods = new ArrayList<>();
 
   @JsonProperty("craftedMods")
-  private List<String> craftedMods = new ArrayList<>();;
+  private List<String> craftedMods = new ArrayList<>();
 
   @JsonProperty("fracturedMods")
-  private List<String> fracturedMods = new ArrayList<>();;
+  private List<String> fracturedMods = new ArrayList<>();
 
   @JsonProperty("utilityMods")
-  private List<String> utilityMods = new ArrayList<>();;
+  private List<String> utilityMods = new ArrayList<>();
 
   @JsonProperty("flavourText")
-  private List<String> flavourText = new ArrayList<>();;
+  private List<String> flavourText = new ArrayList<>();
 
   @JsonProperty("icon")
   private String icon;

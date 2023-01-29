@@ -24,7 +24,7 @@ public class ResponseErrorDto {
 
   @JsonProperty(value = "details")
   @Builder.Default
-  private List<String> details = new ArrayList<>();;
+  private List<String> details = new ArrayList<>();
 
   @JsonProperty(value = "path")
   private String path;

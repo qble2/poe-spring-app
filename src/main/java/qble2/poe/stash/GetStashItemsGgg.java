@@ -13,12 +13,12 @@ public class GetStashItemsGgg {
   private int numTabs;
 
   @JsonProperty("tabs")
-  private List<StashTabGgg> tabs = new ArrayList<>();;
+  private List<StashTabGgg> tabs = new ArrayList<>();
 
   @JsonProperty("quadLayout")
   private boolean quadLayout;
 
   @JsonProperty("items")
-  private List<ItemGgg> items = new ArrayList<>();;
+  private List<ItemGgg> items = new ArrayList<>();
 
 }
