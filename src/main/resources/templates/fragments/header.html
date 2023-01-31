@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+
+<body>
+	<div th:fragment="header">
+		<nav>
+			<ul>
+				<li><a class="font-larger" href="/" th:href="@{/}">POE
+						Spring App</a></li>
+			</ul>
+			<ul>
+				<li><a href="/leagues" th:href="@{/leagues}" role="button">Leagues</a></li>
+				<li><a href="/characters" th:href="@{/characters}"
+					role="button">Characters</a></li>
+				<li><a href="/stash-tabs" th:href="@{/stash-tabs}"
+					role="button">Stash tabs</a></li>
+
+				<li><a href="exit" class="secondary outline" th:href="@{/exit}"
+					role="button">Exit</a></li>
+			</ul>
+		</nav>
+	</div>
+</body>
+</html>

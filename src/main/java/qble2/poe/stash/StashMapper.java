@@ -59,8 +59,28 @@ public interface StashMapper {
   @Mapping(target = "name", source = "name")
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", source = "leagueId")
-  @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
   StashTabDto toDtoFromEntity(StashTab stashEntitySource);
+
+  /////
+  /////
+  /////
+
+  /**
+   * Map stash tab with items.
+   */
+  @Named(value = "toDetailedStashTabDtoListFromEntityList")
+  @IterableMapping(qualifiedByName = "toDetailedStashTabDtoFromEntity")
+  List<StashTabDto> toDetailedDtoListFromEntityList(List<StashTab> listOfStashSource);
+
+  @Named(value = "toDetailedStashTabDtoFromEntity")
+  @BeanMapping(ignoreByDefault = true)
+  @Mapping(target = "id", source = "id")
+  @Mapping(target = "index", source = "index")
+  @Mapping(target = "name", source = "name")
+  @Mapping(target = "type", source = "type")
+  @Mapping(target = "leagueId", source = "leagueId")
+  @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
+  StashTabDto toDetailedDtoFromEntity(StashTab stashEntitySource);
 
   /////
   /////

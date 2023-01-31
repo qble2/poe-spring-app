@@ -8,9 +8,11 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import qble2.poe.item.ItemMapper;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
-@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true),
+    uses = ItemMapper.class)
 public interface CharacterMapper {
 
   @Named(value = "toCharacterDtoListFromGggList")
@@ -69,5 +71,29 @@ public interface CharacterMapper {
   @Mapping(target = "level", source = "level")
   @Mapping(target = "experience", source = "experience")
   CharacterDto toDtoFromEntity(Character characterSource);
+
+  /////
+  /////
+  /////
+
+  @Named(value = "toDetailedCharacterDtoListFromEntityList")
+  @IterableMapping(qualifiedByName = "toDetailedCharacterDtoFromEntity")
+  List<CharacterDto> toDetailedDtoListFromEntityList(List<Character> listOfCharacterSource);
+
+  /**
+   * Map character with items.
+   */
+  @Named(value = "toDetailedCharacterDtoFromEntity")
+  @BeanMapping(ignoreByDefault = true)
+  @Mapping(target = "name", source = "name")
+  @Mapping(target = "accountName", source = "accountName")
+  @Mapping(target = "leagueId", source = "leagueId")
+  @Mapping(target = "classId", source = "classId")
+  @Mapping(target = "ascendancyClass", source = "ascendancyClass")
+  @Mapping(target = "characterClass", source = "characterClass")
+  @Mapping(target = "level", source = "level")
+  @Mapping(target = "experience", source = "experience")
+  @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
+  CharacterDto toDetailedDtoFromEntity(Character characterSource);
 
 }

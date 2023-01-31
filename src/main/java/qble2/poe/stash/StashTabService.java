@@ -10,7 +10,7 @@ import qble2.poe.item.ItemMapper;
 
 @Service
 @Transactional
-public class StashService {
+public class StashTabService {
 
   @Autowired
   private StashWebClientGgg stashWebClientGgg;
@@ -24,8 +24,14 @@ public class StashService {
   @Autowired
   private ItemMapper itemMapper;
 
-  public List<StashTabDto> getStashTabs(String accountName, String leagueId) {
-    return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
+  public List<StashTabDto> getStashTabs(String leagueId) {
+    if (leagueId != null) {
+      return this.stashMapper.toDtoListFromEntityList(
+          this.stashTabRepository.findAllByLeagueIdOrderByLeagueIdAscIndexAsc(leagueId));
+    }
+
+    return this.stashMapper
+        .toDtoListFromEntityList(this.stashTabRepository.findAllByOrderByLeagueIdAscIndexAsc());
   }
 
   public List<StashTabDto> reloadStashTabs(String accountName, String poeSessionId,
@@ -34,7 +40,21 @@ public class StashService {
         this.stashWebClientGgg.retrieveStashTabs(accountName, poeSessionId, leagueId);
     this.stashTabRepository.saveAll(this.stashMapper.toEntityListFromDtoList(listOfStashTabDto));
 
-    return this.stashMapper.toDtoListFromEntityList(this.stashTabRepository.findAll());
+    return this.stashMapper
+        .toDtoListFromEntityList(this.stashTabRepository.findAllByOrderByLeagueIdAscIndexAsc());
+  }
+
+  public StashTabDto getDetailedStashTab(String stashTabId) {
+    StashTab stashTab = findStashTabByIdOrThrow(stashTabId);
+
+    return this.stashMapper.toDetailedDtoFromEntity(stashTab);
+  }
+
+  public StashTabDto reloadDetailedStashTab(String accountName, String poeSessionId,
+      String stashTabId) {
+    reloadStashTabItems(accountName, poeSessionId, stashTabId);
+
+    return this.stashMapper.toDetailedDtoFromEntity(findStashTabByIdOrThrow(stashTabId));
   }
 
   public List<ItemDto> getStashTabItems(String stashTabId) {
@@ -43,8 +63,8 @@ public class StashService {
     return this.itemMapper.toDtoListFromEntityList(stashTab.getItems());
   }
 
-  public List<ItemDto> reloadStashTabItems(String stashTabId, String accountName,
-      String poeSessionId) {
+  public List<ItemDto> reloadStashTabItems(String accountName, String poeSessionId,
+      String stashTabId) {
     StashTab stashTab = findStashTabByIdOrThrow(stashTabId);
 
     List<ItemDto> listOfItemDto = this.stashWebClientGgg.retrieveStashTabItems(accountName,

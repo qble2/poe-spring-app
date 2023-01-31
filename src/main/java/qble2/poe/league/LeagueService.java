@@ -33,7 +33,8 @@ public class LeagueService {
     List<LeagueDto> listOfLeagueDto = this.leagueWebClientGgg.retrieveLeagues();
     this.leagueRepository.saveAll(this.leagueMapper.toEntityListFromDtoList(listOfLeagueDto));
 
-    return this.leagueMapper.toDtoListFromEntityList(this.leagueRepository.findAll());
+    return this.leagueMapper
+        .toDtoListFromEntityList(this.leagueRepository.findAllByOrderByStartAtDesc());
   }
 
   public LeagueDto reloadLeague(String leagueId) {

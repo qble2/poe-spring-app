@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>League details</title>
+</head>
+
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+		<div style="display: flex; align-items: center; gap: 10px;">
+			<h3 th:text="${league.id}"></h3>
+			<form action="#" th:action="@{'/leagues/' + ${league.id}}"
+				th:method="GET">
+				<button>Refresh page</button>
+			</form>
+			<form action="#" th:action="@{'/leagues/' + ${league.id}}"
+				th:method="POST">
+				<button>Reload data from GGG</button>
+			</form>
+		</div>
+
+		<table role="grid">
+			<tbody>
+				<tr>
+					<th th:text="id"></th>
+					<td th:text="${league.id}"></td>
+				</tr>
+				<tr>
+					<th th:text=url></th>
+					<td><a th:href="@{${league.url}}" th:target="_blank"><span
+							th:text="${league.url}"></span></a></td>
+				</tr>
+				<tr>
+					<th th:text=realm></th>
+					<td th:text="${league.realm}"></td>
+				</tr>
+				<tr>
+					<th th:text=startAt></th>
+					<td th:text="${league.startAt}"></td>
+				</tr>
+				<tr>
+					<th th:text=endAt></th>
+					<td th:text="${league.endAt}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</body>
+</html>

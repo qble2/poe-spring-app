@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.RestController;
 import qble2.poe.item.ItemDto;
 
 @RestController
-@RequestMapping(path = "api/stashes", produces = MediaType.APPLICATION_JSON_VALUE)
-public class StashController {
+@RequestMapping(path = "api/stash-tabs", produces = MediaType.APPLICATION_JSON_VALUE)
+public class StashTabController {
 
   @Autowired
-  private StashService stashService;
+  private StashTabService stashTabService;
 
-  @GetMapping(path = "/tabs")
+  @GetMapping
   public List<StashTabDto> getStashTabs(
-      @RequestParam(name = "accountName", required = true) String accountName,
       @RequestParam(name = "leagueId", required = true) String leagueId) {
-    return this.stashService.getStashTabs(accountName, leagueId);
+    return this.stashTabService.getStashTabs(leagueId);
   }
 
-  @PostMapping(path = "/tabs")
+  @PostMapping
   public List<StashTabDto> reloadStashTabs(
       @RequestParam(name = "accountName", required = true) String accountName,
       @RequestParam(name = "poeSessionId", required = true) String poeSessionId,
       @RequestParam(name = "leagueId", required = true) String leagueId) {
-    return this.stashService.reloadStashTabs(accountName, poeSessionId, leagueId);
+    return this.stashTabService.reloadStashTabs(accountName, poeSessionId, leagueId);
   }
 
-  @GetMapping(path = "/tabs/{stashTabId}/items")
+  @GetMapping(path = "/{stashTabId}/items")
   public List<ItemDto> getStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId) {
-    return this.stashService.getStashTabItems(stashTabId);
+    return this.stashTabService.getStashTabItems(stashTabId);
   }
 
-  @PostMapping("/tabs/{stashTabId}/items")
+  @PostMapping("/{stashTabId}/items")
   public List<ItemDto> reloadStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId,
       @RequestParam(name = "accountName", required = true) String accountName,
       @RequestParam(name = "poeSessionId", required = true) String poeSessionId) {
-    return this.stashService.reloadStashTabItems(stashTabId, accountName, poeSessionId);
+    return this.stashTabService.reloadStashTabItems(accountName, poeSessionId, stashTabId);
   }
 
 }

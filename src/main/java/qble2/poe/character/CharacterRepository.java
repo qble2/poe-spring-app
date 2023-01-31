@@ -5,8 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CharacterRepository extends JpaRepository<Character, String> {
 
-  List<Character> findAllByLeagueId(String leagueId);
+  List<Character> findAllByLeagueIdOrderByLeagueIdAscLevelDescNameAsc(String leagueId);
 
-  List<Character> findAllByLeagueIdAndAccountName(String leagueId, String accountName);
+  List<Character> findAllByLeagueIdAndAccountNameOrderByLeagueIdAscLevelDescNameAsc(String leagueId, String accountName);
 
+  List<Character> findAllByOrderByLeagueIdAscLevelDescNameAsc();
+
+  List<Character> findAllByAccountNameOrderByLeagueIdAscLevelDescNameAsc(
+      String accountName);
 }

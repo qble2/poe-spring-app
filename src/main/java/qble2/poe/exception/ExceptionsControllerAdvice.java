@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,12 @@ public class ExceptionsControllerAdvice {
 
   public static final String INTERNAL_SERVER_ERROR_MESSAGE =
       "Internal Server Error (Please contact the administrator)";
+
+  @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+  public ResponseEntity<ResponseErrorDto> handleHttpRequestMethodNotSupportedException(
+      HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
+    return createErrorResponseEntity(request, HttpStatus.METHOD_NOT_ALLOWED, exception);
+  }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public ResponseEntity<ResponseErrorDto> handleMissingParams(HttpServletRequest request,

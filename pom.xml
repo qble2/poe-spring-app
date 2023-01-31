@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>qble2</groupId>
 	<artifactId>poe-spring-app</artifactId>
-	<version>1.0</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>poe-spring-app</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,6 +34,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!-- Spring . Session -->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-jdbc</artifactId>
+		</dependency>
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
 		<!-- Database -->
 		<!-- Database . PostgreSQL -->
@@ -84,6 +102,16 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<!-- Webjars -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>picocss__pico</artifactId>
+			<version>1.5.7</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -123,4 +151,46 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<!-- Basic report generation. -->
+			<!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/dependencies-mojo.html -->
+			<!-- mvn project-info-reports:dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.4.2</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+							<report>index</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<!-- https://www.mojohaus.org/versions/versions-maven-plugin/index.html -->
+			<!-- mvn versions:display-plugin-updates -->
+			<!-- mvn versions:display-dependency-updates -->
+			<!-- mvn versions:dependency-updates-report -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.14.2</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependency-updates-report</report>
+							<report>plugin-updates-report</report>
+							<report>property-updates-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<processDependencyManagementTransitive>false</processDependencyManagementTransitive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

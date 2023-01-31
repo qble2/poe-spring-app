@@ -18,7 +18,6 @@ public class LadderController {
   @Autowired
   private LadderService ladderService;
 
-  // TODO BKE pagination
   @GetMapping(path = "/leagues/{leagueId}")
   public List<LadderEntryDto> getLadder(
       @PathVariable(name = "leagueId", required = true) String leagueId) {

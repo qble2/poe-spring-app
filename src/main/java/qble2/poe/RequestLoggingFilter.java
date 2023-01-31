@@ -10,7 +10,9 @@ public class RequestLoggingFilter extends AbstractRequestLoggingFilter {
   @Override
   protected boolean shouldLog(HttpServletRequest request) {
     if (request.getRequestURI().startsWith("/h2-console")
-        || request.getRequestURI().startsWith("/favicon")) {
+        || request.getRequestURI().startsWith("/favicon")
+        || request.getRequestURI().startsWith("/webjars")
+        || request.getRequestURI().startsWith("/css")) {
       return false;
     }
     return logger.isDebugEnabled();

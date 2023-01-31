@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Stash tab details</title>
+</head>
+
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+		<div class="flex-row">
+			<h3 th:text="${stashTab.name}"></h3>
+			<form action="#" th:action="@{'/stash-tabs/' + ${stashTab.id}}"
+				th:method="GET">
+				<button>Refresh page</button>
+			</form>
+		</div>
+
+		<details>
+			<summary>Stash tab details</summary>
+			<table role="grid">
+				<tbody>
+					<tr>
+						<th th:text="index"></th>
+						<td th:text="${stashTab.index}"></td>
+					</tr>
+					<tr>
+						<th th:text="name"></th>
+						<td th:text="${stashTab.name}"></td>
+					</tr>
+					<tr>
+						<th th:text="type"></th>
+						<td th:text="${stashTab.type}"></td>
+					</tr>
+					<tr>
+						<th th:text="leagueId"></th>
+						<td th:text="${stashTab.leagueId}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
+
+		<details open>
+			<summary>Stash tab items</summary>
+			<!-- 			<form action="#" -->
+			<!-- 				th:action="@{'/stash-tabs/' + ${stashTab.id} + '/items'}" -->
+			<!-- 				th:method="GET"> -->
+			<!-- 				<button>Load items</button> -->
+			<!-- 			</form> -->
+			<form class="grid" action="#"
+				th:action="@{'/stash-tabs/' + ${stashTab.id}}"
+				th:method="POST">
+				<button>Reload data from GGG</button>
+			</form>
+			<table>
+				<thead>
+					<tr>
+						<th class="text-align-center" scope="col">icon</th>
+						<th scope="col">name</th>
+						<th scope="col">baseType</th>
+						<th scope="col">ilvl</th>
+						<th scope="col">inventoryId</th>
+						<th scope="col">w</th>
+						<th scope="col">h</th>
+						<th scope="col">x</th>
+						<th scope="col">y</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item: ${stashTab.items}">
+						<td class="text-align-center"><img alt="item icon"
+							th:src="${item.icon}"
+							th:title="${item.name} + ' ' + ${item.baseType}"></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.baseType}"></td>
+						<td th:text="${item.ilvl}"></td>
+						<td th:text="${item.inventoryId}"></td>
+						<td th:text="${item.w}"></td>
+						<td th:text="${item.h}"></td>
+						<td th:text="${item.x}"></td>
+						<td th:text="${item.y}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</details>
+	</section>
+</body>
+</html>

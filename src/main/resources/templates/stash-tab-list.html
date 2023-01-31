@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Stash tab list</title>
+</head>
+
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+		<div style="display: flex; align-items: center; gap: 10px;">
+			<h3>Stash tab list</h3>
+			<form action="#" th:action="@{'/stash-tabs'}" th:method="GET">
+				<button>Refresh page</button>
+			</form>
+		</div>
+
+		<form class="grid" action="#" th:action="@{'/stash-tabs'}"
+			th:method="POST">
+			<button>Reload data from GGG</button>
+		</form>
+
+		<table role="grid">
+			<thead>
+				<tr>
+					<th scope="col">index</th>
+					<th scope="col">name</th>
+					<th scope="col">type</th>
+					<th scope="col">leagueId</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="stashTab: ${stashTabs}">
+					<td th:text="${stashTab.index}"></td>
+					<td><a th:text="${stashTab.name}" th:href="@{'/stash-tabs/' + ${stashTab.id}}"></a></td>
+					<td th:text="${stashTab.type}"></td>
+					<td th:text="${stashTab.leagueId}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</body>
+</html>

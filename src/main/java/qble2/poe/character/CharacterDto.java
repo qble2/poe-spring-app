@@ -18,7 +18,7 @@ public class CharacterDto {
   @JsonProperty("accountName")
   private String accountName;
 
-  @JsonProperty("league")
+  @JsonProperty("leagueId")
   private String leagueId;
 
   @JsonProperty("classId")
@@ -27,7 +27,7 @@ public class CharacterDto {
   @JsonProperty("ascendancyClass")
   private int ascendancyClass;
 
-  @JsonProperty("class")
+  @JsonProperty("characterClass")
   private String characterClass;
 
   @JsonProperty("level")

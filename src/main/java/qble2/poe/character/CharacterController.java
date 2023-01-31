@@ -18,11 +18,9 @@ public class CharacterController {
   @Autowired
   private CharacterService characterService;
 
-  // TODO BKE pagination
-  // TODO BKE make leagueId optional once Spring Data specifications are implemented
   @GetMapping
   public List<CharacterDto> getCharacters(
-      @RequestParam(name = "leagueId", required = true) String leagueId,
+      @RequestParam(name = "leagueId", required = false) String leagueId,
       @RequestParam(name = "accountName", required = false) String accountName) {
     return this.characterService.getCharacters(leagueId, accountName);
   }
@@ -34,9 +32,9 @@ public class CharacterController {
   }
 
   @PostMapping
-  public List<CharacterDto> reloadAccountCharacters(
+  public List<CharacterDto> reloadCharacters(
       @RequestParam(name = "accountName", required = true) String accountName) {
-    return this.characterService.reloadAccountCharacters(accountName);
+    return this.characterService.reloadCharacters(accountName);
   }
 
   @GetMapping(path = "/{characterName}/items")
