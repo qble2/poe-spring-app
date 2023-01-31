@@ -7,14 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 // This application serves as a proxy to an external API
 // There is no user to register, nor a credential to save
 // Essential user information are simply stored in session during the session's lifetime
 @Controller
-public class ThymeleafMainController {
+@RequestMapping("/")
+public class ThymeleafRootController {
 
-  @GetMapping("/")
+  @GetMapping
   public String index(Model model, HttpSession session) {
     String poeSessionId = (String) session.getAttribute("poeSessionId");
     if (StringUtils.isNotBlank(poeSessionId)) {
@@ -27,7 +29,7 @@ public class ThymeleafMainController {
     return "index";
   }
 
-  @PostMapping("/")
+  @PostMapping
   public String index(@ModelAttribute(value = "initForm") ThymeleafInitForm thymeleafInitForm,
       Model model, HttpSession session) {
     if (!isValid(thymeleafInitForm)) {

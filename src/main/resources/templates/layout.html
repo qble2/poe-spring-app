@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
@@ -13,30 +14,31 @@
 </head>
 
 <body class="container">
-	<div th:if="${session.accountName != null && session.accountName != ''}">
+	<div
+		th:if="${session.accountName != null && session.accountName != ''}">
 		<!--/* Standard layout can be mixed with Layout Dialect */-->
 		<div th:replace="fragments/header :: header"></div>
 	</div>
 
 	<details open>
-			<summary>Session attributes</summary>
-			<table role="grid">
-				<tbody>
-					<tr>
-						<th th:text="accountName" scope="row"></th>
-						<td th:text="${session.accountName}"></td>
-					</tr>
-					<tr>
-						<th th:text="poeSessionId" scope="row"></th>
-						<td th:text="${session.poeSessionId}"></td>
-					</tr>
-					<tr>
-						<th th:text="leagueId" scope="row"></th>
-						<td th:text="${session.leagueId}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</details>
+		<summary>Session attributes</summary>
+		<table role="grid">
+			<tbody>
+				<tr>
+					<th th:text="accountName" scope="row"></th>
+					<td th:text="${session.accountName}"></td>
+				</tr>
+				<tr>
+					<th th:text="poeSessionId" scope="row"></th>
+					<td th:text="${session.poeSessionId}"></td>
+				</tr>
+				<tr>
+					<th th:text="leagueId" scope="row"></th>
+					<td th:text="${session.leagueId}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</details>
 
 	<div layout:fragment="content">
 		<!-- ============================================================================ -->

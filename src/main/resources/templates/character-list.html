@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:th="https://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
 <title>Character list</title>
 </head>
@@ -15,7 +17,8 @@
 			</form>
 		</div>
 
-		<form class="grid" action="#" th:action="@{'/characters'}" th:method="POST">
+		<form class="grid" action="#" th:action="@{'/characters'}"
+			th:method="POST">
 			<button>Reload data from GGG</button>
 		</form>
 
@@ -32,7 +35,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="character: ${characters}">
-					<td><a th:text="${character.name}" th:href="@{'/characters/' + ${character.name}}"></a></td>
+					<td><a th:text="${character.name}"
+						th:href="@{'/characters/' + ${character.name}}"></a></td>
 					<td th:text="${character.accountName}"></td>
 					<td th:text="${character.leagueId}"></td>
 					<td th:text="${character.characterClass}"></td>
