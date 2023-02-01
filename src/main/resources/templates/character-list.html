@@ -12,7 +12,7 @@
 	<section layout:fragment="content">
 		<div class="flex-row">
 			<h3>Character list</h3>
-			<form action="#" th:action="@{'/characters'}" th:method="GET">
+			<form action="#" th:action="|/characters|" th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>

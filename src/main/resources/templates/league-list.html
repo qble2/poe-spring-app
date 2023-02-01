@@ -12,7 +12,7 @@
 	<section layout:fragment="content">
 		<div class="flex-row">
 			<h3>League list</h3>
-			<form action="#" th:action="@{'/leagues'}" th:method="GET">
+			<form action="#" th:action="|/leagues|" th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>

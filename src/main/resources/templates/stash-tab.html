@@ -12,7 +12,7 @@
 	<section layout:fragment="content">
 		<div class="flex-row">
 			<h3 th:text="${stashTab.name}"></h3>
-			<form action="#" th:action="@{'/stash-tabs/' + ${stashTab.id}}"
+			<form action="#" th:action="|/stash-tabs/${stashTab.id}|"
 				th:method="GET">
 				<button>Refresh page</button>
 			</form>

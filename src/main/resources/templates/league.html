@@ -12,13 +12,13 @@
 	<section layout:fragment="content">
 		<div class="flex-row">
 			<h3 th:text="${league.id}"></h3>
-			<form action="#" th:action="@{'/leagues/' + ${league.id}}"
+			<form action="#" th:action="|/leagues/${league.id}|"
 				th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>
 		
-		<form action="#" th:action="@{'/leagues/' + ${league.id}}"
+		<form action="#" th:action="|/leagues/${league.id}|"
 			th:method="POST">
 			<button>Reload data from GGG</button>
 		</form>
