@@ -1,4 +1,4 @@
-package qble2.poe.thymeleaf;
+package qble2.poe.web.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;

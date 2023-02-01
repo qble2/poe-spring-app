@@ -1,4 +1,4 @@
-package qble2.poe.thymeleaf;
+package qble2.poe.web.controller;
 
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import qble2.poe.web.ThymeleafInitForm;
 
 // This application serves as a proxy to an external API
 // There is no user to register, nor a credential to save
