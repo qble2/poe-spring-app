@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -12,8 +11,7 @@
 	<section layout:fragment="content">
 		<div class="flex-row">
 			<h3 th:text="${character.name}"></h3>
-			<form action="#" th:action="|/characters/${character.name}|"
-				th:method="GET">
+			<form action="#" th:action="|/characters/${character.name}|" th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>
@@ -61,14 +59,12 @@
 		<div class="flex-row">
 			<h3>Items</h3>
 			<button hx-trigger="click"
-				th:attr="hx-get=@{'/items/characters/' + ${character.name}}"
-				hx-target="#character-items" hx-swap="innerHTML">Load items
-				(HTMX)</button>
-			<button hx-ext="loading-states" data-loading-aria-busy
-				hx-trigger="click"
-				th:attr="hx-post=@{'/characters/' + ${character.name} + '/items'}"
-				hx-target="#character-items" hx-swap="innerHTML">Reload
-				data from GGG (HTMX)</button>
+				th:attr="hx-get=|/items/characters/${character.name}|"
+				hx-target="#character-items" hx-swap="innerHTML">Load items (HTMX)</button>
+			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
+				th:attr="hx-post=|/characters/${character.name}/items|"
+				hx-target="#character-items" hx-swap="innerHTML">Reload data from
+				GGG (HTMX)</button>
 		</div>
 		<div id="character-items"></div>
 	</section>
