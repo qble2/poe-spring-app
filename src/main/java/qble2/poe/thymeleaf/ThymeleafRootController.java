@@ -1,4 +1,4 @@
-package qble2.poe.index;
+package qble2.poe.thymeleaf;
 
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +51,7 @@ public class ThymeleafRootController {
     ThymeleafInitForm thymeleafInitForm = new ThymeleafInitForm();
     model.addAttribute("initForm", thymeleafInitForm);
 
-    return "index";
+    return "redirect:/";
   }
 
   /////

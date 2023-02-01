@@ -24,21 +24,21 @@ public class CharacterService {
   @Autowired
   private ItemMapper itemMapper;
 
-  public List<CharacterDto> getCharacters(String leagueId, String accountName) {
-    if (leagueId != null && accountName != null) {
+  public List<CharacterDto> getCharacters(String accountName, String leagueId) {
+    if (accountName != null && leagueId != null) {
       return this.characterMapper.toDtoListFromEntityList(this.characterRepository
-          .findAllByLeagueIdAndAccountNameOrderByLeagueIdAscLevelDescNameAsc(leagueId,
-              accountName));
-    }
-
-    if (leagueId != null) {
-      return this.characterMapper.toDtoListFromEntityList(
-          this.characterRepository.findAllByLeagueIdOrderByLeagueIdAscLevelDescNameAsc(leagueId));
+          .findAllByAccountNameAndLeagueIdOrderByLeagueIdAscLevelDescNameAsc(accountName,
+              leagueId));
     }
 
     if (accountName != null) {
       return this.characterMapper.toDtoListFromEntityList(this.characterRepository
           .findAllByAccountNameOrderByLeagueIdAscLevelDescNameAsc(accountName));
+    }
+
+    if (leagueId != null) {
+      return this.characterMapper.toDtoListFromEntityList(
+          this.characterRepository.findAllByLeagueIdOrderByLeagueIdAscLevelDescNameAsc(leagueId));
     }
 
     return this.characterMapper.toDtoListFromEntityList(
@@ -63,7 +63,8 @@ public class CharacterService {
     this.characterRepository
         .saveAll(this.characterMapper.toEntityListFromDtoList(listOfCharacterDto));
 
-    return this.characterMapper.toDtoListFromEntityList(this.characterRepository.findAll());
+    return this.characterMapper.toDtoListFromEntityList(this.characterRepository
+        .findAllByAccountNameOrderByLeagueIdAscLevelDescNameAsc(accountName));
   }
 
   /////
@@ -79,8 +80,8 @@ public class CharacterService {
   public List<ItemDto> reloadCharacterItems(String accountName, String characterName) {
     updateCharacterItems(accountName, characterName);
 
-    return this.itemMapper.toDtoListFromEntityList(this.characterRepository.findById(characterName)
-        .orElseThrow(() -> new CharacterNotFoundException(characterName)).getItems());
+    return this.itemMapper
+        .toDtoListFromEntityList(findCharacterByIdOrThrow(characterName).getItems());
   }
 
   public CharacterDto reloadDetailedCharacter(String accountName, String characterName) {

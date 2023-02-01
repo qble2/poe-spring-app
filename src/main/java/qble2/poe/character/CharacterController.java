@@ -22,7 +22,7 @@ public class CharacterController {
   public List<CharacterDto> getCharacters(
       @RequestParam(name = "leagueId", required = false) String leagueId,
       @RequestParam(name = "accountName", required = false) String accountName) {
-    return this.characterService.getCharacters(leagueId, accountName);
+    return this.characterService.getCharacters(accountName, leagueId);
   }
 
   @GetMapping(path = "/{characterName}")

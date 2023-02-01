@@ -74,7 +74,7 @@ public class StashTabService {
     this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(stashTab::addItem);
     stashTab = this.stashTabRepository.save(stashTab);
 
-    return this.stashMapper.toDtoFromEntity(stashTab).getItems();
+    return this.itemMapper.toDtoListFromEntityList(stashTab.getItems());
   }
 
   /////

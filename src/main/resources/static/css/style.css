@@ -36,6 +36,12 @@
   --switch-checked-background-color: var(--primary);
 }
 
+/** HTMX **/
+[data-loading] {
+  display: none;
+}
+/** **/
+    
 .font-larger {
 	font-size: larger;
 }
@@ -43,10 +49,10 @@
 .flex-row {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: baseline;
 	gap: 10px;
 }
 
-.text-align-center {
+.align-center {
 	text-align: center;
 }

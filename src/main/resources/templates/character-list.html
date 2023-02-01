@@ -10,15 +10,14 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div style="display: flex; align-items: center; gap: 10px;">
+		<div class="flex-row">
 			<h3>Character list</h3>
 			<form action="#" th:action="@{'/characters'}" th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>
 
-		<form class="grid" action="#" th:action="@{'/characters'}"
-			th:method="POST">
+		<form action="#" th:action="@{'/characters'}" th:method="POST">
 			<button>Reload data from GGG</button>
 		</form>
 

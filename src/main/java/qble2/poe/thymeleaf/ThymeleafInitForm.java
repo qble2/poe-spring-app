@@ -1,4 +1,4 @@
-package qble2.poe.index;
+package qble2.poe.thymeleaf;
 
 import lombok.Data;
 

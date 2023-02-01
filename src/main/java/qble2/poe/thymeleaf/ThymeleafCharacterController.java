@@ -1,4 +1,4 @@
-package qble2.poe.character;
+package qble2.poe.thymeleaf;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import qble2.poe.character.CharacterDto;
+import qble2.poe.character.CharacterService;
+import qble2.poe.item.ItemDto;
 
 @Controller
 @RequestMapping(path = "characters")
@@ -23,7 +26,7 @@ public class ThymeleafCharacterController {
     String accountName = (String) session.getAttribute("accountName");
     String leagueId = (String) session.getAttribute("leagueId");
 
-    List<CharacterDto> characters = this.characterService.getCharacters(leagueId, accountName);
+    List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
     return "character-list";
@@ -54,15 +57,10 @@ public class ThymeleafCharacterController {
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
 
-    CharacterDto character =
-        this.characterService.reloadDetailedCharacter(accountName, characterName);
-    model.addAttribute("character", character);
+    List<ItemDto> items = this.characterService.reloadCharacterItems(accountName, characterName);
+    model.addAttribute("items", items);
 
-    return "character";
+    return "fragments/item-list";
   }
-
-  /////
-  /////
-  /////
 
 }

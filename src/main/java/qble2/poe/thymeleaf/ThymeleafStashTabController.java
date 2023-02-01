@@ -1,4 +1,4 @@
-package qble2.poe.stash;
+package qble2.poe.thymeleaf;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import qble2.poe.item.ItemDto;
+import qble2.poe.stash.StashTabDto;
+import qble2.poe.stash.StashTabService;
 
 @Controller
 @RequestMapping(path = "stash-tabs")
@@ -50,18 +53,18 @@ public class ThymeleafStashTabController {
     return "stash-tab";
   }
 
-  @PostMapping(path = "/{stashTabId}")
+  @PostMapping(path = "/{stashTabId}/items")
   public String reloadStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
     String poeSessionId = (String) session.getAttribute("poeSessionId");
 
-    StashTabDto stashTab =
-        this.stashTabService.reloadDetailedStashTab(accountName, poeSessionId, stashTabId);
-    model.addAttribute("stashTab", stashTab);
+    List<ItemDto> items =
+        this.stashTabService.reloadStashTabItems(accountName, poeSessionId, stashTabId);
+    model.addAttribute("items", items);
 
-    return "stash-tab";
+    return "fragments/item-list";
   }
 
 }

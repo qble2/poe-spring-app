@@ -58,49 +58,17 @@
 			</table>
 		</details>
 
-		<details open>
-			<summary>Character items</summary>
-			<!-- 			<form action="#" -->
-			<!-- 				th:action="@{'/characters/' + ${character.name} + '/items'}" -->
-			<!-- 				th:method="GET"> -->
-			<!-- 				<button>Load items</button> -->
-			<!-- 			</form> -->
-			<form class="grid" action="#"
-				th:action="@{'/characters/' + ${character.name} + '/items'}"
-				th:method="POST">
-				<button>Reload data from GGG</button>
-			</form>
-			<table>
-				<thead>
-					<tr>
-						<th class="text-align-center" scope="col">icon</th>
-						<th scope="col">name</th>
-						<th scope="col">baseType</th>
-						<th scope="col">ilvl</th>
-						<th scope="col">inventoryId</th>
-						<th scope="col">w</th>
-						<th scope="col">h</th>
-						<th scope="col">x</th>
-						<th scope="col">y</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item: ${character.items}">
-						<td class="text-align-center"><img alt="item icon"
-							th:src="${item.icon}"
-							th:title="${item.name} + ' ' + ${item.baseType}"></td>
-						<td th:text="${item.name}"></td>
-						<td th:text="${item.baseType}"></td>
-						<td th:text="${item.ilvl}"></td>
-						<td th:text="${item.inventoryId}"></td>
-						<td th:text="${item.w}"></td>
-						<td th:text="${item.h}"></td>
-						<td th:text="${item.x}"></td>
-						<td th:text="${item.y}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</details>
+		<div class="flex-row">
+			<h3>Items</h3>
+			<button th:attr="hx-get=@{'/items/characters/' + ${character.name}}"
+				hx-trigger="click" hx-target="#character-items" hx-swap="innerHTML">Load
+				items (HTMX)</button>
+			<button hx-ext="loading-states" data-loading-aria-busy
+				th:attr="hx-post=@{'/characters/' + ${character.name} + '/items'}"
+				hx-trigger="click" hx-target="#character-items" hx-swap="innerHTML">Reload
+				data from GGG (HTMX)</button>
+		</div>
+		<div id="character-items"></div>
 	</section>
 </body>
 </html>

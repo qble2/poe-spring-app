@@ -10,17 +10,18 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div style="display: flex; align-items: center; gap: 10px;">
+		<div class="flex-row">
 			<h3 th:text="${league.id}"></h3>
 			<form action="#" th:action="@{'/leagues/' + ${league.id}}"
 				th:method="GET">
 				<button>Refresh page</button>
 			</form>
-			<form action="#" th:action="@{'/leagues/' + ${league.id}}"
-				th:method="POST">
-				<button>Reload data from GGG</button>
-			</form>
 		</div>
+		
+		<form action="#" th:action="@{'/leagues/' + ${league.id}}"
+			th:method="POST">
+			<button>Reload data from GGG</button>
+		</form>
 
 		<table role="grid">
 			<tbody>

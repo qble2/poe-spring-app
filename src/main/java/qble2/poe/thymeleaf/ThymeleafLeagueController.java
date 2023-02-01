@@ -1,4 +1,4 @@
-package qble2.poe.league;
+package qble2.poe.thymeleaf;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import qble2.poe.ladder.LeagueDto;
+import qble2.poe.league.LeagueService;
 
 @Controller
 @RequestMapping(path = "leagues")
