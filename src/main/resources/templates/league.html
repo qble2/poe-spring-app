@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<th th:text=url></th>
-					<td><a th:href="@{${league.url}}" th:target="_blank"><span
+					<td><a th:href="|${league.url}|" th:target="_blank"><span
 							th:text="${league.url}"></span></a></td>
 				</tr>
 				<tr>

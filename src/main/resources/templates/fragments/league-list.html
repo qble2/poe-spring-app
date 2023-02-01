@@ -11,11 +11,11 @@
 	<tbody>
 		<tr th:each="league: ${leagues}">
 			<td><a th:text="${league.id}"
-				th:href="@{'/leagues/' + ${league.id}}"></a></td>
+				th:href="|/leagues/${league.id}|"></a></td>
 			<td th:text="${league.realm}"></td>
 			<td th:text="${league.startAt}"></td>
 			<td th:text="${league.endAt}"></td>
-			<td><a th:href="@{${league.url}}" th:target="_blank">ladder
+			<td><a th:href="|${league.url}|" th:target="_blank">ladder
 					url</a></td>
 		</tr>
 	</tbody>

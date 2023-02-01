@@ -12,7 +12,7 @@
 	<tbody>
 		<tr th:each="character: ${characters}">
 			<td><a th:text="${character.name}"
-				th:href="@{'/characters/' + ${character.name}}"></a></td>
+				th:href="|/characters/${character.name}|"></a></td>
 			<td th:text="${character.accountName}"></td>
 			<td th:text="${character.leagueId}"></td>
 			<td th:text="${character.characterClass}"></td>
