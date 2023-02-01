@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -13,17 +12,15 @@
 		<div class="flex-row">
 			<h3>League list</h3>
 			<form action="#" th:action="|/leagues|" th:method="GET">
-				<button>Refresh page</button>
+				<button>Reload page</button>
 			</form>
 		</div>
 
-		<div class="flex-row">
-			<button hx-trigger="click" hx-get="/leagues" hx-target="#league-list"
-				hx-swap="innerHTML">Load leagues (HTMX)</button>
-			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click" hx-post="/leagues" hx-target="#league-list"
-				hx-swap="innerHTML">Reload data from GGG (HTMX)</button>
-		</div>
-		<div id="league-list"></div>
+		<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
+			hx-post="/leagues" hx-target="#league-list" hx-swap="innerHTML">Reload
+			leagues from GGG (HTMX)</button>
+
+		<div id="league-list" hx-trigger="load" hx-get="/leagues" hx-swap="innerHTML"></div>
 	</section>
 </body>
 </html>

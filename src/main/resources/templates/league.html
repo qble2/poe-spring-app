@@ -14,13 +14,13 @@
 			<h3 th:text="${league.id}"></h3>
 			<form action="#" th:action="|/leagues/${league.id}|"
 				th:method="GET">
-				<button>Refresh page</button>
+				<button>Reload page</button>
 			</form>
 		</div>
 		
 		<form action="#" th:action="|/leagues/${league.id}|"
 			th:method="POST">
-			<button>Reload data from GGG</button>
+			<button>Reload league from GGG</button>
 		</form>
 
 		<table role="grid">

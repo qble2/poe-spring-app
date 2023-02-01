@@ -12,12 +12,12 @@
 		<div class="flex-row">
 			<h3 th:text="${character.name}"></h3>
 			<form action="#" th:action="|/characters/${character.name}|" th:method="GET">
-				<button>Refresh page</button>
+				<button>Reload page</button>
 			</form>
 		</div>
 
 		<details>
-			<summary>Character details</summary>
+			<summary>Details</summary>
 			<table role="grid">
 				<tbody>
 					<tr>
@@ -56,17 +56,16 @@
 			</table>
 		</details>
 
-		<div class="flex-row">
-			<h3>Items</h3>
-			<button hx-trigger="click"
-				th:attr="hx-get=|/items/characters/${character.name}|"
-				hx-target="#character-items" hx-swap="innerHTML">Load items (HTMX)</button>
+		<details open>
+			<summary>Items</summary>
 			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
 				th:attr="hx-post=|/characters/${character.name}/items|"
-				hx-target="#character-items" hx-swap="innerHTML">Reload data from
+				hx-target="#character-items" hx-swap="innerHTML">Reload items from
 				GGG (HTMX)</button>
-		</div>
-		<div id="character-items"></div>
+
+			<div id="character-items" hx-trigger="load"
+				th:attr="hx-get=|/items/characters/${character.name}|" hx-swap="innerHTML"></div>
+		</details>
 	</section>
 </body>
 </html>

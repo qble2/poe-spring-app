@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -13,19 +12,16 @@
 		<div class="flex-row">
 			<h3>Character list</h3>
 			<form action="#" th:action="|/characters|" th:method="GET">
-				<button>Refresh page</button>
+				<button>Reload page</button>
 			</form>
 		</div>
 
-		<div class="flex-row">
-			<button hx-trigger="click" hx-get="/characters"
-				hx-target="#character-list" hx-swap="innerHTML">Load
-				characters (HTMX)</button>
-			<button hx-ext="loading-states" data-loading-aria-busy
-				hx-trigger="click" hx-post="/characters" hx-target="#character-list"
-				hx-swap="innerHTML">Reload data from GGG (HTMX)</button>
-		</div>
-		<div id="character-list"></div>
+		<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
+			hx-post="/characters" hx-target="#character-list" hx-swap="innerHTML">Reload
+			characters from GGG (HTMX)</button>
+
+		<div id="character-list" hx-trigger="load" hx-get="/characters"
+			hx-swap="innerHTML"></div>
 	</section>
 </body>
 </html>

@@ -12,12 +12,12 @@
 		<div class="flex-row">
 			<h3 th:text="${stashTab.name}"></h3>
 			<form action="#" th:action="|/stash-tabs/${stashTab.id}|" th:method="GET">
-				<button>Refresh page</button>
+				<button>Reload page</button>
 			</form>
 		</div>
 
 		<details>
-			<summary>Stash tab details</summary>
+			<summary>Details</summary>
 			<table role="grid">
 				<tbody>
 					<tr>
@@ -40,17 +40,16 @@
 			</table>
 		</details>
 
-		<div class="flex-row">
-			<h3>Items</h3>
-			<button hx-trigger="click" th:attr="hx-get=|/items/stashTabs/${stashTab.id}|"
-				hx-target="#stash-tab-items" hx-swap="innerHTML">Load items (HTMX)
-			</button>
+		<details open>
+			<summary>Items</summary>
 			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
-				th:attr="hx-post=|/stash-tabs/${stashTab.id}/items|}"
-				hx-target="#stash-tab-items" hx-swap="innerHTML">Reload data from
+				th:attr="hx-post=|/stash-tabs/${stashTab.id}/items|"
+				hx-target="#stash-tab-items" hx-swap="innerHTML">Reload items
 				GGG (HTMX)</button>
-		</div>
-		<div id="stash-tab-items"></div>
+			<div id="stash-tab-items" hx-trigger="load"
+				th:attr="hx-get=|/items/stashTabs/${stashTab.id}|" hx-swap="innerHTML"></div>
+		</details>
+
 	</section>
 </body>
 </html>
