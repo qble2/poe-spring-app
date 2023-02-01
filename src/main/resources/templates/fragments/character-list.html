@@ -1,0 +1,23 @@
+<table role="grid">
+	<thead>
+		<tr>
+			<th scope="col">name</th>
+			<th scope="col">accountName</th>
+			<th scope="col">leagueId</th>
+			<th scope="col">characterClass</th>
+			<th scope="col">level</th>
+			<th scope="col">experience</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="character: ${characters}">
+			<td><a th:text="${character.name}"
+				th:href="@{'/characters/' + ${character.name}}"></a></td>
+			<td th:text="${character.accountName}"></td>
+			<td th:text="${character.leagueId}"></td>
+			<td th:text="${character.characterClass}"></td>
+			<td th:text="${character.level}"></td>
+			<td th:text="${character.experience}"></td>
+		</tr>
+	</tbody>
+</table>

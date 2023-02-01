@@ -10,36 +10,22 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div style="display: flex; align-items: center; gap: 10px;">
+		<div class="flex-row">
 			<h3>Stash tab list</h3>
 			<form action="#" th:action="@{'/stash-tabs'}" th:method="GET">
 				<button>Refresh page</button>
 			</form>
 		</div>
 
-		<form action="#" th:action="@{'/stash-tabs'}"
-			th:method="POST">
-			<button>Reload data from GGG</button>
-		</form>
-
-		<table role="grid">
-			<thead>
-				<tr>
-					<th scope="col">index</th>
-					<th scope="col">name</th>
-					<th scope="col">type</th>
-					<th scope="col">leagueId</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="stashTab: ${stashTabs}">
-					<td th:text="${stashTab.index}"></td>
-					<td><a th:text="${stashTab.name}" th:href="@{'/stash-tabs/' + ${stashTab.id}}"></a></td>
-					<td th:text="${stashTab.type}"></td>
-					<td th:text="${stashTab.leagueId}"></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="flex-row">
+			<button hx-trigger="click" hx-get="/stash-tabs"
+				hx-target="#stash-tab-list" hx-swap="innerHTML">Load stash
+				tabs (HTMX)</button>
+			<button hx-ext="loading-states" data-loading-aria-busy
+				hx-trigger="click" hx-post="/stash-tabs" hx-target="#stash-tab-list"
+				hx-swap="innerHTML">Reload data from GGG (HTMX)</button>
+		</div>
+		<div id="stash-tab-list"></div>
 	</section>
 </body>
 </html>

@@ -30,8 +30,18 @@ public class ThymeleafStashTabController {
     return "stash-tab-list";
   }
 
-  @PostMapping
-  public String reloadStashTabs(Model model, HttpSession session) {
+  @GetMapping(headers = "HX-Request")
+  public String getStashTabsFragment(Model model, HttpSession session) {
+    String leagueId = (String) session.getAttribute("leagueId");
+
+    List<StashTabDto> stashTabs = this.stashTabService.getStashTabs(leagueId);
+    model.addAttribute("stashTabs", stashTabs);
+
+    return "fragments/stash-tab-list";
+  }
+
+  @PostMapping(headers = "HX-Request")
+  public String reloadStashTabsFragment(Model model, HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
     String poeSessionId = (String) session.getAttribute("poeSessionId");
     String leagueId = (String) session.getAttribute("leagueId");
@@ -40,7 +50,7 @@ public class ThymeleafStashTabController {
         this.stashTabService.reloadStashTabs(accountName, poeSessionId, leagueId);
     model.addAttribute("stashTabs", stashTabs);
 
-    return "stash-tab-list";
+    return "fragments/stash-tab-list";
   }
 
   @GetMapping(path = "/{stashTabId}")
@@ -53,8 +63,8 @@ public class ThymeleafStashTabController {
     return "stash-tab";
   }
 
-  @PostMapping(path = "/{stashTabId}/items")
-  public String reloadStashTabItems(
+  @PostMapping(path = "/{stashTabId}/items", headers = "HX-Request")
+  public String reloadStashTabItemsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");

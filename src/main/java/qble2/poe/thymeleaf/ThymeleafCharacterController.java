@@ -32,14 +32,25 @@ public class ThymeleafCharacterController {
     return "character-list";
   }
 
-  @PostMapping
-  public String reloadCharacters(Model model, HttpSession session) {
+  @GetMapping(headers = "HX-Request")
+  public String getCharactersFragment(Model model, HttpSession session) {
+    String accountName = (String) session.getAttribute("accountName");
+    String leagueId = (String) session.getAttribute("leagueId");
+
+    List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
+    model.addAttribute("characters", characters);
+
+    return "fragments/character-list";
+  }
+
+  @PostMapping(headers = "HX-Request")
+  public String reloadCharactersFragment(Model model, HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
 
     List<CharacterDto> characters = this.characterService.reloadCharacters(accountName);
     model.addAttribute("characters", characters);
 
-    return "character-list";
+    return "fragments/character-list";
   }
 
   @GetMapping(path = "/{characterName}")
@@ -51,8 +62,8 @@ public class ThymeleafCharacterController {
     return "character";
   }
 
-  @PostMapping(path = "/{characterName}/items")
-  public String reloadCharacterItems(
+  @PostMapping(path = "/{characterName}/items", headers = "HX-Request")
+  public String reloadCharacterItemsFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model,
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");

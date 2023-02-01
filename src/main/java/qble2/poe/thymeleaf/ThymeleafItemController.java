@@ -18,8 +18,8 @@ public class ThymeleafItemController {
   @Autowired
   private ItemService itemService;
 
-  @GetMapping("/characters/{characterName}")
-  public String getCharacterItems(
+  @GetMapping(path = "/characters/{characterName}", headers = "HX-Request")
+  public String getCharacterItemsFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model,
       HttpSession session) {
     List<ItemDto> items = this.itemService.getCharacterItems(characterName);
@@ -28,8 +28,8 @@ public class ThymeleafItemController {
     return "fragments/item-list";
   }
 
-  @GetMapping("/stashTabs/{stashTabId}")
-  public String getStashTabItems(
+  @GetMapping(path = "/stashTabs/{stashTabId}", headers = "HX-Request")
+  public String getStashTabItemsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
       HttpSession session) {
     List<ItemDto> items = this.itemService.getStashTabItems(stashTabId);

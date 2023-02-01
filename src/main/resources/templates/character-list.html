@@ -17,33 +17,15 @@
 			</form>
 		</div>
 
-		<form action="#" th:action="@{'/characters'}" th:method="POST">
-			<button>Reload data from GGG</button>
-		</form>
-
-		<table role="grid">
-			<thead>
-				<tr>
-					<th scope="col">name</th>
-					<th scope="col">accountName</th>
-					<th scope="col">leagueId</th>
-					<th scope="col">characterClass</th>
-					<th scope="col">level</th>
-					<th scope="col">experience</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="character: ${characters}">
-					<td><a th:text="${character.name}"
-						th:href="@{'/characters/' + ${character.name}}"></a></td>
-					<td th:text="${character.accountName}"></td>
-					<td th:text="${character.leagueId}"></td>
-					<td th:text="${character.characterClass}"></td>
-					<td th:text="${character.level}"></td>
-					<td th:text="${character.experience}"></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="flex-row">
+			<button hx-trigger="click" hx-get="/characters"
+				hx-target="#character-list" hx-swap="innerHTML">Load
+				characters (HTMX)</button>
+			<button hx-ext="loading-states" data-loading-aria-busy
+				hx-trigger="click" hx-post="/characters" hx-target="#character-list"
+				hx-swap="innerHTML">Reload data from GGG (HTMX)</button>
+		</div>
+		<div id="character-list"></div>
 	</section>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<table role="grid">
+	<thead>
+		<tr>
+			<th scope="col">id</th>
+			<th scope="col">realm</th>
+			<th scope="col">startAt</th>
+			<th scope="col">endAt</th>
+			<th scope="col">url</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="league: ${leagues}">
+			<td><a th:text="${league.id}"
+				th:href="@{'/leagues/' + ${league.id}}"></a></td>
+			<td th:text="${league.realm}"></td>
+			<td th:text="${league.startAt}"></td>
+			<td th:text="${league.endAt}"></td>
+			<td><a th:href="@{${league.url}}" th:target="_blank">ladder
+					url</a></td>
+		</tr>
+	</tbody>
+</table>

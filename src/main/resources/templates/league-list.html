@@ -17,30 +17,13 @@
 			</form>
 		</div>
 
-		<form action="#" th:action="@{'/leagues'}" th:method="POST">
-			<button>Reload data from GGG</button>
-		</form>
-
-		<table role="grid">
-			<thead>
-				<tr>
-					<th scope="col">id</th>
-					<th scope="col">realm</th>
-					<th scope="col">startAt</th>
-					<th scope="col">endAt</th>
-					<th scope="col">url</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="league: ${leagues}">
-					<td><a th:text="${league.id}" th:href="@{'/leagues/' + ${league.id}}"></a></td>
-					<td th:text="${league.realm}"></td>
-					<td th:text="${league.startAt}"></td>
-					<td th:text="${league.endAt}"></td>
-					<td><a th:href="@{${league.url}}" th:target="_blank">ladder url</a></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="flex-row">
+			<button hx-trigger="click" hx-get="/leagues" hx-target="#league-list"
+				hx-swap="innerHTML">Load leagues (HTMX)</button>
+			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click" hx-post="/leagues" hx-target="#league-list"
+				hx-swap="innerHTML">Reload data from GGG (HTMX)</button>
+		</div>
+		<div id="league-list"></div>
 	</section>
 </body>
 </html>

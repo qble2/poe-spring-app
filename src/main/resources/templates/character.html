@@ -60,12 +60,14 @@
 
 		<div class="flex-row">
 			<h3>Items</h3>
-			<button th:attr="hx-get=@{'/items/characters/' + ${character.name}}"
-				hx-trigger="click" hx-target="#character-items" hx-swap="innerHTML">Load
-				items (HTMX)</button>
+			<button hx-trigger="click"
+				th:attr="hx-get=@{'/items/characters/' + ${character.name}}"
+				hx-target="#character-items" hx-swap="innerHTML">Load items
+				(HTMX)</button>
 			<button hx-ext="loading-states" data-loading-aria-busy
+				hx-trigger="click"
 				th:attr="hx-post=@{'/characters/' + ${character.name} + '/items'}"
-				hx-trigger="click" hx-target="#character-items" hx-swap="innerHTML">Reload
+				hx-target="#character-items" hx-swap="innerHTML">Reload
 				data from GGG (HTMX)</button>
 		</div>
 		<div id="character-items"></div>
