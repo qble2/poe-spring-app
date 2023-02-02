@@ -24,7 +24,7 @@ public class ThymeleafLeagueController {
     List<LeagueDto> leagues = this.leagueService.getLeagues();
     model.addAttribute("leagues", leagues);
 
-    return "league-list";
+    return "leagues";
   }
 
   @GetMapping(headers = "HX-Request")

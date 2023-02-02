@@ -24,7 +24,7 @@ public class ThymeleafCharacterController {
 
   @GetMapping
   public String getCharactersPage(Model model, HttpSession session) {
-    return "character-list";
+    return "characters";
   }
 
   @GetMapping(headers = "HX-Request")

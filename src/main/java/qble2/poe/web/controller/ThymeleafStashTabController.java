@@ -23,7 +23,7 @@ public class ThymeleafStashTabController {
 
   @GetMapping
   public String getStashTabsPage(Model model, HttpSession session) {
-    return "stash-tab-list";
+    return "stash-tabs";
   }
 
   @GetMapping(headers = "HX-Request")
