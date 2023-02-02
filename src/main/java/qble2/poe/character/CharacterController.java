@@ -33,8 +33,9 @@ public class CharacterController {
 
   @PostMapping
   public List<CharacterDto> reloadCharacters(
-      @RequestParam(name = "accountName", required = true) String accountName) {
-    return this.characterService.reloadCharacters(accountName);
+      @RequestParam(name = "accountName", required = true) String accountName,
+      @RequestParam(name = "leagueId", required = false) String leagueId) {
+    return this.characterService.reloadCharacters(accountName, leagueId);
   }
 
   @GetMapping(path = "/{characterName}/items")

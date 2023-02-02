@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -9,9 +11,16 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row">
+		<div class="flex-row-space-between">
+			<a
+				href="/stash-tabs"
+				th:href="@{/stash-tabs}"
+				role="button">Back to Stash tabs</a>
 			<h3 th:text="${stashTab.name}"></h3>
-			<form action="#" th:action="|/stash-tabs/${stashTab.id}|" th:method="GET">
+			<form
+				action="#"
+				th:action="|/stash-tabs/${stashTab.id}|"
+				th:method="GET">
 				<button>Reload page</button>
 			</form>
 		</div>
@@ -42,12 +51,20 @@
 
 		<details open>
 			<summary>Items</summary>
-			<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
+			<button
+				hx-ext="loading-states"
+				data-loading-aria-busy
+				hx-trigger="click"
 				th:attr="hx-post=|/stash-tabs/${stashTab.id}/items|"
-				hx-target="#stash-tab-items" hx-swap="innerHTML">Reload items
-				GGG (HTMX)</button>
-			<div id="stash-tab-items" hx-trigger="load"
-				th:attr="hx-get=|/items/stashTabs/${stashTab.id}|" hx-swap="innerHTML"></div>
+				hx-target="#stash-tab-items"
+				hx-swap="innerHTML">Reload items GGG (HTMX)</button>
+
+			<!-- load polling stash tab items -->
+			<div
+				id="stash-tab-items"
+				hx-trigger="load"
+				th:attr="hx-get=|/items/stashTabs/${stashTab.id}|"
+				hx-swap="innerHTML"></div>
 		</details>
 
 	</section>

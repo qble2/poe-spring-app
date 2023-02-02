@@ -40,7 +40,6 @@ public class ThymeleafRootController {
 
     session.setAttribute("accountName", thymeleafInitForm.getAccountName());
     session.setAttribute("poeSessionId", thymeleafInitForm.getPoeSessionId());
-    session.setAttribute("leagueId", thymeleafInitForm.getLeagueId());
 
     return "index-signedin";
   }
@@ -62,8 +61,7 @@ public class ThymeleafRootController {
   // TODO BEK check valid information by pinging GGG (ex: get stash tabs)
   private boolean isValid(ThymeleafInitForm thymeleafInitForm) {
     return StringUtils.isNotBlank(thymeleafInitForm.getAccountName())
-        && StringUtils.isNotBlank(thymeleafInitForm.getPoeSessionId())
-        && StringUtils.isNotBlank(thymeleafInitForm.getLeagueId());
+        && StringUtils.isNotBlank(thymeleafInitForm.getPoeSessionId());
   }
 
 }

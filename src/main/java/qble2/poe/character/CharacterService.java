@@ -57,11 +57,17 @@ public class CharacterService {
     return this.characterMapper.toDetailedDtoFromEntity(character);
   }
 
-  public List<CharacterDto> reloadCharacters(String accountName) {
+  public List<CharacterDto> reloadCharacters(String accountName, String leagueId) {
     List<CharacterDto> listOfCharacterDto =
         this.characterWebClientGgg.retrieveAccountCharacters(accountName);
     this.characterRepository
         .saveAll(this.characterMapper.toEntityListFromDtoList(listOfCharacterDto));
+
+    if (leagueId != null) {
+      return this.characterMapper.toDtoListFromEntityList(this.characterRepository
+          .findAllByAccountNameAndLeagueIdOrderByLeagueIdAscLevelDescNameAsc(accountName,
+              leagueId));
+    }
 
     return this.characterMapper.toDtoListFromEntityList(this.characterRepository
         .findAllByAccountNameOrderByLeagueIdAscLevelDescNameAsc(accountName));

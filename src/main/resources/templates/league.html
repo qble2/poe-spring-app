@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
@@ -10,15 +11,23 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row">
+		<div class="flex-row-space-between">
+			<a
+				href="/leagues"
+				th:href="@{/leagues}"
+				role="button">Back to Leagues</a>
 			<h3 th:text="${league.id}"></h3>
-			<form action="#" th:action="|/leagues/${league.id}|"
+			<form
+				action="#"
+				th:action="|/leagues/${league.id}|"
 				th:method="GET">
 				<button>Reload page</button>
 			</form>
 		</div>
-		
-		<form action="#" th:action="|/leagues/${league.id}|"
+
+		<form
+			action="#"
+			th:action="|/leagues/${league.id}|"
 			th:method="POST">
 			<button>Reload league from GGG</button>
 		</form>
@@ -31,8 +40,13 @@
 				</tr>
 				<tr>
 					<th th:text=url></th>
-					<td><a th:href="|${league.url}|" th:target="_blank"><span
-							th:text="${league.url}"></span></a></td>
+					<td>
+						<a
+							th:href="|${league.url}|"
+							th:target="_blank">
+							<span th:text="${league.url}"></span>
+						</a>
+					</td>
 				</tr>
 				<tr>
 					<th th:text=realm></th>

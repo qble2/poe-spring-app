@@ -53,6 +53,14 @@
 	gap: 10px;
 }
 
+.flex-row-space-between {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 10px;
+}
+
 .align-center {
 	text-align: center;
 }

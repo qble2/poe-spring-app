@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -9,18 +11,54 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row">
+		<div class="flex-row-space-between">
 			<h3>Character list</h3>
-			<form action="#" th:action="|/characters|" th:method="GET">
+			<form
+				action="#"
+				th:action="@{/characters}"
+				th:method="GET">
 				<button>Reload page</button>
 			</form>
 		</div>
+		
+		<!-- Load leagues, and on selection change, reload characters -->
+		<div
+			class="flex-row"
+			hx-trigger="load"
+			hx-get="/leagues/select"
+			hx-target="#league-select"
+			hx-swap="innerHTML">
+			<select
+				id="league-select"
+				name="leagueId"
+				hx-trigger="change"
+				hx-get="/characters"
+				hx-target="#character-list"
+				hx-swap="innerHTML">
+			</select>
+			<button
+				hx-ext="loading-states"
+				data-loading-aria-busy
+				hx-trigger="click"
+				hx-post="/leagues/select"
+				hx-target="#league-select"
+				hx-swap="innerHTML">Reload leagues from GGG (HTMX)</button>
+		</div>
 
-		<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
-			hx-post="/characters" hx-target="#character-list" hx-swap="innerHTML">Reload
-			characters from GGG (HTMX)</button>
+		<button
+			hx-ext="loading-states"
+			data-loading-aria-busy
+			hx-trigger="click"
+			hx-post="/characters"
+			hx-include="#league-select"
+			hx-target="#character-list"
+			hx-swap="innerHTML">Reload characters from GGG (HTMX)</button>
 
-		<div id="character-list" hx-trigger="load" hx-get="/characters"
+		<!--  load polling  characters -->
+		<div
+			id="character-list"
+			hx-trigger="load"
+			hx-get="/characters"
 			hx-swap="innerHTML"></div>
 	</section>
 </body>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
@@ -9,18 +11,54 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row">
+		<div class="flex-row-space-between">
 			<h3>Stash tab list</h3>
-			<form action="#" th:action="|/stash-tabs|" th:method="GET">
+			<form
+				action="#"
+				th:action="@{/stash-tabs}"
+				th:method="GET">
 				<button>Reload page</button>
 			</form>
 		</div>
 
-		<button hx-ext="loading-states" data-loading-aria-busy hx-trigger="click"
-			hx-post="/stash-tabs" hx-target="#stash-tab-list" hx-swap="innerHTML">Reload
-			stash tabs from GGG (HTMX)</button>
+		<!-- load polling leagues -->
+		<div
+			class="flex-row"
+			hx-trigger="load"
+			hx-get="/leagues/select"
+			hx-target="#league-select"
+			hx-swap="innerHTML">
+			<!--  on league selection change, reload stash tabs -->
+			<select
+				id="league-select"
+				name="leagueId"
+				hx-trigger="change"
+				hx-get="/stash-tabs"
+				hx-target="#stash-tab-list"
+				hx-swap="innerHTML">
+			</select>
+			<button
+				hx-ext="loading-states"
+				data-loading-aria-busy
+				hx-trigger="click"
+				hx-post="/leagues/select"
+				hx-target="#league-select"
+				hx-swap="innerHTML">Reload leagues from GGG (HTMX)</button>
+		</div>
 
-		<div id="stash-tab-list" hx-trigger="load" hx-get="/stash-tabs"
+		<button
+			hx-ext="loading-states"
+			data-loading-aria-busy
+			hx-trigger="click"
+			hx-post="/stash-tabs"
+			hx-include="#league-select"
+			hx-target="#stash-tab-list"
+			hx-swap="innerHTML">Reload stash tabs from GGG (HTMX)</button>
+
+		<!--  load polling stash tabs -->
+		<div id="stash-tab-list"
+			hx-trigger="load"
+			hx-get="/stash-tabs"
 			hx-swap="innerHTML"></div>
 	</section>
 </body>

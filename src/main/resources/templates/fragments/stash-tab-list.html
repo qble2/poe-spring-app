@@ -1,4 +1,7 @@
-<table role="grid">
+<div th:if="${#lists.isEmpty(stashTabs)}">No stash tab found.</div>
+<table
+	th:if="${not #lists.isEmpty(stashTabs)}"
+	role="grid">
 	<thead>
 		<tr>
 			<th scope="col">index</th>
@@ -10,8 +13,11 @@
 	<tbody>
 		<tr th:each="stashTab: ${stashTabs}">
 			<td th:text="${stashTab.index}"></td>
-			<td><a th:text="${stashTab.name}"
-				th:href="|/stash-tabs/${stashTab.id}|"></a></td>
+			<td>
+				<a
+					th:text="${stashTab.name}"
+					th:href="|/stash-tabs/${stashTab.id}|"></a>
+			</td>
 			<td th:text="${stashTab.type}"></td>
 			<td th:text="${stashTab.leagueId}"></td>
 		</tr>

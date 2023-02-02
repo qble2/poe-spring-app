@@ -40,8 +40,17 @@ public class StashTabService {
         this.stashWebClientGgg.retrieveStashTabs(accountName, poeSessionId, leagueId);
     this.stashTabRepository.saveAll(this.stashMapper.toEntityListFromDtoList(listOfStashTabDto));
 
+    if (leagueId != null) {
+      return this.stashMapper.toDtoListFromEntityList(
+          this.stashTabRepository.findAllByLeagueIdOrderByLeagueIdAscIndexAsc(leagueId));
+    }
+
     return this.stashMapper
         .toDtoListFromEntityList(this.stashTabRepository.findAllByOrderByLeagueIdAscIndexAsc());
+  }
+
+  public StashTabDto getStashTab(String stashTabId) {
+    return this.stashMapper.toDtoFromEntity(findStashTabByIdOrThrow(stashTabId));
   }
 
   public StashTabDto getDetailedStashTab(String stashTabId) {

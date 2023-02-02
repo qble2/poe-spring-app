@@ -1,4 +1,7 @@
-<table role="grid">
+<div th:if="${#lists.isEmpty(characters)}">No character found.</div>
+<table
+	th:if="${not #lists.isEmpty(characters)}"
+	role="grid">
 	<thead>
 		<tr>
 			<th scope="col">name</th>
@@ -11,8 +14,11 @@
 	</thead>
 	<tbody>
 		<tr th:each="character: ${characters}">
-			<td><a th:text="${character.name}"
-				th:href="|/characters/${character.name}|"></a></td>
+			<td>
+				<a
+					th:text="${character.name}"
+					th:href="|/characters/${character.name}|"></a>
+			</td>
 			<td th:text="${character.accountName}"></td>
 			<td th:text="${character.leagueId}"></td>
 			<td th:text="${character.characterClass}"></td>

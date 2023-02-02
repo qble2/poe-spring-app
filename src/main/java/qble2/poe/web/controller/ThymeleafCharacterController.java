@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import qble2.poe.character.CharacterDto;
 import qble2.poe.character.CharacterService;
 import qble2.poe.item.ItemDto;
@@ -22,20 +23,15 @@ public class ThymeleafCharacterController {
   private CharacterService characterService;
 
   @GetMapping
-  public String getCharacters(Model model, HttpSession session) {
-    String accountName = (String) session.getAttribute("accountName");
-    String leagueId = (String) session.getAttribute("leagueId");
-
-    List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
-    model.addAttribute("characters", characters);
-
+  public String getCharactersPage(Model model, HttpSession session) {
     return "character-list";
   }
 
   @GetMapping(headers = "HX-Request")
-  public String getCharactersFragment(Model model, HttpSession session) {
+  public String getCharactersListFragment(
+      @RequestParam(name = "leagueId", required = false) String leagueId, Model model,
+      HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
-    String leagueId = (String) session.getAttribute("leagueId");
 
     List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
@@ -44,10 +40,12 @@ public class ThymeleafCharacterController {
   }
 
   @PostMapping(headers = "HX-Request")
-  public String reloadCharactersFragment(Model model, HttpSession session) {
+  public String reloadCharactersListFragment(
+      @RequestParam(name = "leagueId", required = false) String leagueId, Model model,
+      HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
 
-    List<CharacterDto> characters = this.characterService.reloadCharacters(accountName);
+    List<CharacterDto> characters = this.characterService.reloadCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
     return "fragments/character-list";
@@ -63,7 +61,7 @@ public class ThymeleafCharacterController {
   }
 
   @PostMapping(path = "/{characterName}/items", headers = "HX-Request")
-  public String reloadCharacterItemsFragment(
+  public String reloadCharacterItemsListFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model,
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");

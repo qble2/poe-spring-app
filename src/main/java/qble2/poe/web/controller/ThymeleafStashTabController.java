@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import qble2.poe.item.ItemDto;
 import qble2.poe.stash.StashTabDto;
 import qble2.poe.stash.StashTabService;
@@ -21,19 +22,14 @@ public class ThymeleafStashTabController {
   private StashTabService stashTabService;
 
   @GetMapping
-  public String getStashTabs(Model model, HttpSession session) {
-    String leagueId = (String) session.getAttribute("leagueId");
-
-    List<StashTabDto> stashTabs = this.stashTabService.getStashTabs(leagueId);
-    model.addAttribute("stashTabs", stashTabs);
-
+  public String getStashTabsPage(Model model, HttpSession session) {
     return "stash-tab-list";
   }
 
   @GetMapping(headers = "HX-Request")
-  public String getStashTabsFragment(Model model, HttpSession session) {
-    String leagueId = (String) session.getAttribute("leagueId");
-
+  public String getStashTabsListFragment(
+      @RequestParam(name = "leagueId", required = false) String leagueId, Model model,
+      HttpSession session) {
     List<StashTabDto> stashTabs = this.stashTabService.getStashTabs(leagueId);
     model.addAttribute("stashTabs", stashTabs);
 
@@ -41,10 +37,11 @@ public class ThymeleafStashTabController {
   }
 
   @PostMapping(headers = "HX-Request")
-  public String reloadStashTabsFragment(Model model, HttpSession session) {
+  public String reloadStashTabsListFragment(
+      @RequestParam(name = "leagueId", required = true) String leagueId, Model model,
+      HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
     String poeSessionId = (String) session.getAttribute("poeSessionId");
-    String leagueId = (String) session.getAttribute("leagueId");
 
     List<StashTabDto> stashTabs =
         this.stashTabService.reloadStashTabs(accountName, poeSessionId, leagueId);
@@ -54,17 +51,17 @@ public class ThymeleafStashTabController {
   }
 
   @GetMapping(path = "/{stashTabId}")
-  public String getDetailedStashTab(
+  public String getStashTabPage(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
       HttpSession session) {
-    StashTabDto stashTab = this.stashTabService.getDetailedStashTab(stashTabId);
+    StashTabDto stashTab = this.stashTabService.getStashTab(stashTabId);
     model.addAttribute("stashTab", stashTab);
 
     return "stash-tab";
   }
 
   @PostMapping(path = "/{stashTabId}/items", headers = "HX-Request")
-  public String reloadStashTabItemsFragment(
+  public String reloadStashTabItemsListFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
       HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");

@@ -28,7 +28,7 @@ public class ThymeleafLeagueController {
   }
 
   @GetMapping(headers = "HX-Request")
-  public String getLeaguesFragment(Model model, HttpSession session) {
+  public String getLeaguesListFragment(Model model, HttpSession session) {
     List<LeagueDto> leagues = this.leagueService.getLeagues();
     model.addAttribute("leagues", leagues);
 
@@ -36,11 +36,27 @@ public class ThymeleafLeagueController {
   }
 
   @PostMapping(headers = "HX-Request")
-  public String reloadLeaguesFragment(Model model, HttpSession session) {
+  public String reloadLeaguesListFragment(Model model, HttpSession session) {
     List<LeagueDto> leagues = this.leagueService.reloadLeagues();
     model.addAttribute("leagues", leagues);
 
     return "fragments/league-list";
+  }
+
+  @GetMapping(path = "/select", headers = "HX-Request")
+  public String getLeagueSelectOptionsFragment(Model model, HttpSession session) {
+    List<LeagueDto> leagues = this.leagueService.getLeagues();
+    model.addAttribute("leagues", leagues);
+
+    return "fragments/league-select-options";
+  }
+
+  @PostMapping(path = "/select", headers = "HX-Request")
+  public String reloadLeagueSelectOptionsFragment(Model model, HttpSession session) {
+    List<LeagueDto> leagues = this.leagueService.reloadLeagues();
+    model.addAttribute("leagues", leagues);
+
+    return "fragments/league-select-options";
   }
 
   @GetMapping(path = "/{leagueId}")

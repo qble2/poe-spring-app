@@ -43,7 +43,7 @@ public class StashWebClientGgg {
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
       }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
-  // GGG does not provide a dedicated enpoint to retrieve stash tab headers alone
+  // GGG does not provide a dedicated endpoint to retrieve stash tab headers alone
   // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
   public List<StashTabDto> retrieveStashTabs(String accountName, String poeSessionId,
       String leagueId) {
@@ -76,6 +76,7 @@ public class StashWebClientGgg {
   /////
   /////
 
+  // GGG returns 404 Not Found if not character has ever logged in the requested league
   private GetStashItemsGgg retrieveStash(String accountName, String poeSessionId, String leagueId,
       int tabIndex, boolean isRetrieveTabHeaders) {
     Mono<GetStashItemsGgg> mono = webClient.get()

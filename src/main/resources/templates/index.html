@@ -10,13 +10,11 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<form th:action="|/|" th:object="${initForm}" th:method="POST">
+		<form th:action="@{/}" th:object="${initForm}" th:method="POST">
 			<input type="text" th:field="*{accountName}" id="accountName"
 				placeholder="Account name..." />
 			<input type="text" th:field="*{poeSessionId}" id="poeSessionId"
 				placeholder="POE session id..." />
-			<input type="text" th:field="*{leagueId}" id="leagueId"
-				placeholder="League id..." />
 			<button type="submit">Start</button>
 		</form>
 	</section>

@@ -7,6 +7,5 @@ public class ThymeleafInitForm {
 
   private String accountName;
   private String poeSessionId;
-  private String leagueId;
 
 }
