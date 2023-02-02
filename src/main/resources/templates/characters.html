@@ -7,7 +7,6 @@
 <head>
 <title>Character list</title>
 </head>
-
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
@@ -29,7 +28,7 @@
 			data-loading-aria-busy
 			hx-trigger="click"
 			hx-post="/characters"
-			hx-include="#league-select"
+			hx-include="#dropdown-menu-select"
 			hx-target="#character-list"
 			hx-swap="innerHTML">Reload characters from GGG (HTMX)</button>
 

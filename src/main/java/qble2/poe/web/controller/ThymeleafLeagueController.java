@@ -32,7 +32,7 @@ public class ThymeleafLeagueController {
     List<LeagueDto> leagues = this.leagueService.getLeagues();
     model.addAttribute("leagues", leagues);
 
-    return "fragments/league-list";
+    return "fragments/league-list :: league-list";
   }
 
   @PostMapping(headers = "HX-Request")
@@ -40,7 +40,7 @@ public class ThymeleafLeagueController {
     List<LeagueDto> leagues = this.leagueService.reloadLeagues();
     model.addAttribute("leagues", leagues);
 
-    return "fragments/league-list";
+    return "fragments/league-list :: league-list";
   }
 
   @GetMapping(path = "/dropdown-menu-options", headers = "HX-Request")

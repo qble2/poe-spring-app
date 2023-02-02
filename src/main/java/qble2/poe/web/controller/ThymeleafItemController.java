@@ -25,7 +25,7 @@ public class ThymeleafItemController {
     List<ItemDto> items = this.itemService.getCharacterItems(characterName);
     model.addAttribute("items", items);
 
-    return "fragments/item-list";
+    return "fragments/item-list :: item-list";
   }
 
   @GetMapping(path = "/stashTabs/{stashTabId}", headers = "HX-Request")
@@ -35,7 +35,7 @@ public class ThymeleafItemController {
     List<ItemDto> items = this.itemService.getStashTabItems(stashTabId);
     model.addAttribute("items", items);
 
-    return "fragments/item-list";
+    return "fragments/item-list :: item-list";
   }
 
 }

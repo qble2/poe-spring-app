@@ -7,7 +7,6 @@
 <head>
 <title>Stash tab list</title>
 </head>
-
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
@@ -23,13 +22,12 @@
 
 		<div
 			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/stash-tabs', targetElementToUpdate='#stash-tab-list')"></div>
-
 		<button
 			hx-ext="loading-states"
 			data-loading-aria-busy
 			hx-trigger="click"
 			hx-post="/stash-tabs"
-			hx-include="#league-select"
+			hx-include="#dropdown-menu-select"
 			hx-target="#stash-tab-list"
 			hx-swap="innerHTML">Reload stash tabs from GGG (HTMX)</button>
 

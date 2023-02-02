@@ -1,38 +1,50 @@
-<div th:if="${#lists.isEmpty(items)}">No item found.</div>
-<table
-	th:if="${not #lists.isEmpty(items)}"
-	role="grid">
-	<thead>
-		<tr>
-			<th
-				class="align-center"
-				scope="col">icon</th>
-			<th scope="col">name</th>
-			<th scope="col">baseType</th>
-			<th scope="col">ilvl</th>
-			<th scope="col">inventoryId</th>
-			<th scope="col">w</th>
-			<th scope="col">h</th>
-			<th scope="col">x</th>
-			<th scope="col">y</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="item: ${items}">
-			<td class="align-center">
-				<img
-					alt="icon"
-					th:src="${item.icon}"
-					th:title="${item.name} + ' ' + ${item.baseType}">
-			</td>
-			<td th:text="${item.name}"></td>
-			<td th:text="${item.baseType}"></td>
-			<td th:text="${item.ilvl}"></td>
-			<td th:text="${item.inventoryId}"></td>
-			<td th:text="${item.w}"></td>
-			<td th:text="${item.h}"></td>
-			<td th:text="${item.x}"></td>
-			<td th:text="${item.y}"></td>
-		</tr>
-	</tbody>
-</table>
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+	<th:block th:fragment="item-list">
+		<div th:if="${#lists.isEmpty(items)}">No item found.</div>
+		<table
+			th:if="${not #lists.isEmpty(items)}"
+			role="grid">
+			<thead>
+				<tr>
+					<th
+						class="align-center"
+						scope="col">icon</th>
+					<th scope="col">name</th>
+					<th scope="col">baseType</th>
+					<th scope="col">ilvl</th>
+					<th scope="col">inventoryId</th>
+					<th scope="col">w</th>
+					<th scope="col">h</th>
+					<th scope="col">x</th>
+					<th scope="col">y</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${items}">
+					<td class="align-center">
+						<img
+							alt="icon"
+							th:src="${item.icon}"
+							th:title="${item.name} + ' ' + ${item.baseType}">
+					</td>
+					<td th:text="${item.name}"></td>
+					<td th:text="${item.baseType}"></td>
+					<td th:text="${item.ilvl}"></td>
+					<td th:text="${item.inventoryId}"></td>
+					<td th:text="${item.w}"></td>
+					<td th:text="${item.h}"></td>
+					<td th:text="${item.x}"></td>
+					<td th:text="${item.y}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</th:block>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
@@ -7,17 +8,22 @@
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
 <!-- Bootstrap CSS -->
 <!-- Pico.css -->
-<link th:rel="stylesheet"
+<link
+	th:rel="stylesheet"
 	th:href="@{/webjars/picocss__pico/css/pico.min.css}" />
 <!-- HTMX -->
-<script type="text/javascript"
+<script
+	type="text/javascript"
 	th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
-<script type="text/javascript"
-	th:src="@{/webjars/htmx.org/dist/ext/loading-states.js}" defer></script>
+<script
+	type="text/javascript"
+	th:src="@{/webjars/htmx.org/dist/ext/loading-states.js}"
+	defer></script>
 <!-- App custom CSS -->
-<link th:rel="stylesheet" th:href="@{/css/style.css}" />
+<link
+	th:rel="stylesheet"
+	th:href="@{/css/style.css}" />
 </head>
-
 <body class="container">
 	<nav th:replace="fragments/nav :: nav">Nav content.</nav>
 
@@ -31,11 +37,15 @@
 			<table role="grid">
 				<tbody>
 					<tr>
-						<th th:text="accountName" scope="row"></th>
+						<th
+							th:text="accountName"
+							scope="row"></th>
 						<td th:text="${session.accountName}"></td>
 					</tr>
 					<tr>
-						<th th:text="poeSessionId" scope="row"></th>
+						<th
+							th:text="poeSessionId"
+							scope="row"></th>
 						<td th:text="${session.poeSessionId}"></td>
 					</tr>
 				</tbody>
@@ -47,7 +57,6 @@
 		</section>
 	</main>
 
-	<footer th:replace="fragments/footer :: footer">Footer
-		content.</footer>
+	<footer th:replace="fragments/footer :: footer">Footer content.</footer>
 </body>
 </html>

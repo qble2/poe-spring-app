@@ -33,7 +33,7 @@ public class ThymeleafStashTabController {
     List<StashTabDto> stashTabs = this.stashTabService.getStashTabs(leagueId);
     model.addAttribute("stashTabs", stashTabs);
 
-    return "fragments/stash-tab-list";
+    return "fragments/stash-tab-list :: stash-tab-list";
   }
 
   @PostMapping(headers = "HX-Request")
@@ -47,7 +47,7 @@ public class ThymeleafStashTabController {
         this.stashTabService.reloadStashTabs(accountName, poeSessionId, leagueId);
     model.addAttribute("stashTabs", stashTabs);
 
-    return "fragments/stash-tab-list";
+    return "fragments/stash-tab-list :: stash-tab-list";
   }
 
   @GetMapping(path = "/{stashTabId}")
@@ -71,7 +71,7 @@ public class ThymeleafStashTabController {
         this.stashTabService.reloadStashTabItems(accountName, poeSessionId, stashTabId);
     model.addAttribute("items", items);
 
-    return "fragments/item-list";
+    return "fragments/item-list :: item-list";
   }
 
 }

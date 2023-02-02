@@ -36,7 +36,7 @@ public class ThymeleafCharacterController {
     List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
-    return "fragments/character-list";
+    return "fragments/character-list :: character-list";
   }
 
   @PostMapping(headers = "HX-Request")
@@ -48,7 +48,7 @@ public class ThymeleafCharacterController {
     List<CharacterDto> characters = this.characterService.reloadCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
-    return "fragments/character-list";
+    return "fragments/character-list :: character-list";
   }
 
   @GetMapping(path = "/{characterName}")
@@ -69,7 +69,7 @@ public class ThymeleafCharacterController {
     List<ItemDto> items = this.characterService.reloadCharacterItems(accountName, characterName);
     model.addAttribute("items", items);
 
-    return "fragments/item-list";
+    return "fragments/item-list :: item-list";
   }
 
 }
