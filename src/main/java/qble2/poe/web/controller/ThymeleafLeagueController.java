@@ -43,20 +43,20 @@ public class ThymeleafLeagueController {
     return "fragments/league-list";
   }
 
-  @GetMapping(path = "/select", headers = "HX-Request")
+  @GetMapping(path = "/dropdown-menu-options", headers = "HX-Request")
   public String getLeagueSelectOptionsFragment(Model model, HttpSession session) {
     List<LeagueDto> leagues = this.leagueService.getLeagues();
     model.addAttribute("leagues", leagues);
 
-    return "fragments/league-select-options";
+    return "fragments/league :: dropdown-menu-options";
   }
 
-  @PostMapping(path = "/select", headers = "HX-Request")
+  @PostMapping(path = "/dropdown-menu-options", headers = "HX-Request")
   public String reloadLeagueSelectOptionsFragment(Model model, HttpSession session) {
     List<LeagueDto> leagues = this.leagueService.reloadLeagues();
     model.addAttribute("leagues", leagues);
 
-    return "fragments/league-select-options";
+    return "fragments/league :: dropdown-menu-options";
   }
 
   @GetMapping(path = "/{leagueId}")

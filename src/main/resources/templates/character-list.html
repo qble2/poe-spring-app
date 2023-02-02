@@ -20,30 +20,9 @@
 				<button>Reload page</button>
 			</form>
 		</div>
-		
-		<!-- Load leagues, and on selection change, reload characters -->
+
 		<div
-			class="flex-row"
-			hx-trigger="load"
-			hx-get="/leagues/select"
-			hx-target="#league-select"
-			hx-swap="innerHTML">
-			<select
-				id="league-select"
-				name="leagueId"
-				hx-trigger="change"
-				hx-get="/characters"
-				hx-target="#character-list"
-				hx-swap="innerHTML">
-			</select>
-			<button
-				hx-ext="loading-states"
-				data-loading-aria-busy
-				hx-trigger="click"
-				hx-post="/leagues/select"
-				hx-target="#league-select"
-				hx-swap="innerHTML">Reload leagues from GGG (HTMX)</button>
-		</div>
+			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/characters', targetElementToUpdate='#character-list')"></div>
 
 		<button
 			hx-ext="loading-states"

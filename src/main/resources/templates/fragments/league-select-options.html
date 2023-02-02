@@ -1,9 +1,0 @@
-<option
-	value=""
-	disabled
-	selected>Select league</option>
-<option
-	th:if="${not #lists.isEmpty(leagues)}"
-	th:each="league: ${leagues}"
-	th:value="${league.id}"
-	th:text="${league.id}"></option>

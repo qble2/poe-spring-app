@@ -21,30 +21,8 @@
 			</form>
 		</div>
 
-		<!-- load polling leagues -->
 		<div
-			class="flex-row"
-			hx-trigger="load"
-			hx-get="/leagues/select"
-			hx-target="#league-select"
-			hx-swap="innerHTML">
-			<!--  on league selection change, reload stash tabs -->
-			<select
-				id="league-select"
-				name="leagueId"
-				hx-trigger="change"
-				hx-get="/stash-tabs"
-				hx-target="#stash-tab-list"
-				hx-swap="innerHTML">
-			</select>
-			<button
-				hx-ext="loading-states"
-				data-loading-aria-busy
-				hx-trigger="click"
-				hx-post="/leagues/select"
-				hx-target="#league-select"
-				hx-swap="innerHTML">Reload leagues from GGG (HTMX)</button>
-		</div>
+			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/stash-tabs', targetElementToUpdate='#stash-tab-list')"></div>
 
 		<button
 			hx-ext="loading-states"
@@ -56,7 +34,8 @@
 			hx-swap="innerHTML">Reload stash tabs from GGG (HTMX)</button>
 
 		<!--  load polling stash tabs -->
-		<div id="stash-tab-list"
+		<div
+			id="stash-tab-list"
 			hx-trigger="load"
 			hx-get="/stash-tabs"
 			hx-swap="innerHTML"></div>
