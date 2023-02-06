@@ -15,7 +15,7 @@ public interface LeagueMapper {
 
   @Named(value = "toLeagueDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toLeagueDtoFromGgg")
-  List<LeagueDto> toDtoListFromGggList(List<LeagueGgg> listOfLeagueGggSource);
+  List<LeagueDto> toDtoListFromGggList(List<LeagueGgg> sourceList);
 
   @Named(value = "toLeagueDtoFromGgg")
   @BeanMapping(ignoreByDefault = true)
@@ -24,7 +24,7 @@ public interface LeagueMapper {
   @Mapping(target = "url", source = "url")
   @Mapping(target = "startAt", source = "startAt")
   @Mapping(target = "endAt", source = "endAt")
-  LeagueDto toDtoFromGgg(LeagueGgg leagueGggSource);
+  LeagueDto toDtoFromGgg(LeagueGgg source);
 
   /////
   /////
@@ -32,7 +32,7 @@ public interface LeagueMapper {
 
   @Named(value = "toLeagueDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toLeagueDtoFromEntity")
-  List<LeagueDto> toDtoListFromEntityList(List<League> listOfLeagueSource);
+  List<LeagueDto> toDtoListFromEntityList(List<League> sourceList);
 
   @Named(value = "toLeagueDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -41,7 +41,7 @@ public interface LeagueMapper {
   @Mapping(target = "url", source = "url")
   @Mapping(target = "startAt", source = "startAt")
   @Mapping(target = "endAt", source = "endAt")
-  LeagueDto toDtoFromEntity(League leagueSource);
+  LeagueDto toDtoFromEntity(League source);
 
   /////
   /////
@@ -49,7 +49,7 @@ public interface LeagueMapper {
 
   @Named(value = "toLeagueEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toLeagueEntityFromDto")
-  List<League> toEntityListFromDtoList(List<LeagueDto> listOfLeagueDtoSource);
+  List<League> toEntityListFromDtoList(List<LeagueDto> sourceList);
 
   @Named(value = "toLeagueEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -58,6 +58,6 @@ public interface LeagueMapper {
   @Mapping(target = "url", source = "url")
   @Mapping(target = "startAt", source = "startAt")
   @Mapping(target = "endAt", source = "endAt")
-  League toEntityFromDto(LeagueDto leagueDtoSource);
+  League toEntityFromDto(LeagueDto source);
 
 }

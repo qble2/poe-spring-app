@@ -17,7 +17,7 @@ public interface TradeMapper {
 
   @Named(value = "TradeSearchPayloadGggFromDto")
   @BeanMapping(ignoreByDefault = true)
-  TradeSearchPayloadGgg toGggFromDto(TradeSearchPayloadDto tradeSearchPayloadGggSource);
+  TradeSearchPayloadGgg toGggFromDto(TradeSearchPayloadDto source);
 
   @AfterMapping
   default void after(TradeSearchPayloadDto source, @MappingTarget TradeSearchPayloadGgg target) {

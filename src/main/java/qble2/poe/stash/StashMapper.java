@@ -14,8 +14,7 @@ public interface StashMapper {
 
   @Named(value = "toStashTabDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toStashTabDtoFromGgg")
-  List<StashTabDto> toDtoListFromGggList(List<StashTabGgg> listOfStashGggSource,
-      @Context String leagueId);
+  List<StashTabDto> toDtoListFromGggList(List<StashTabGgg> sourceList, @Context String leagueId);
 
   @Named(value = "toStashTabDtoFromGgg")
   @BeanMapping(ignoreByDefault = true)
@@ -24,7 +23,7 @@ public interface StashMapper {
   @Mapping(target = "name", source = "n")
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", expression = "java(leagueId)")
-  StashTabDto toDtoFromGgg(StashTabGgg stashGggSource, @Context String leagueId);
+  StashTabDto toDtoFromGgg(StashTabGgg source, @Context String leagueId);
 
   /////
   /////
@@ -32,7 +31,7 @@ public interface StashMapper {
 
   @Named(value = "toStashTabEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toStashTabEntityFromDto")
-  List<StashTab> toEntityListFromDtoList(List<StashTabDto> listOfStashDtoSource);
+  List<StashTab> toEntityListFromDtoList(List<StashTabDto> sourceList);
 
   @Named(value = "toStashTabEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -42,7 +41,7 @@ public interface StashMapper {
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemEntityListFromDtoList")
-  StashTab toEntityFromDto(StashTabDto stashDtoSource);
+  StashTab toEntityFromDto(StashTabDto source);
 
   /////
   /////
@@ -50,7 +49,7 @@ public interface StashMapper {
 
   @Named(value = "toStashTabDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toStashTabDtoFromEntity")
-  List<StashTabDto> toDtoListFromEntityList(List<StashTab> listOfStashSource);
+  List<StashTabDto> toDtoListFromEntityList(List<StashTab> sourceList);
 
   @Named(value = "toStashTabDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -59,7 +58,7 @@ public interface StashMapper {
   @Mapping(target = "name", source = "name")
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", source = "leagueId")
-  StashTabDto toDtoFromEntity(StashTab stashEntitySource);
+  StashTabDto toDtoFromEntity(StashTab source);
 
   /////
   /////
@@ -70,7 +69,7 @@ public interface StashMapper {
    */
   @Named(value = "toDetailedStashTabDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toDetailedStashTabDtoFromEntity")
-  List<StashTabDto> toDetailedDtoListFromEntityList(List<StashTab> listOfStashSource);
+  List<StashTabDto> toDetailedDtoListFromEntityList(List<StashTab> sourceList);
 
   @Named(value = "toDetailedStashTabDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -80,7 +79,7 @@ public interface StashMapper {
   @Mapping(target = "type", source = "type")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
-  StashTabDto toDetailedDtoFromEntity(StashTab stashEntitySource);
+  StashTabDto toDetailedDtoFromEntity(StashTab source);
 
   /////
   /////

@@ -12,12 +12,12 @@ public interface EnchantMapper {
 
   @Named("toEnchantDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toEnchantDtoFromEntity")
-  List<EnchantDto> toDtoListFromEntityList(List<Enchant> listOfEnchantSource);
+  List<EnchantDto> toDtoListFromEntityList(List<Enchant> sourceList);
 
   @Named("toEnchantDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "id", source = "id")
   @Mapping(target = "tradeIds", source = "tradeIds")
-  EnchantDto toDtoFromEntity(Enchant enchantEntitySource);
+  EnchantDto toDtoFromEntity(Enchant source);
 
 }

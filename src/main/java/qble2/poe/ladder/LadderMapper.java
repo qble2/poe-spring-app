@@ -30,11 +30,11 @@ public interface LadderMapper {
   @Mapping(target = "entries", source = "entries",
       qualifiedByName = "toLadderEntryDtoListFromGggList")
   @Mapping(target = "leagueId", expression = "java(leagueId)")
-  LadderDto toDtoFromGgg(LadderGgg ladderGggSource, @Context String leagueId);
+  LadderDto toDtoFromGgg(LadderGgg source, @Context String leagueId);
 
   @Named(value = "toLadderEntryDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toLadderEntryDtoFromGgg")
-  List<LadderEntryDto> toDtoListFromGggList(List<LadderEntryGgg> listOfLadderEntryGggSource,
+  List<LadderEntryDto> toDtoListFromGggList(List<LadderEntryGgg> sourceList,
       @Context String leagueId);
 
   @Named(value = "toLadderEntryDtoFromGgg")
@@ -47,7 +47,7 @@ public interface LadderMapper {
   @Mapping(target = "character.leagueId", expression = "java(leagueId)")
   @Mapping(target = "lastUpdateAt", expression = "java(java.time.LocalDateTime.now())")
   @Mapping(target = "leagueId", expression = "java(leagueId)")
-  LadderEntryDto toDtoFromGgg(LadderEntryGgg ladderEntryGggSource, @Context String leagueId);
+  LadderEntryDto toDtoFromGgg(LadderEntryGgg source, @Context String leagueId);
 
   /////
   /////
@@ -55,7 +55,7 @@ public interface LadderMapper {
 
   @Named(value = "toLadderEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toLadderEntryEntityFromDto")
-  List<LadderEntry> toListFromDtoList(List<LadderEntryDto> listOfLadderEntryDtoSource);
+  List<LadderEntry> toListFromDtoList(List<LadderEntryDto> sourceList);
 
   @Named(value = "toLadderEntryEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -64,7 +64,7 @@ public interface LadderMapper {
   @Mapping(target = "public", source = "public")
   @Mapping(target = "character", source = "character", qualifiedByName = "toCharacterEntityFromDto")
   @Mapping(target = "lastUpdateAt", source = "lastUpdateAt")
-  LadderEntry toEntityFromDto(LadderEntryDto ladderEntryDtoSource);
+  LadderEntry toEntityFromDto(LadderEntryDto source);
 
   /////
   /////
@@ -72,7 +72,7 @@ public interface LadderMapper {
 
   @Named(value = "toLadderDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toLadderDtoFromEntity")
-  List<LadderEntryDto> toDtoListFromEntityList(List<LadderEntry> listOfLadderEntrySource);
+  List<LadderEntryDto> toDtoListFromEntityList(List<LadderEntry> sourceList);
 
   @Named(value = "toLadderDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -81,7 +81,7 @@ public interface LadderMapper {
   @Mapping(target = "public", source = "public")
   @Mapping(target = "character", source = "character", qualifiedByName = "toCharacterDtoFromEntity")
   @Mapping(target = "lastUpdateAt", source = "lastUpdateAt")
-  LadderEntryDto toDtoFromEntity(LadderEntry ladderEntrySource);
+  LadderEntryDto toDtoFromEntity(LadderEntry source);
 
   /////
   /////

@@ -17,7 +17,7 @@ public interface CharacterMapper {
 
   @Named(value = "toCharacterDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toCharacterDtoFromGgg")
-  List<CharacterDto> toDtoListFromGggList(List<CharacterGgg> listOfCharacterGggSource,
+  List<CharacterDto> toDtoListFromGggList(List<CharacterGgg> sourceList,
       @Context String accountName);
 
   @Named(value = "toCharacterDtoFromGgg")
@@ -30,7 +30,7 @@ public interface CharacterMapper {
   @Mapping(target = "characterClass", source = "characterClass")
   @Mapping(target = "level", source = "level")
   @Mapping(target = "experience", source = "experience")
-  CharacterDto toDtoFromGgg(CharacterGgg characterGggSource, @Context String accountName);
+  CharacterDto toDtoFromGgg(CharacterGgg source, @Context String accountName);
 
   /////
   /////
@@ -38,7 +38,7 @@ public interface CharacterMapper {
 
   @Named(value = "toCharacterEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toCharacterEntityFromDto")
-  List<Character> toEntityListFromDtoList(List<CharacterDto> listOfCharacterDtoSource);
+  List<Character> toEntityListFromDtoList(List<CharacterDto> sourceList);
 
   @Named(value = "toCharacterEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -50,7 +50,7 @@ public interface CharacterMapper {
   @Mapping(target = "characterClass", source = "characterClass")
   @Mapping(target = "level", source = "level")
   @Mapping(target = "experience", source = "experience")
-  Character toEntityFromDto(CharacterDto characterDtoSource);
+  Character toEntityFromDto(CharacterDto source);
 
   /////
   /////
@@ -58,7 +58,7 @@ public interface CharacterMapper {
 
   @Named(value = "toCharacterDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toCharacterDtoFromEntity")
-  List<CharacterDto> toDtoListFromEntityList(List<Character> listOfCharacterSource);
+  List<CharacterDto> toDtoListFromEntityList(List<Character> sourceList);
 
   @Named(value = "toCharacterDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -70,7 +70,7 @@ public interface CharacterMapper {
   @Mapping(target = "characterClass", source = "characterClass")
   @Mapping(target = "level", source = "level")
   @Mapping(target = "experience", source = "experience")
-  CharacterDto toDtoFromEntity(Character characterSource);
+  CharacterDto toDtoFromEntity(Character source);
 
   /////
   /////
@@ -78,7 +78,7 @@ public interface CharacterMapper {
 
   @Named(value = "toDetailedCharacterDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toDetailedCharacterDtoFromEntity")
-  List<CharacterDto> toDetailedDtoListFromEntityList(List<Character> listOfCharacterSource);
+  List<CharacterDto> toDetailedDtoListFromEntityList(List<Character> sourceList);
 
   /**
    * Map character with items.
@@ -94,6 +94,6 @@ public interface CharacterMapper {
   @Mapping(target = "level", source = "level")
   @Mapping(target = "experience", source = "experience")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
-  CharacterDto toDetailedDtoFromEntity(Character characterSource);
+  CharacterDto toDetailedDtoFromEntity(Character source);
 
 }

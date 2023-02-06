@@ -14,7 +14,7 @@ public interface ItemMapper {
 
   @Named("toItemDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toItemDtoFromGgg")
-  List<ItemDto> toDtoListFromGggList(List<ItemGgg> listOfItemGggSource);
+  List<ItemDto> toDtoListFromGggList(List<ItemGgg> sourceList);
 
   @Named("toItemDtoFromGgg")
   @BeanMapping(ignoreByDefault = true)
@@ -43,7 +43,7 @@ public interface ItemMapper {
   @Mapping(target = "fracturedMods", source = "fracturedMods")
   @Mapping(target = "utilityMods", source = "utilityMods")
   @Mapping(target = "flavourText", source = "flavourText")
-  ItemDto toDtoFromGgg(ItemGgg itemGggSource);
+  ItemDto toDtoFromGgg(ItemGgg source);
 
   /////
   /////
@@ -51,7 +51,7 @@ public interface ItemMapper {
 
   @Named(value = "toItemEntityListFromDtoList")
   @IterableMapping(qualifiedByName = "toItemEntityFromDto")
-  List<Item> toEntityListFromDtoList(List<ItemDto> listOfItemDtoSource);
+  List<Item> toEntityListFromDtoList(List<ItemDto> sourceList);
 
   @Named(value = "toItemEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
@@ -80,7 +80,7 @@ public interface ItemMapper {
   @Mapping(target = "fracturedMods", source = "fracturedMods")
   @Mapping(target = "utilityMods", source = "utilityMods")
   @Mapping(target = "flavourText", source = "flavourText")
-  Item toEntityFromDto(ItemDto itemDtoSource);
+  Item toEntityFromDto(ItemDto source);
 
   /////
   /////
@@ -88,7 +88,7 @@ public interface ItemMapper {
 
   @Named(value = "toItemDtoListFromEntityList")
   @IterableMapping(qualifiedByName = "toItemDtoFromEntity")
-  List<ItemDto> toDtoListFromEntityList(List<Item> listOfItemSource);
+  List<ItemDto> toDtoListFromEntityList(List<Item> sourceList);
 
   @Named(value = "toItemDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
@@ -117,6 +117,6 @@ public interface ItemMapper {
   @Mapping(target = "fracturedMods", source = "fracturedMods")
   @Mapping(target = "utilityMods", source = "utilityMods")
   @Mapping(target = "flavourText", source = "flavourText")
-  ItemDto toDtoFromEntity(Item itemSource);
+  ItemDto toDtoFromEntity(Item source);
 
 }
