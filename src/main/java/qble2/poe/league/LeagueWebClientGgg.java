@@ -34,13 +34,14 @@ public class LeagueWebClientGgg {
       WebClient.builder().filters(exchangeFilterFunctions -> {
         exchangeFilterFunctions.add(RequestLogUtils.logRequest());
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).baseUrl(GGG_API_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_API_BASE_URL)
+          .exchangeStrategies(exchangeStrategies).build();
 
   // https://api.pathofexile.com/leagues
   public List<LeagueDto> retrieveLeagues() {
     log.info("retrieving leagues from GGG...");
-    Mono<LeagueGgg[]> mono = webClient.get().uri(GET_LEAGUES_URI)
-        .header("User-Agent", BROWSER_USER_AGENT).retrieve().bodyToMono(LeagueGgg[].class);
+    Mono<LeagueGgg[]> mono =
+        webClient.get().uri(GET_LEAGUES_URI).retrieve().bodyToMono(LeagueGgg[].class);
 
     List<LeagueGgg> listOfLeagueGgg = List.of(mono.block());
     log.info("leagues have been retrieved from GGG.");
@@ -52,8 +53,8 @@ public class LeagueWebClientGgg {
   // https://api.pathofexile.com/leagues/Sanctum
   public LeagueDto retrieveLeague(String leagueId) {
     log.info("retrieving league (id: {}) from GGG...", leagueId);
-    Mono<LeagueGgg> mono = webClient.get().uri(GET_LEAGUES_URI + "/" + leagueId)
-        .header("User-Agent", BROWSER_USER_AGENT).retrieve().bodyToMono(LeagueGgg.class);
+    Mono<LeagueGgg> mono = webClient.get().uri(GET_LEAGUES_URI + "/" + leagueId).retrieve()
+        .bodyToMono(LeagueGgg.class);
 
     LeagueGgg leagueGgg = mono.block();
     log.info("league ({}) has been retrieved from GGG.", leagueId);

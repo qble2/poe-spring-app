@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.exception.TooManyRequestsException;
+import qble2.poe.ladder.ggg.LadderGgg;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -37,7 +38,8 @@ public class LadderWebClientGgg {
       WebClient.builder().filters(exchangeFilterFunctions -> {
         exchangeFilterFunctions.add(RequestLogUtils.logRequest());
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+          .exchangeStrategies(exchangeStrategies).build();
 
   // https://www.pathofexile.com/api/ladders?offset=0&limit=20&id=Sanctum&type=league&realm=pc
   // offset 0 = rank 1
@@ -51,7 +53,7 @@ public class LadderWebClientGgg {
         .uri(uriBuilder -> uriBuilder.path(GET_LADDER_URI).queryParam("type", "league")
             .queryParam("realm", "pc").queryParam("id", leagueId).queryParam("offset", start)
             .queryParam("limit", limit).build())
-        .header("User-Agent", BROWSER_USER_AGENT).retrieve()
+        .retrieve()
         .onStatus(status -> status.value() == HttpStatus.TOO_MANY_REQUESTS.value(), response -> {
           int retryAfter = NumberUtils.parseNumber(response.headers().header("Retry-After").get(0),
               Integer.class);

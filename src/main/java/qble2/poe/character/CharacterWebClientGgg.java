@@ -40,7 +40,8 @@ public class CharacterWebClientGgg {
       WebClient.builder().filters(exchangeFilterFunctions -> {
         exchangeFilterFunctions.add(RequestLogUtils.logRequest());
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+          .exchangeStrategies(exchangeStrategies).build();
 
   // https://www.pathofexile.com/character-window/get-characters
   public List<CharacterDto> retrieveAccountCharacters(String accountName) {
@@ -48,7 +49,6 @@ public class CharacterWebClientGgg {
     Mono<CharacterGgg[]> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_CHARACTERS_URI)
             .queryParam("accountName", accountName).queryParam("realm", "pc").build())
-        .header("User-Agent", BROWSER_USER_AGENT)
         // .cookie("POESESSID", poeSessionId)
         .retrieve()
         .onStatus(status -> status.value() == HttpStatus.TOO_MANY_REQUESTS.value(), response -> {
@@ -72,7 +72,6 @@ public class CharacterWebClientGgg {
         .uri(uriBuilder -> uriBuilder.path(GET_CHARACTER_ITEMS_URI)
             .queryParam("accountName", accountName).queryParam("realm", "pc")
             .queryParam("character", characterName).build())
-        .header("User-Agent", BROWSER_USER_AGENT)
         // .cookie("POESESSID", poeSessionId)
         .retrieve()
         .onStatus(status -> status.value() == HttpStatus.TOO_MANY_REQUESTS.value(), response -> {

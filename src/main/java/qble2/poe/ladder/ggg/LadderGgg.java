@@ -1,4 +1,4 @@
-package qble2.poe.ladder;
+package qble2.poe.ladder.ggg;
 
 import java.util.ArrayList;
 import java.util.Date;

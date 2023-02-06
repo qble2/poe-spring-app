@@ -39,7 +39,8 @@ public class TradeWebClientGgg {
       WebClient.builder().filters(exchangeFilterFunctions -> {
         exchangeFilterFunctions.add(RequestLogUtils.logRequest());
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+          .exchangeStrategies(exchangeStrategies).build();
 
   // TODO BKE handle 400 Bad Request (Invalid query/sort/filter/...)
   // https://www.pathofexile.com/api/trade/search/Sanctum
@@ -51,9 +52,9 @@ public class TradeWebClientGgg {
     log.info("Sending trade search request with payload: \n {}", payloadJsonNode.toPrettyString());
     Mono<TradeSearchResponseGgg> mono =
         webClient.post().uri(TRADE_SEARCH_URI + "/" + tradeSearchPayloadDto.getLeagueId())
-            .header("User-Agent", BROWSER_USER_AGENT).contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(payloadJsonNode))
-            .retrieve().bodyToMono(TradeSearchResponseGgg.class);
+            .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+            .body(BodyInserters.fromValue(payloadJsonNode)).retrieve()
+            .bodyToMono(TradeSearchResponseGgg.class);
 
     return mono.block();
   }

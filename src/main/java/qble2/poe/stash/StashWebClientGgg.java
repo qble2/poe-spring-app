@@ -41,7 +41,8 @@ public class StashWebClientGgg {
       WebClient.builder().filters(exchangeFilterFunctions -> {
         exchangeFilterFunctions.add(RequestLogUtils.logRequest());
         exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).exchangeStrategies(exchangeStrategies)
+          .baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
   // GGG does not provide a dedicated endpoint to retrieve stash tab headers alone
   // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
@@ -84,7 +85,7 @@ public class StashWebClientGgg {
             .queryParam("accountName", accountName).queryParam("realm", "pc")
             .queryParam("league", leagueId).queryParam("tabIndex", tabIndex)
             .queryParam("tabs", BooleanUtils.toInteger(isRetrieveTabHeaders)).build())
-        .header("User-Agent", BROWSER_USER_AGENT).cookie("POESESSID", poeSessionId).retrieve()
+        .cookie("POESESSID", poeSessionId).retrieve()
         .onStatus(status -> status.value() == HttpStatus.TOO_MANY_REQUESTS.value(), response -> {
           int retryAfter = NumberUtils.parseNumber(response.headers().header("Retry-After").get(0),
               Integer.class);

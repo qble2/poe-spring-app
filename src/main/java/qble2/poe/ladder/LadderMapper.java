@@ -12,6 +12,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.web.util.UriComponentsBuilder;
 import qble2.poe.character.CharacterMapper;
+import qble2.poe.ladder.ggg.LadderEntryGgg;
+import qble2.poe.ladder.ggg.LadderGgg;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true),
