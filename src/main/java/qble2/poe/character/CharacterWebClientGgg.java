@@ -59,7 +59,8 @@ public class CharacterWebClientGgg {
         }).bodyToMono(CharacterGgg[].class);
 
     List<CharacterGgg> listOfCharacterGgg = List.of(mono.block());
-    log.info("characters (accountName: {}) have been retrieved from GGG.", accountName);
+    log.info("{}x characters (accountName: {}) have been retrieved from GGG.",
+        listOfCharacterGgg.size(), accountName);
 
     return this.characterMapper.toDtoListFromGggList(listOfCharacterGgg, accountName);
   }

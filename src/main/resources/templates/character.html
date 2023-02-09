@@ -70,9 +70,9 @@
 				hx-ext="loading-states"
 				data-loading-aria-busy
 				hx-trigger="click"
-				th:attr="hx-post=|/characters/${character.name}/items|"
+				th:attr="hx-post=|/characters/${character.name}/reload-inventory|"
 				hx-target="#character-items"
-				hx-swap="innerHTML">Reload items from GGG (HTMX)</button>
+				hx-swap="innerHTML">Reload items</button>
 
 			<!-- load polling character items -->
 			<div

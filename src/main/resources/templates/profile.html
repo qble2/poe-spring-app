@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Profile</title>
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+		<div
+			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/characters/get-characters-list', targetElementToUpdate='#characters-list')"></div>
+
+		<div
+			style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
+
+			<div th:replace="fragments/characters-frags :: characters-list"></div>
+
+			<div
+				th:replace="fragments/characters-frags :: character-inventory"></div>
+		</div>
+	</section>
+</body>
+</html>

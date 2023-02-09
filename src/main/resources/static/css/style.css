@@ -41,7 +41,11 @@
   display: none;
 }
 /** **/
-    
+
+a {
+	cursor: pointer;	
+}
+
 .font-larger {
 	font-size: larger;
 }
@@ -61,6 +65,237 @@
 	gap: 10px;
 }
 
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .align-center {
 	text-align: center;
 }
+
+.background-color-selected {
+	background-color: var(--primary-focus);
+}
+
+/** 'slot-' + item.inventoryId */
+.character-inventory-slot-Weapon {
+	position: absolute;
+    left: 65.85px;
+    top: 111.21px;
+}
+
+.character-inventory-slot-Offhand {
+	position: absolute;
+	left: 438.27px;
+    top: 111.21px;
+}
+
+.character-inventory-slot-Helm {
+	position: absolute;
+	left: 252.06px;
+	top: 99.65px;
+}
+
+.character-inventory-slot-Gloves {
+	position: absolute;
+	left: 135.22px;
+    top: 312.63px;
+}
+
+.character-inventory-slot-Boots {
+	position: absolute;
+    left: 368.89px;
+    top: 312.63px;
+}
+
+.character-inventory-slot-BodyArmour {
+	position: absolute;
+	left: 252.06px;
+    top: 206.14px;
+}
+
+.character-inventory-slot-Amulet {
+	position: absolute;
+    left: 368.89px;
+    top: 194.58px;
+}
+
+.character-inventory-slot-Ring {
+	position: absolute;
+	left: 182.69px;
+    top: 253.6px;
+}
+
+.character-inventory-slot-Ring2 {
+	position: absolute;
+	left: 368.89px;
+    top: 253.6px;
+}
+
+.character-inventory-slot-Belt {
+	position: absolute;
+	left: 252.06px;
+    top: 360.09px;
+}
+
+/** 'slot-' + item.inventoryId + item.x */
+.character-inventory-slot-Flask0 {
+	position: absolute;
+    left: 186.34px;
+    top: 418.51px;
+}
+
+.character-inventory-slot-Flask1 {
+	position: absolute;
+    left: 233.805px;
+    top: 418.51px;
+}
+
+.character-inventory-slot-Flask2 {
+	position: absolute;
+	left: 281.269px;
+    top: 418.51px;
+}
+
+.character-inventory-slot-Flask3 {
+	position: absolute;
+	left: 328.734px;
+    top: 418.51px;
+}
+
+.character-inventory-slot-Flask4 {
+	position: absolute;
+    left: 376.198px;
+    top: 418.51px;
+}
+
+/** 'width-' + item.w */
+.character-inventory-slot-width-1 {
+	width: 47.4645px;
+}
+
+.character-inventory-slot-width-2 {
+	width: calc(2 * 47.4645px);
+}
+
+/** 'height-' + item.h */
+.character-inventory-slot-height-1 {
+	height: 47.4645px;
+}
+
+.character-inventory-slot-height-2 {
+	height: calc(2 * 47.4645px);
+}
+
+.character-inventory-slot-height-3 {
+	height: calc(3 * 47.4645px);
+}
+
+.character-inventory-slot-height-4 {
+	height: calc(4 * 47.4645px);
+}
+
+/** 'icon-' + character.characterClass */
+/* 	background: url('https://web.poecdn.com/protected/image/gen/inventory-sprite.png?v=1675225309458&key=utM9ksjtnos9jfBiHEVUNA'); */
+.character-class-icon-Elementalist {
+	background: url('/image/inventory-sprite.png');
+    background-position: -240px -500px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Occultist {
+	background: url('/image/inventory-sprite.png');
+    background-position: -658px -240px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Ascendant {
+	background: url('/image/inventory-sprite.png');
+    background-position: -220px -180px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Assassin {
+	background: url('/image/inventory-sprite.png');
+    background-position: -330px -260px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Chieftain {
+	background: url('/image/inventory-sprite.png');
+    background-position: 0px -500px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Inquisitor {
+	background: url('/image/inventory-sprite.png');
+    background-position: -560px -500px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Guardian {
+	background: url('/image/inventory-sprite.png');
+    background-position: -400px -500px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Slayer {
+	background: url('/image/inventory-sprite.png');
+    background-position: -240px -580px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Necromancer {
+	background: url('/image/inventory-sprite.png');
+   	background-position: -658px -160px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Hierophant {
+	background: url('/image/inventory-sprite.png');
+   	background-position: -480px -500px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Champion {
+	background: url('/image/inventory-sprite.png');
+   	background-position: -440px -420px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Pathfinder {
+	background: url('/image/inventory-sprite.png');
+   	background-position: -658px -320px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Saboteur {
+	background: url('/image/inventory-sprite.png');
+   	background-position: 0px -580px;
+	width: 80px;
+    height: 80px;
+}
+
+.character-class-icon-Berserker {
+	background: url('/image/inventory-sprite.png');
+   	background-position: -330px -340px;
+	width: 80px;
+    height: 80px;
+}
+
+
+

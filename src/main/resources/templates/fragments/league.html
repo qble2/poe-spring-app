@@ -33,7 +33,7 @@
 			name="leagueId"
 			hx-trigger="change"
 			th:attr="hx-get=|${callUrlOnLeagueChange}| , hx-target=|${targetElementToUpdate}|"
-			hx-swap="innerHTML">
+			hx-swap="outerrHTML">
 		</select>
 
 		<button
@@ -42,7 +42,13 @@
 			hx-trigger="click"
 			hx-post="/leagues/dropdown-menu-options"
 			hx-target="#dropdown-menu-select"
-			hx-swap="innerHTML">Reload leagues from GGG (HTMX)</button>
+			hx-swap="innerHTML">Reload leagues</button>
+		<!-- 		<form -->
+<!-- 			action="#" -->
+<!-- 			th:action="@{/leagues}" -->
+<!-- 			th:method="POST"> -->
+<!-- 			<button>Reload leagues</button> -->
+<!-- 		</form> -->
 	</div>
 </body>
 </html>
