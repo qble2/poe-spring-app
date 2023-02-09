@@ -6,7 +6,8 @@
 <head>
 </head>
 <body>
-	<th:block th:fragment="item-list">
+	<!-- FRAGMENT :: items-list -->
+	<th:block th:fragment="items-list">
 		<div th:if="${#lists.isEmpty(items)}">No item found.</div>
 		<table
 			th:if="${not #lists.isEmpty(items)}"

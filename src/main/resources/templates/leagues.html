@@ -10,30 +10,15 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row-space-between">
-			<h3>League list</h3>
-			<form
-				action="#"
-				th:action="@{/leagues}"
-				th:method="GET">
-				<button>Reload page</button>
-			</form>
-		</div>
-
 		<button
 			hx-ext="loading-states"
 			data-loading-aria-busy
 			hx-trigger="click"
-			hx-post="/leagues"
-			hx-target="#league-list"
+			hx-post="/leagues/reload-leagues-table"
+			hx-target="#leagues-table"
 			hx-swap="innerHTML">Reload leagues</button>
 
-		<!-- load polling leagues -->
-		<div
-			id="league-list"
-			hx-trigger="load"
-			hx-get="/leagues"
-			hx-swap="innerHTML"></div>
+		<div th:replace="fragments/leagues-frags :: leagues-table"></div>
 	</section>
 </body>
 </html>
