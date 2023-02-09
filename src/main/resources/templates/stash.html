@@ -5,22 +5,23 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
-<title>Profile</title>
+<title>Stash</title>
 </head>
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
 		<div
-			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/characters/get-characters-list', targetElementToUpdate='#characters-list')"></div>
+			th:replace="fragments/league :: dropdown-menu(callUrlOnLeagueChange='/stash-tabs/get-stash-tabs-list', targetElementToUpdate='#stash-tabs-list')"></div>
 
 		<div
 			style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
 
-			<div th:replace="fragments/profile-frags :: characters-list"></div>
+			<div th:replace="fragments/stash-frags :: stash-tabs-list"></div>
 
-			<div
-				th:replace="fragments/profile-frags :: character-inventory"></div>
+			<div th:replace="fragments/stash-frags :: stash-tab-items"></div>
+
 		</div>
+
 	</section>
 </body>
 </html>

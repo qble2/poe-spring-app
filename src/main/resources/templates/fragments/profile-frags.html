@@ -7,53 +7,8 @@
 <head>
 </head>
 <body>
-	<!-- FRAGMENT :: characters-list -->
-	<div
-		th:fragment="characters-list"
-		id="characters-list"
-		style="display: flex; flex-direction: column; width: 350px;">
-
-		<!-- 		<button -->
-		<!-- 			hx-ext="loading-states" -->
-		<!-- 			data-loading-aria-busy -->
-		<!-- 			hx-trigger="click" -->
-		<!-- 			hx-post="/characters/reload-characters-list" -->
-		<!-- 			hx-include="#dropdown-menu-select" -->
-		<!-- 			hx-target="#characters-list" -->
-		<!-- 			hx-swap="outerHTML">Reload characters</button> -->
-		<!-- reloading the full page to reset league & items sections -->
-		<form
-			hx-boost="true"
-			hx-ext="loading-states"
-			data-loading-aria-busy
-			data-loading-target="#reload-characters"
-			action="#"
-			th:action="@{/characters}"
-			th:method="POST">
-			<button id="reload-characters">Reload characters</button>
-		</form>
-
-		<div
-			th:each="character: ${characters}"
-			style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
-
-			<div th:class="|character-class-icon-${character.characterClass}|"></div>
-
-			<div style="display: flex; flex-direction: column;">
-				<a
-					th:text="${character.name}"
-					hx-trigger="click"
-					th:attr="hx-get=|/characters/${character.name}/get-inventory|"
-					hx-target="#character-inventory"
-					hx-swap="outerHTML"></a>
-				<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
-				<label th:text="|${character.leagueId} League|"></label>
-			</div>
-		</div>
-	</div>
-	
 	<!-- FRAGMENT :: characters-table -->
-	<th:block th:fragment="characters-table">
+	<th:block th:fragment="characters-table" id="characters-table">
 		<div th:if="${#lists.isEmpty(characters)}">No character found.</div>
 		<table
 			th:if="${not #lists.isEmpty(characters)}"
@@ -84,6 +39,52 @@
 			</tbody>
 		</table>
 	</th:block>
+
+	<!-- FRAGMENT :: characters-list -->
+	<div
+		th:fragment="characters-list"
+		id="characters-list"
+		style="display: flex; flex-direction: column; width: 350px;">
+
+		<!-- 		<button -->
+		<!-- 			hx-ext="loading-states" -->
+		<!-- 			data-loading-aria-busy -->
+		<!-- 			hx-trigger="click" -->
+		<!-- 			hx-post="/characters/reload-characters-list" -->
+		<!-- 			hx-include="#dropdown-menu-select" -->
+		<!-- 			hx-target="#characters-list" -->
+		<!-- 			hx-swap="outerHTML">Reload characters</button> -->
+		
+		<!-- reloading the full page to reset league & items sections -->
+		<form
+			hx-boost="true"
+			hx-ext="loading-states"
+			data-loading-aria-busy
+			data-loading-target="#reload-characters"
+			action="#"
+			th:action="@{/characters}"
+			th:method="POST">
+			<button id="reload-characters">Reload characters</button>
+		</form>
+
+		<div
+			th:each="character: ${characters}"
+			style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
+
+			<div th:class="|character-class-icon-${character.characterClass}|"></div>
+
+			<div style="display: flex; flex-direction: column;">
+				<a
+					th:text="${character.name}"
+					hx-trigger="click"
+					th:attr="hx-get=|/characters/${character.name}/get-inventory|"
+					hx-target="#character-inventory"
+					hx-swap="outerHTML"></a>
+				<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
+				<label th:text="|${character.leagueId} League|"></label>
+			</div>
+		</div>
+	</div>
 
 	<!-- FRAGMENT :: character-inventory -->
 	<div

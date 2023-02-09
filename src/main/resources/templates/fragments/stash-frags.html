@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+</head>
+<body>
+	<!-- FRAGMENT :: stash-tabs-table -->
+	<div
+		th:fragment="stash-tabs-table"
+		id="stash-tabs-table">
+		<div th:if="${#lists.isEmpty(stashTabs)}">No stash tab found.</div>
+		<table
+			th:if="${not #lists.isEmpty(stashTabs)}"
+			role="grid">
+			<thead>
+				<tr>
+					<th scope="col">index</th>
+					<th scope="col">name</th>
+					<th scope="col">type</th>
+					<th scope="col">leagueId</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="stashTab: ${stashTabs}">
+					<td th:text="${stashTab.index}"></td>
+					<td>
+						<a
+							th:text="${stashTab.name}"
+							th:href="|/stash-tabs/${stashTab.id}|"></a>
+					</td>
+					<td th:text="${stashTab.type}"></td>
+					<td th:text="${stashTab.leagueId}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- FRAGMENT :: stash-tabs-list -->
+	<div
+		th:fragment="stash-tabs-list"
+		id="stash-tabs-list"
+		style="display: flex; flex-direction: column; width: 350px;">
+
+		<!-- 		<button -->
+		<!-- 			hx-ext="loading-states" -->
+		<!-- 			data-loading-aria-busy -->
+		<!-- 			hx-trigger="click" -->
+		<!-- 			hx-post="/stash-tabs" -->
+		<!-- 			hx-include="#dropdown-menu-select" -->
+		<!-- 			hx-target="#stash-tabs-list" -->
+		<!-- 			hx-swap="outerHTML">Reload stash tabs</button> -->
+
+		<!-- reloading the full page to reset league & items sections -->
+		<form
+			hx-boost="true"
+			hx-ext="loading-states"
+			hx-include="#dropdown-menu-select"
+			data-loading-aria-busy
+			data-loading-target="#reload-stash-tabs"
+			action="#"
+			th:action="@{/stash-tabs}"
+			th:method="POST">
+			<button id="reload-stash-tabs">Reload stash tabs</button>
+		</form>
+
+		<div
+			th:each="stashTab: ${stashTabs}"
+			style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
+			<a
+				th:text="${stashTab.name}"
+				hx-trigger="click"
+				th:attr="hx-get=|/stash-tabs/${stashTab.id}/get-items|"
+				hx-target="#stash-tab-items"
+				hx-swap="outerHTML"></a>
+		</div>
+	</div>
+
+	<!-- FRAGMENT :: stash-tab-items -->
+	<div
+		th:fragment="stash-tab-items"
+		id="stash-tab-items"
+		style="width: 100%;">
+
+		<th:block th:if="${stashTabId != null}">
+			<button
+				hx-ext="loading-states"
+				data-loading-aria-busy
+				hx-trigger="click"
+				th:attr="hx-post=|/stash-tabs/${stashTabId}/reload-items|"
+				hx-target="#stash-tab-items"
+				hx-swap="outerHTML">Reload stash tab items</button>
+
+			<table
+				th:if="${not #lists.isEmpty(items)}"
+				role="grid">
+				<thead>
+					<tr>
+						<th
+							class="align-center"
+							scope="col">icon</th>
+						<th scope="col">name</th>
+						<th scope="col">baseType</th>
+						<th scope="col">ilvl</th>
+						<th scope="col">inventoryId</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item: ${items}">
+						<td class="align-center">
+							<img
+								alt="icon"
+								th:src="${item.icon}"
+								th:title="${item.name} + ' ' + ${item.baseType}">
+						</td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.baseType}"></td>
+						<td th:text="${item.ilvl}"></td>
+						<td th:text="${item.inventoryId}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</th:block>
+	</div>
+
+</body>
+</html>

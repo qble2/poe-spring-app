@@ -31,17 +31,18 @@ public class ThymeleafCharacterController {
   }
 
   @GetMapping
-  public String getCharacters(Model model, HttpSession session) {
+  public String getProfile(@RequestParam(name = "leagueId", required = false) String leagueId,
+      Model model, HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
 
-    List<CharacterDto> characters = this.characterService.getCharacters(accountName, null);
+    List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
     return "profile";
   }
 
   @PostMapping
-  public String reloadCharacters(@RequestParam(name = "leagueId", required = false) String leagueId,
+  public String reloadProfile(@RequestParam(name = "leagueId", required = false) String leagueId,
       Model model, HttpSession session) {
     String accountName = (String) session.getAttribute("accountName");
 
@@ -69,7 +70,7 @@ public class ThymeleafCharacterController {
     List<CharacterDto> characters = this.characterService.getCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
-    return "fragments/characters-frags :: characters-list";
+    return "fragments/profile-frags :: characters-list";
   }
 
   @PostMapping(path = "reload-characters-list", headers = "HX-Request")
@@ -81,7 +82,7 @@ public class ThymeleafCharacterController {
     List<CharacterDto> characters = this.characterService.reloadCharacters(accountName, leagueId);
     model.addAttribute("characters", characters);
 
-    return "fragments/characters-frags :: characters-list";
+    return "fragments/profile-frags :: characters-list";
   }
 
   @GetMapping(path = "/{characterName}/get-inventory", headers = "HX-Request")
@@ -92,7 +93,7 @@ public class ThymeleafCharacterController {
     model.addAttribute("items", items);
     model.addAttribute("characterName", characterName);
 
-    return "fragments/characters-frags :: character-inventory";
+    return "fragments/profile-frags :: character-inventory";
   }
 
   @PostMapping(path = "/{characterName}/reload-inventory", headers = "HX-Request")
@@ -105,7 +106,7 @@ public class ThymeleafCharacterController {
     model.addAttribute("items", items);
     model.addAttribute("characterName", characterName);
 
-    return "fragments/characters-frags :: character-inventory";
+    return "fragments/profile-frags :: character-inventory";
   }
 
 }
