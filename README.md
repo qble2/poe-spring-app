@@ -1,4 +1,4 @@
-# POE Spring App
+# POE Spring 
 
 A Java [Spring Boot](https://spring.io/projects/spring-boot) web application that acts as a proxy to a [Third party API](https://www.pathofexile.com/developer/docs/reference).  
 The application allows the user to fetch data from a [Third party API](https://www.pathofexile.com/developer/docs/reference) and stores it for an offline access.  
