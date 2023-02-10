@@ -2,10 +2,18 @@
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+<!-- Security: CSRF token (see <script> block at the bottom) -->
+<meta
+	name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<meta
+	name="_csrf"
+	th:content="${_csrf.token}" />
 <!-- Bootstrap CSS -->
 <!-- Pico.css -->
 <link
@@ -32,26 +40,6 @@
 	<!-- 		content.</header> -->
 
 	<main>
-		<details>
-			<summary>Session attributes</summary>
-			<table role="grid">
-				<tbody>
-					<tr>
-						<th
-							th:text="accountName"
-							scope="row"></th>
-						<td th:text="${session.accountName}"></td>
-					</tr>
-					<tr>
-						<th
-							th:text="poeSessionId"
-							scope="row"></th>
-						<td th:text="${session.poeSessionId}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</details>
-
 		<section layout:fragment="content">
 			<p>Page content.</p>
 		</section>
@@ -59,4 +47,22 @@
 
 	<footer th:replace="fragments/footer :: footer">Footer content.</footer>
 </body>
+
+<!-- Adding CSRF token to every AJAX request header (HTMX requests) -->
+<script th:inline="javascript">
+/*<![CDATA[*/
+	if(document.body){
+		document.body.addEventListener('htmx:configRequest', (event) => {
+			var _csrf_header =  /*[[${_csrf.headerName}]]*/ 'default csrf header name';
+		    var _csrf =  /*[[${_csrf.token}]]*/ 'default csrf value';
+		    /*[-
+			console.log("adding _csrf token to AJAX request header");
+		    console.log("_csrf_header: ", _csrf_header);
+		    console.log("_csrf: ", _csrf);
+		    -]*/
+			event.detail.headers[_csrf_header] = _csrf;
+		});
+	}
+/*]]>*/
+</script>
 </html>

@@ -49,12 +49,13 @@ a {
 .grid-columns {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+	gap: 10px;
 }
 
 .path-of-exile-logo {
 	background-image: url('/image/Path-of-Exile-Logo-700x394.png');
 	background-position: center;
-	background-size: cover;
+/* 	background-size: cover; */
 }
 
 .font-larger {

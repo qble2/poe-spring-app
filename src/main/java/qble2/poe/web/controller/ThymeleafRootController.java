@@ -1,67 +1,50 @@
 package qble2.poe.web.controller;
 
-import javax.servlet.http.HttpSession;
-import org.apache.commons.lang3.StringUtils;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import qble2.poe.web.ThymeleafInitForm;
+import org.springframework.web.bind.annotation.RequestParam;
+import qble2.poe.web.ThymeleafLoginForm;
 
-// This application serves as a proxy to an external API
-// There is no user to register, nor a credential to save
-// Essential user information are simply stored in session during the session's lifetime
 @Controller
-@RequestMapping("/")
+@RequestMapping
 public class ThymeleafRootController {
 
-  @GetMapping
-  public String index(Model model, HttpSession session) {
-    String poeSessionId = (String) session.getAttribute("poeSessionId");
-    if (StringUtils.isNotBlank(poeSessionId)) {
-      return "index-signedin";
-    }
-
-    ThymeleafInitForm thymeleafInitForm = new ThymeleafInitForm();
-    model.addAttribute("initForm", thymeleafInitForm);
-
+  @GetMapping(path = "/")
+  public String index(Model model) {
     return "index";
   }
 
-  @PostMapping
-  public String index(@ModelAttribute(value = "initForm") ThymeleafInitForm thymeleafInitForm,
-      Model model, HttpSession session) {
-    if (!isValid(thymeleafInitForm)) {
-      // TODO BKE errors/validation
-      return "index";
+  @GetMapping(path = "/login")
+  public String getLogin(@RequestParam(name = "error", required = false) String error,
+      @RequestParam(name = "logout", required = false) String logout,
+      @RequestParam(name = "expired", required = false) String expired, Model model) {
+    ThymeleafLoginForm thymeleafLoginForm = new ThymeleafLoginForm();
+    model.addAttribute("loginForm", thymeleafLoginForm);
+
+    if (error != null) {
+      model.addAttribute("error", "Invalid account.");
     }
 
-    session.setAttribute("accountName", thymeleafInitForm.getAccountName());
-    session.setAttribute("poeSessionId", thymeleafInitForm.getPoeSessionId());
+    if (logout != null) {
+      model.addAttribute("logout", "You have been logged out.");
+    }
 
-    return "index-signedin";
+    if (expired != null) {
+      model.addAttribute("expired", "Your session has expired.");
+    }
+
+    return "login";
   }
 
-  @GetMapping("/exit")
-  public String exit(Model model, HttpSession session) {
-    session.invalidate();
+  @GetMapping(path = "/logout")
+  public String logout(Model model, HttpServletRequest request) throws ServletException {
+    request.logout();
 
-    ThymeleafInitForm thymeleafInitForm = new ThymeleafInitForm();
-    model.addAttribute("initForm", thymeleafInitForm);
-
-    return "redirect:/";
-  }
-
-  /////
-  /////
-  /////
-
-  // TODO BEK check valid information by pinging GGG (ex: get stash tabs)
-  private boolean isValid(ThymeleafInitForm thymeleafInitForm) {
-    return StringUtils.isNotBlank(thymeleafInitForm.getAccountName())
-        && StringUtils.isNotBlank(thymeleafInitForm.getPoeSessionId());
+    return "redirect:/login?logout";
   }
 
 }

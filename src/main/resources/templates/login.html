@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Login</title>
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+		<article class="grid-columns">
+			<div>
+				<hgroup>
+					<h1>Log In</h1>
+					<h2>(Placeholder)</h2>
+				</hgroup>
+
+				<div>
+<!-- 					hx-boost="true" -->
+<!-- 						hx-ext="loading-states" -->
+<!-- 						data-loading-aria-busy -->
+<!-- 						data-loading-target="#submit-login" -->
+					<form
+						th:action="@{/login}"
+						th:object="${loginForm}"
+						th:method="POST">
+						<input
+							type="text"
+							th:field="*{accountName}"
+							id="accountName"
+							placeholder="Account name..."
+							required />
+						<input
+							type="password"
+							th:field="*{poeSessionId}"
+							id="poeSessionId"
+							placeholder="POE session id..."
+							required />
+
+						<p
+							th:if="${error}"
+							th:text="${error}"></p>
+						<p
+							th:if="${logout}"
+							th:text="${logout}"></p>
+						<p
+							th:if="${expired}"
+							th:text="${expired}"></p>
+
+						<button
+							type="submit"
+							id="submit-login">Log in</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="path-of-exile-logo"></div>
+		</article>
+	</section>
+</body>
+</html>

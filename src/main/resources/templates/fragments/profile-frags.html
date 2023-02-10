@@ -2,13 +2,16 @@
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
 </head>
 <body>
 	<!-- FRAGMENT :: characters-table -->
-	<th:block th:fragment="characters-table" id="characters-table">
+	<th:block
+		th:fragment="characters-table"
+		id="characters-table">
 		<div th:if="${#lists.isEmpty(characters)}">No character found.</div>
 		<table
 			th:if="${not #lists.isEmpty(characters)}"
@@ -44,7 +47,7 @@
 	<div
 		th:fragment="characters-list"
 		id="characters-list"
-		style="display: flex; flex-direction: column; width: 350px;">
+		style="display: flex; flex-direction: column; min-width: 350px;">
 
 		<!-- 		<button -->
 		<!-- 			hx-ext="loading-states" -->
@@ -54,7 +57,7 @@
 		<!-- 			hx-include="#select-league-dropdown-menu-select" -->
 		<!-- 			hx-target="#characters-list" -->
 		<!-- 			hx-swap="outerHTML">Reload characters</button> -->
-		
+
 		<!-- reloading the full page to reset league & items sections -->
 		<form
 			hx-boost="true"
@@ -87,6 +90,8 @@
 	</div>
 
 	<!-- FRAGMENT :: character-inventory -->
+	<!-- 	manually adding _csrf token (deprecated, implemented with JavaScript in layout.html) -->
+	<!-- 	th:attr="hx-post=|/characters/${characterName}/reload-inventory?${_csrf.parameterName}=${_csrf.token}|" -->
 	<div
 		th:fragment="character-inventory"
 		id="character-inventory"

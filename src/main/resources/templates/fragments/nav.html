@@ -2,20 +2,21 @@
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 </head>
 <body>
 	<nav th:fragment="nav">
-		<ul>
+		<ul sec:authorize="isAuthenticated()">
 			<li>
 				<a
 					class="font-larger"
 					href="/"
-					th:href="@{/}">POE Spring App</a>
+					th:href="@{/}">POE Spring</a>
 			</li>
 		</ul>
-		<ul>
+		<ul sec:authorize="isAuthenticated()">
 			<li>
 				<a
 					href="/leagues"
@@ -39,8 +40,8 @@
 				<a
 					href="exit"
 					class="secondary outline"
-					th:href="@{/exit}"
-					role="button">Exit</a>
+					th:href="@{/logout}"
+					role="button">Logout</a>
 			</li>
 		</ul>
 	</nav>
