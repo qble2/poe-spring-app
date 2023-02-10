@@ -35,6 +35,8 @@
   --switch-color: var(--primary-inverse);
   --switch-checked-background-color: var(--primary);
   
+  --character-icon-size: 80px;
+  
   --poe-color-normal: rgb(200,200,200);
   --poe-color-magic: rgb(136,136,255);
   --poe-color-rare: rgb(255,255,119);
@@ -125,99 +127,99 @@ a {
 .character-class-icon-Elementalist {
 	background: url('/image/inventory-sprite.png');
     background-position: -240px -500px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Occultist {
 	background: url('/image/inventory-sprite.png');
     background-position: -658px -240px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Ascendant {
 	background: url('/image/inventory-sprite.png');
-    background-position: -220px -180px;
-	width: 80px;
-    height: 80px;
+    background-position: -220px -1var(--character-icon-size);
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Assassin {
 	background: url('/image/inventory-sprite.png');
     background-position: -330px -260px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Chieftain {
 	background: url('/image/inventory-sprite.png');
     background-position: 0px -500px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Inquisitor {
 	background: url('/image/inventory-sprite.png');
     background-position: -560px -500px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Guardian {
 	background: url('/image/inventory-sprite.png');
     background-position: -400px -500px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Slayer {
 	background: url('/image/inventory-sprite.png');
-    background-position: -240px -580px;
-	width: 80px;
-    height: 80px;
+    background-position: -240px -5var(--character-icon-size);
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Necromancer {
 	background: url('/image/inventory-sprite.png');
    	background-position: -658px -160px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Hierophant {
 	background: url('/image/inventory-sprite.png');
-   	background-position: -480px -500px;
-	width: 80px;
-    height: 80px;
+   	background-position: -4var(--character-icon-size) -500px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Champion {
 	background: url('/image/inventory-sprite.png');
    	background-position: -440px -420px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Pathfinder {
 	background: url('/image/inventory-sprite.png');
    	background-position: -658px -320px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Saboteur {
 	background: url('/image/inventory-sprite.png');
-   	background-position: 0px -580px;
-	width: 80px;
-    height: 80px;
+   	background-position: 0px -5var(--character-icon-size);
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 .character-class-icon-Berserker {
 	background: url('/image/inventory-sprite.png');
    	background-position: -330px -340px;
-	width: 80px;
-    height: 80px;
+	width: var(--character-icon-size);
+    height: var(--character-icon-size);
 }
 
 /* ************************************************************************* */
@@ -346,7 +348,6 @@ a {
     justify-items: center;
     align-items: center;
 }
-
 
 /* -${item.frameType} */
 .item-background-0 {
