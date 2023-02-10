@@ -49,25 +49,16 @@
 		id="characters-list"
 		style="display: flex; flex-direction: column; min-width: 350px;">
 
-		<!-- 		<button -->
-		<!-- 			hx-ext="loading-states" -->
-		<!-- 			data-loading-aria-busy -->
-		<!-- 			hx-trigger="click" -->
-		<!-- 			hx-post="/characters/reload-characters-list" -->
-		<!-- 			hx-include="#select-league-dropdown-menu-select" -->
-		<!-- 			hx-target="#characters-list" -->
-		<!-- 			hx-swap="outerHTML">Reload characters</button> -->
-
 		<!-- reloading the full page to reset league & items sections -->
 		<form
 			hx-boost="true"
 			hx-ext="loading-states"
 			data-loading-aria-busy
-			data-loading-target="#reload-characters"
+			data-loading-target="#reload-characters-button"
 			action="#"
 			th:action="@{/characters}"
 			th:method="POST">
-			<button id="reload-characters">Reload characters</button>
+			<button id="reload-characters-button">Reload characters</button>
 		</form>
 
 		<div
