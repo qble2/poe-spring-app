@@ -48,5 +48,14 @@
 			</tbody>
 		</table>
 	</th:block>
+	
+	<!-- FRAGMENT :: item-details -->
+	<div th:fragment="item-details" id="item-details">
+		<table th:if="${item != null}">
+			<tr><th scope="row">name</th><td th:text="${item.name}"></td></tr>
+			<tr><th scope="row">baseType</th><td th:text="${item.baseType}"></td></tr>
+			<tr><th scope="row">ilvl</th><td th:text="${item.ilvl}"></td></tr>
+		</table>
+	</div>
 </body>
 </html>

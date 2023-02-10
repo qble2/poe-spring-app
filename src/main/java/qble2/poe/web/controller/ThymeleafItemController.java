@@ -35,4 +35,13 @@ public class ThymeleafItemController {
     return "fragments/items-frags :: items-list";
   }
 
+  @GetMapping(path = "/{itemId}", headers = "HX-Request")
+  public String htmxGetItemDetailsFragment(
+      @PathVariable(name = "itemId", required = true) String itemId, Model model) {
+    ItemDto item = this.itemService.getItem(itemId);
+    model.addAttribute("item", item);
+
+    return "fragments/items-frags :: item-details";
+  }
+
 }
