@@ -34,6 +34,16 @@
   --form-element-focus-color: var(--primary-focus);
   --switch-color: var(--primary-inverse);
   --switch-checked-background-color: var(--primary);
+  
+  --poe-color-normal: rgb(200,200,200);
+  --poe-color-magic: rgb(136,136,255);
+  --poe-color-rare: rgb(255,255,119);
+  --poe-color-unique: rgb(175,96,37);
+  
+  --poe-ninja-color-normal: #C7C7C720;
+  --poe-ninja-color-magic: #8A8AFF20;
+  --poe-ninja-color-rare: #FFFF7520;
+  --poe-ninja-color-unique: #B1622520;
 }
 
 /** HTMX **/
@@ -108,124 +118,6 @@ a {
 
 .selected-background-color {
 	background-color: var(--primary-focus);
-}
-
-/** 'slot-' + item.inventoryId */
-.character-inventory-slot-Weapon {
-	position: absolute;
-    left: 65.85px;
-    top: 111.21px;
-}
-
-.character-inventory-slot-Offhand {
-	position: absolute;
-	left: 438.27px;
-    top: 111.21px;
-}
-
-.character-inventory-slot-Helm {
-	position: absolute;
-	left: 252.06px;
-	top: 99.65px;
-}
-
-.character-inventory-slot-Gloves {
-	position: absolute;
-	left: 135.22px;
-    top: 312.63px;
-}
-
-.character-inventory-slot-Boots {
-	position: absolute;
-    left: 368.89px;
-    top: 312.63px;
-}
-
-.character-inventory-slot-BodyArmour {
-	position: absolute;
-	left: 252.06px;
-    top: 206.14px;
-}
-
-.character-inventory-slot-Amulet {
-	position: absolute;
-    left: 368.89px;
-    top: 194.58px;
-}
-
-.character-inventory-slot-Ring {
-	position: absolute;
-	left: 182.69px;
-    top: 253.6px;
-}
-
-.character-inventory-slot-Ring2 {
-	position: absolute;
-	left: 368.89px;
-    top: 253.6px;
-}
-
-.character-inventory-slot-Belt {
-	position: absolute;
-	left: 252.06px;
-    top: 360.09px;
-}
-
-/** 'slot-' + item.inventoryId + item.x */
-.character-inventory-slot-Flask0 {
-	position: absolute;
-    left: 186.34px;
-    top: 418.51px;
-}
-
-.character-inventory-slot-Flask1 {
-	position: absolute;
-    left: 233.805px;
-    top: 418.51px;
-}
-
-.character-inventory-slot-Flask2 {
-	position: absolute;
-	left: 281.269px;
-    top: 418.51px;
-}
-
-.character-inventory-slot-Flask3 {
-	position: absolute;
-	left: 328.734px;
-    top: 418.51px;
-}
-
-.character-inventory-slot-Flask4 {
-	position: absolute;
-    left: 376.198px;
-    top: 418.51px;
-}
-
-/** 'width-' + item.w */
-.character-inventory-slot-width-1 {
-	width: 47.4645px;
-}
-
-.character-inventory-slot-width-2 {
-	width: calc(2 * 47.4645px);
-}
-
-/** 'height-' + item.h */
-.character-inventory-slot-height-1 {
-	height: 47.4645px;
-}
-
-.character-inventory-slot-height-2 {
-	height: calc(2 * 47.4645px);
-}
-
-.character-inventory-slot-height-3 {
-	height: calc(3 * 47.4645px);
-}
-
-.character-inventory-slot-height-4 {
-	height: calc(4 * 47.4645px);
 }
 
 /** 'icon-' + character.characterClass */
@@ -328,5 +220,149 @@ a {
     height: 80px;
 }
 
+/* ************************************************************************* */
+/* character inventory */
+/* ************************************************************************* */
+.character-inventory-grid {
+	display: grid;
+	grid-template-rows: repeat(8, 60px);
+	grid-template-columns: repeat(8, 60px);
+	gap: .5rem;
+	grid-template-areas:
+		" Weapon Weapon .      Helm       Helm       .      Offhand Offhand "
+		" Weapon Weapon .      Helm       Helm       .      Offhand Offhand "
+		" Weapon Weapon .      BodyArmour BodyArmour Amulet Offhand Offhand "
+		" Weapon Weapon Ring   BodyArmour BodyArmour Ring2  Offhand Offhand "
+		" .      Gloves Gloves BodyArmour BodyArmour Boots  Boots   .       "
+		" .      Gloves Gloves Belt       Belt       Boots  Boots   .       "
+		" .      Flask0 Flask1 Flask2     Flask3     Flask4  .      .       "
+		" .      Flask0 Flask1 Flask2     Flask3     Flask4  .      .       "
+	;
+}
+
+/* -${item.inventoryId} */
+.character-inventory-Weapon {
+	grid-area: Weapon;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Offhand {
+	grid-area: Offhand;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Helm {
+	grid-area: Helm;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Gloves {
+	grid-area: Gloves;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Boots {
+	grid-area: Boots;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-BodyArmour {
+	grid-area: BodyArmour;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Amulet {
+	grid-area: Amulet;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Ring {
+	grid-area: Ring;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Ring2 {
+	grid-area: Ring2;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Belt {
+	grid-area: Belt;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+/* -${item.inventoryId}-${item.x} */
+.character-inventory-Flask0 {
+	grid-area: Flask0;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Flask1 {
+	grid-area: Flask1;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Flask2 {
+	grid-area: Flask2;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Flask3 {
+	grid-area: Flask3;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.character-inventory-Flask4 {
+	grid-area: Flask4;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
 
 
+/* -${item.frameType} */
+.item-background-0 {
+	background-color: var(--poe-ninja-color-normal);
+	border-radius: .125rem;
+}
+.item-background-1 {
+	background-color: var(--poe-ninja-color-magic);
+	border-radius: .125rem;
+}
+.item-background-2 {
+	background-color: var(--poe-ninja-color-rare);
+	border-radius: .125rem;
+}
+.item-background-3 {
+	background-color: var(--poe-ninja-color-unique);
+	border-radius: .125rem;
+}
+/* ************************************************************************* */
