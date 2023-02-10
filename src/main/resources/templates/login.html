@@ -19,11 +19,11 @@
 				</hgroup>
 
 				<div>
-					<!-- 					hx-boost="true" -->
-					<!-- 						hx-ext="loading-states" -->
-					<!-- 						data-loading-aria-busy -->
-					<!-- 						data-loading-target="#submit-login" -->
 					<form
+						hx-boost="true"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						data-loading-target="#submit-login"
 						th:action="@{/login}"
 						th:object="${loginForm}"
 						th:method="POST">
@@ -43,8 +43,12 @@
 						</fieldset>
 
 						<p th:if="${param.logout}">You have been logged out.</p>
-						<p th:if="${param.error}" class="error-color">Invalid account.</p>
-						<p th:if="${param.expired}" class="error-color">Your session has expired.</p>
+						<p
+							th:if="${param.error}"
+							class="error-color">Invalid account.</p>
+						<p
+							th:if="${param.expired}"
+							class="error-color">Your session has expired.</p>
 
 						<button
 							type="submit"
