@@ -90,8 +90,6 @@
 	</div>
 
 	<!-- FRAGMENT :: character-inventory -->
-	<!-- 	manually adding _csrf token (deprecated, implemented with JavaScript in layout.html) -->
-	<!-- 	th:attr="hx-post=|/characters/${characterName}/reload-inventory?${_csrf.parameterName}=${_csrf.token}|" -->
 	<div
 		th:fragment="character-inventory"
 		id="character-inventory"
@@ -99,13 +97,12 @@
 
 		<th:block th:if="${characterName != null}">
 			<button
-				th:text="|Reload ${characterName} items|"
 				hx-ext="loading-states"
 				data-loading-aria-busy
 				hx-trigger="click"
 				th:attr="hx-post=|/characters/${characterName}/reload-inventory|"
 				hx-target="#character-inventory"
-				hx-swap="outerHTML"></button>
+				hx-swap="outerHTML">Reload inventory</button>
 
 			<div style="position: relative;">
 				<div
