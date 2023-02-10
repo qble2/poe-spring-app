@@ -45,15 +45,6 @@
 		id="stash-tabs-list"
 		style="display: flex; flex-direction: column; min-width: 350px;">
 
-		<!-- 		<button -->
-		<!-- 			hx-ext="loading-states" -->
-		<!-- 			data-loading-aria-busy -->
-		<!-- 			hx-trigger="click" -->
-		<!-- 			hx-post="/stash-tabs" -->
-		<!-- 			hx-include="#select-league-dropdown-menu-select" -->
-		<!-- 			hx-target="#stash-tabs-list" -->
-		<!-- 			hx-swap="outerHTML">Reload stash tabs</button> -->
-
 		<!-- reloading the full page to reset league & items sections -->
 		<form
 			hx-boost="true"
@@ -67,16 +58,17 @@
 			<button id="reload-stash-tabs-button">Reload stash tabs</button>
 		</form>
 
-		<div
-			th:each="stashTab: ${stashTabs}"
-			style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
-			<a
-				th:text="${stashTab.name}"
-				hx-trigger="click"
-				th:attr="hx-get=|/stash-tabs/${stashTab.id}/get-items|"
-				hx-target="#stash-tab-items"
-				hx-swap="outerHTML"></a>
-		</div>
+		<table>
+			<tr th:each="stashTab: ${stashTabs}">
+				<td
+					class="clickable"
+					th:text="${stashTab.name}"
+					hx-trigger="click"
+					th:attr="hx-get=|/stash-tabs/${stashTab.id}/get-items|"
+					hx-target="#stash-tab-items"
+					hx-swap="outerHTML"></td>
+			</tr>
+		</table>
 	</div>
 
 	<!-- FRAGMENT :: stash-tab-items -->
@@ -92,7 +84,7 @@
 				hx-trigger="click"
 				th:attr="hx-post=|/stash-tabs/${stashTabId}/reload-items|"
 				hx-target="#stash-tab-items"
-				hx-swap="outerHTML">Reload stash tab items</button>
+				hx-swap="outerHTML">Reload items</button>
 
 			<table
 				th:if="${not #lists.isEmpty(items)}"

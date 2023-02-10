@@ -61,23 +61,26 @@
 			<button id="reload-characters-button">Reload characters</button>
 		</form>
 
-		<div
-			th:each="character: ${characters}"
-			style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
-
-			<div th:class="|character-class-icon-${character.characterClass}|"></div>
-
-			<div style="display: flex; flex-direction: column;">
-				<a
-					th:text="${character.name}"
+		<table>
+			<tr th:each="character: ${characters}">
+				<td
+					class="clickable"
 					hx-trigger="click"
 					th:attr="hx-get=|/characters/${character.name}/get-inventory|"
 					hx-target="#character-inventory"
-					hx-swap="outerHTML"></a>
-				<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
-				<label th:text="|${character.leagueId} League|"></label>
-			</div>
-		</div>
+					hx-swap="outerHTML">
+					<div
+						style="padding: 10px; display: flex; flex-direction: row; gap: 10px; align-items: center;">
+						<div th:class="|character-class-icon-${character.characterClass}|"></div>
+						<div style="display: flex; flex-direction: column;">
+							<label class="primary-color" th:text="${character.name}"></label>
+							<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
+							<label th:text="|${character.leagueId} League|"></label>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<!-- FRAGMENT :: character-inventory -->

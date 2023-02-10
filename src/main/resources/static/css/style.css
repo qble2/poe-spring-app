@@ -46,6 +46,20 @@ a {
 	cursor: pointer;	
 }
 
+.clickable,
+.clickable * {
+	display: block;
+	cursor: pointer;
+}
+.clickable:hover,
+.clickable *:hover {
+	color: var(--primary-hover);
+}
+
+.primary-color {
+	color: var(--primary);
+}
+
 .error-color {
 	/* Material dark theme color */
 	color: #CF6679;
@@ -92,7 +106,7 @@ a {
 	text-align: center;
 }
 
-.background-color-selected {
+.selected-background-color {
 	background-color: var(--primary-focus);
 }
 
