@@ -19,36 +19,32 @@
 				</hgroup>
 
 				<div>
-<!-- 					hx-boost="true" -->
-<!-- 						hx-ext="loading-states" -->
-<!-- 						data-loading-aria-busy -->
-<!-- 						data-loading-target="#submit-login" -->
+					<!-- 					hx-boost="true" -->
+					<!-- 						hx-ext="loading-states" -->
+					<!-- 						data-loading-aria-busy -->
+					<!-- 						data-loading-target="#submit-login" -->
 					<form
 						th:action="@{/login}"
 						th:object="${loginForm}"
 						th:method="POST">
-						<input
-							type="text"
-							th:field="*{accountName}"
-							id="accountName"
-							placeholder="Account name..."
-							required />
-						<input
-							type="password"
-							th:field="*{poeSessionId}"
-							id="poeSessionId"
-							placeholder="POE session id..."
-							required />
+						<fieldset>
+							<input
+								type="text"
+								th:field="*{accountName}"
+								id="accountName"
+								placeholder="Account name..."
+								required />
+							<input
+								type="password"
+								th:field="*{poeSessionId}"
+								id="poeSessionId"
+								placeholder="POE session id..."
+								required />
+						</fieldset>
 
-						<p
-							th:if="${error}"
-							th:text="${error}"></p>
-						<p
-							th:if="${logout}"
-							th:text="${logout}"></p>
-						<p
-							th:if="${expired}"
-							th:text="${expired}"></p>
+						<p th:if="${param.logout}">You have been logged out.</p>
+						<p th:if="${param.error}" class="error-color">Invalid account.</p>
+						<p th:if="${param.expired}" class="error-color">Your session has expired.</p>
 
 						<button
 							type="submit"

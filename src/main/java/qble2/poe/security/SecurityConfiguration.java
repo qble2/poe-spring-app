@@ -60,12 +60,16 @@ public class SecurityConfiguration {
             "/webjars/**")
         .permitAll()
 
+        // allow others
+        .antMatchers("/h2-console/**").permitAll()
+
+        // allow login page
+        .antMatchers("/login").permitAll()
+
         .anyRequest().authenticated()
 
         .and().formLogin().usernameParameter("accountName").passwordParameter("poeSessionId")
         .loginPage("/login").loginProcessingUrl("/login").failureUrl("/login?error")
-        // permit requests to the login page
-        .permitAll()
 
         .defaultSuccessUrl("/")
 
@@ -76,11 +80,10 @@ public class SecurityConfiguration {
 
     ;
 
-    // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).maximumSessions(1)
-    // .expiredUrl("/login?expired")
-    // ? redirecting twice /origin -> /login?expired -> /login
-    // .and().invalidSessionUrl("/login?expired")
-    // ;
+    http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired").and()
+        .invalidSessionUrl("/login?expired")
+
+    ;
 
     return http.build();
   }

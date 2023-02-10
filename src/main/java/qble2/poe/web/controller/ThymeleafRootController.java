@@ -21,21 +21,10 @@ public class ThymeleafRootController {
   @GetMapping(path = "/login")
   public String getLogin(@RequestParam(name = "error", required = false) String error,
       @RequestParam(name = "logout", required = false) String logout,
-      @RequestParam(name = "expired", required = false) String expired, Model model) {
+      @RequestParam(name = "expired", required = false) String expired,
+      @RequestParam(name = "invalid", required = false) String invalid, Model model) {
     ThymeleafLoginForm thymeleafLoginForm = new ThymeleafLoginForm();
     model.addAttribute("loginForm", thymeleafLoginForm);
-
-    if (error != null) {
-      model.addAttribute("error", "Invalid account.");
-    }
-
-    if (logout != null) {
-      model.addAttribute("logout", "You have been logged out.");
-    }
-
-    if (expired != null) {
-      model.addAttribute("expired", "Your session has expired.");
-    }
 
     return "login";
   }

@@ -46,6 +46,11 @@ a {
 	cursor: pointer;	
 }
 
+.error-color {
+	/* Material dark theme color */
+	color: #CF6679;
+}
+
 .grid-columns {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
