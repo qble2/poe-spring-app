@@ -26,8 +26,8 @@ public class ItemService {
   }
 
   public List<ItemDto> getStashTabItems(String stashTabId) {
-    return this.itemMapper
-        .toDtoListFromEntityList(this.itemRepository.findAllByStashTab_id(stashTabId));
+    return this.itemMapper.toDtoListFromEntityList(
+        this.itemRepository.findAllByStashTab_idOrderByChaosValueDesc(stashTabId));
   }
 
   /////

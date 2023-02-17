@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import qble2.poe.character.Character;
+import qble2.poe.marketoverview.ItemCategoryEnum;
 import qble2.poe.stash.StashTab;
 
 @Entity(name = "Item")
@@ -39,8 +40,8 @@ public class Item {
   @Column(name = "name")
   private String name;
 
-  @Column(name = "typeLine")
-  private String typeLine;
+  // @Column(name = "typeLine")
+  // private String typeLine;
 
   @Column(name = "baseType")
   private String baseType;
@@ -60,6 +61,9 @@ public class Item {
   @Column(name = "identified")
   private boolean identified;
 
+  @Column(name = "corrupted")
+  private Boolean corrupted;
+
   @Column(name = "searing")
   private Boolean searing;
 
@@ -69,20 +73,32 @@ public class Item {
   @Column(name = "fractured")
   private Boolean fractured;
 
+  @Column(name = "isRelic")
+  private Boolean isRelic;
+
+  @Column(name = "foilVariation")
+  private Integer foilVariation;
+
   @Column(name = "w")
   private int w;
 
   @Column(name = "h")
   private int h;
 
-  @Column(name = "x")
-  private int x;
+  @Column(name = "x", nullable = true)
+  private Integer x;
 
-  @Column(name = "y")
-  private int y;
+  @Column(name = "y", nullable = true)
+  private Integer y;
 
-  @Column(name = "descrText")
+  @Column(name = "descrText", nullable = true)
   private String descrText;
+
+  @Column(name = "stackSize", nullable = true)
+  private Integer stackSize;
+
+  @Column(name = "maxStackSize", nullable = true)
+  private Integer maxStackSize;
 
   // private Requirement[] properties;
   // private Requirement[] requirements;
@@ -125,5 +141,31 @@ public class Item {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private StashTab stashTab;
+
+  // calculated fields
+  @Column(name = "category")
+  private ItemCategoryEnum category;
+
+  @Column(name = "poeNinjaDetailsId")
+  private String poeNinjaDetailsId;
+
+  @Column(name = "chaosValue", nullable = true)
+  private Double chaosValue;
+
+  //
+  public Integer getGemLevel() {
+    // TODO read item.properties.Level
+    return 20;
+  }
+
+  public Integer getGemQuality() {
+    // TODO read item.properties.Quality
+    return 20;
+  }
+
+  public Integer getMapTier() {
+    // TODO read item.properties.Map Tier
+    return 16;
+  }
 
 }

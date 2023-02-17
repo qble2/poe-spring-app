@@ -1,5 +1,6 @@
 package qble2.poe.stash;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,16 +39,27 @@ public class StashTab {
   @Column(name = "type")
   private String type;
 
+  @Column(name = "color")
+  private int color;
+
   @Column(name = "leagueId", nullable = false)
   private String leagueId;
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,
       mappedBy = "stashTab")
+  @OrderBy(value = "chaosValue DESC")
   private List<Item> items = new ArrayList<>();
 
   public void addItem(Item item) {
     this.getItems().add(item);
     item.setStashTab(this);
   }
+
+  //
+  @Column(name = "reloadedAt", nullable = true)
+  private ZonedDateTime reloadedAt;
+
+  @Column(name = "priceCheckedAt", nullable = true)
+  private ZonedDateTime priceCheckedAt;
 
 }

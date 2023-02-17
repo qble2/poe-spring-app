@@ -55,17 +55,21 @@
 /** **/
 
 a {
-	cursor: pointer;	
+	cursor: pointer;
+/* 	text-overflow: ellipsis; */
 }
+
+/* label { */
+/* 	text-overflow: ellipsis; */
+/* } */
 
 .clickable,
 .clickable * {
 	display: block;
 	cursor: pointer;
 }
-.clickable:hover,
-.clickable *:hover {
-	color: var(--primary-hover);
+.clickable:hover {
+	filter: brightness(1.2);
 }
 
 .primary-color {
@@ -223,7 +227,7 @@ a {
 }
 
 /* ************************************************************************* */
-/* character inventory */
+/* profile . character inventory */
 /* ************************************************************************* */
 .character-inventory-grid {
 	display: grid;
@@ -365,5 +369,90 @@ a {
 .item-background-3 {
 	background-color: var(--poe-ninja-color-unique);
 	border-radius: .125rem;
+}
+/* ************************************************************************* */
+/* stash */
+/* ************************************************************************* */
+/* 'stash-tab-header' + stashTab.type */
+.stash-tab-header {
+	color: white;
+	border: 1px solid black;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px;
+	white-space: nowrap;
+}
+
+.stash-tab-header-NormalStash::before,
+.stash-tab-header-PremiumStash::before,
+.stash-tab-header-QuadStash::before,
+.stash-tab-header-CurrencyStash::before,
+.stash-tab-header-MapStash::before,
+.stash-tab-header-FragmentStash::before,
+.stash-tab-header-DivinationCardStash::before,
+.stash-tab-header-EssenceStash::before,
+.stash-tab-header-DelveStash::before,
+.stash-tab-header-MetamorphStash::before,
+.stash-tab-header-BlightStash::before,
+.stash-tab-header-DeliriumStash::before,
+.stash-tab-header-GemStash::before,
+.stash-tab-header-FlaskStash::before  {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+/* 	vertical-align: middle; */
+/* 	margin-left: 4px; */
+/* 	margin-right: 4px; */
+}
+
+.stash-tab-header-NormalStash::before {
+    content: "";
+	margin-right: 4px;
+}
+.stash-tab-header-PremiumStash::before {
+/* 	content: url('https://web.poecdn.com/protected/image/layout/stash/premium-tab-icon.png?v=1674770173658&key=eFcoMl6FRQpBrNgSIvNgYQ'); */
+	content: url('/image/stash/premium-tab-icon.png?v=1674770173658&key=eFcoMl6FRQpBrNgSIvNgYQ');
+}
+.stash-tab-header-QuadStash::before {
+	content: url('/image/stash/quad-tab-icon.png?v=1674770173658&key=SO7Jf8d6g68rhHKJVt1Itw');
+}
+.stash-tab-header-CurrencyStash::before {
+	content: url('/image/stash/currency-tab-icon.png?v=1674770173394&key=c4JmwvlEdlm1iitgRJ-LtQ');
+}
+.stash-tab-header-MapStash::before {
+	content: url('/image/stash/map-tab-icon.png?v=1674770173590&key=jLp8L5BgKpzzyf8Jdu51Zg');
+}
+.stash-tab-header-FragmentStash::before {
+	content: url('/image/stash/fragment-tab-icon.png?v=1674770173510&key=NIXjytgKBeGX-0ed5uJWeA');
+}
+.stash-tab-header-DivinationCardStash::before {
+	content: url('/image/stash/divination-tab-icon.png?v=1674770173430&key=FaLsxYtmuqBXkJebdF62_w');
+}
+.stash-tab-header-EssenceStash::before {
+	content: url('/image/stash/essence-tab-icon.png?v=1674770173430&key=3sC1L24_-V0QEze0P8r_Dg');
+}
+.stash-tab-header-DelveStash::before {
+	content: url('/image/stash/delve-tab-icon.png?v=1674770173430&key=1eC3WO6hAEtNVN7wtLT6jA');
+}
+.stash-tab-header-MetamorphStash::before {
+	content: url('/image/stash/metamorph-tab-icon.png?v=1674770173658&key=9fUlHmwXXM7dKdwFt_RvnQ');
+}
+.stash-tab-header-BlightStash::before {
+	content: url('/image/stash/blight-tab-icon.png?v=1674770173382&key=PL1k11by4nAQDMPTAnPZdA');
+}
+.stash-tab-header-DeliriumStash::before {
+	content: url('/image/stash/delirium-tab-icon.png?v=1674770173410&key=sIX1JMexEbOTIezUWYJqvg');
+}
+.stash-tab-header-GemStash::before {
+	content: url('/image/stash/gem-tab-icon.png?v=1674770173570&key=KE0pPt-_F4uZcdNWL6ff4Q');
+}
+.stash-tab-header-FlaskStash::before {
+	content: url('/image/stash/flask-tab-icon.png?v=1674770173494&key=-UDcfP_cV6F7uvzOxyD3rw');
+}
+
+.stash-item-icon {
+	max-width: none !important;
 }
 /* ************************************************************************* */

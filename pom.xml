@@ -111,7 +111,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		
 		<!-- Webjars -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -126,6 +125,12 @@
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>htmx.org</artifactId>
 			<version>1.8.5</version>
+		</dependency>
+		<!-- Others -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.1-jre</version>
 		</dependency>
 	</dependencies>
 	<build>

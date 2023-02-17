@@ -22,6 +22,8 @@ public interface StashMapper {
   @Mapping(target = "index", source = "i")
   @Mapping(target = "name", source = "n")
   @Mapping(target = "type", source = "type")
+  @Mapping(target = "color",
+      expression = "java(new java.awt.Color(source.getColour().getR(), source.getColour().getG(), source.getColour().getB()).getRGB())")
   @Mapping(target = "leagueId", expression = "java(leagueId)")
   StashTabDto toDtoFromGgg(StashTabGgg source, @Context String leagueId);
 
@@ -39,6 +41,7 @@ public interface StashMapper {
   @Mapping(target = "index", source = "index")
   @Mapping(target = "name", source = "name")
   @Mapping(target = "type", source = "type")
+  @Mapping(target = "color", source = "color")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemEntityListFromDtoList")
   StashTab toEntityFromDto(StashTabDto source);
@@ -57,6 +60,7 @@ public interface StashMapper {
   @Mapping(target = "index", source = "index")
   @Mapping(target = "name", source = "name")
   @Mapping(target = "type", source = "type")
+  @Mapping(target = "color", source = "color")
   @Mapping(target = "leagueId", source = "leagueId")
   StashTabDto toDtoFromEntity(StashTab source);
 
@@ -77,8 +81,11 @@ public interface StashMapper {
   @Mapping(target = "index", source = "index")
   @Mapping(target = "name", source = "name")
   @Mapping(target = "type", source = "type")
+  @Mapping(target = "color", source = "color")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "items", source = "items", qualifiedByName = "toItemDtoListFromEntityList")
+  @Mapping(target = "reloadedAt", source = "reloadedAt")
+  @Mapping(target = "priceCheckedAt", source = "priceCheckedAt")
   StashTabDto toDetailedDtoFromEntity(StashTab source);
 
   /////

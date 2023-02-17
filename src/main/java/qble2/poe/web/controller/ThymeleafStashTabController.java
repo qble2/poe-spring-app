@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import qble2.poe.item.ItemDto;
 import qble2.poe.security.PrincipalUtils;
 import qble2.poe.stash.StashTabDto;
 import qble2.poe.stash.StashTabService;
@@ -54,15 +53,6 @@ public class ThymeleafStashTabController {
     return "stash";
   }
 
-  @GetMapping(path = "/{stashTabId}")
-  public String getStashTab(@PathVariable(name = "stashTabId", required = true) String stashTabId,
-      Model model) {
-    StashTabDto stashTab = this.stashTabService.getStashTab(stashTabId);
-    model.addAttribute("stashTab", stashTab);
-
-    return "stash-tab";
-  }
-
   @GetMapping(path = "get-stash-tabs-list", headers = "HX-Request")
   public String htmxGetStashTabsListFragment(
       @RequestParam(name = "leagueId", required = false) String leagueId, Model model) {
@@ -86,26 +76,37 @@ public class ThymeleafStashTabController {
     return "fragments/stash-frags :: stash-tabs-list";
   }
 
-  @GetMapping(path = "/{stashTabId}/get-items", headers = "HX-Request")
-  public String htmxGetStashTabItemsFragment(
+  @GetMapping(path = "/{stashTabId}", headers = "HX-Request")
+  public String htmxGetDetailedStashTabFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
-    List<ItemDto> items = this.stashTabService.getStashTabItems(stashTabId);
-    model.addAttribute("items", items);
-    model.addAttribute("stashTabId", stashTabId);
+    StashTabDto stashTab = this.stashTabService.getDetailedStashTab(stashTabId);
+    model.addAttribute("stashTab", stashTab);
 
     return "fragments/stash-frags :: stash-tab-items";
   }
 
-  @PostMapping(path = "/{stashTabId}/reload-items", headers = "HX-Request")
-  public String htmxReloadStashTabItemsFragment(
+  @PostMapping(path = "/{stashTabId}", headers = "HX-Request")
+  public String htmxReloadDetailsStashTabFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
     String accountName = principalUtils.getAccountName();
     String poeSessionId = principalUtils.getPoeSessionId();
 
-    List<ItemDto> items =
-        this.stashTabService.reloadStashTabItems(accountName, poeSessionId, stashTabId);
-    model.addAttribute("items", items);
-    model.addAttribute("stashTabId", stashTabId);
+    StashTabDto stashTab =
+        this.stashTabService.reloadStashTab(accountName, poeSessionId, stashTabId);
+    model.addAttribute("stashTab", stashTab);
+
+    return "fragments/stash-frags :: stash-tab-items";
+  }
+
+  @PostMapping(path = "/{stashTabId}/price-check", headers = "HX-Request")
+  public String htmxPriceCheckedStashTabFragment(
+      @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
+    String accountName = principalUtils.getAccountName();
+    String poeSessionId = principalUtils.getPoeSessionId();
+
+    StashTabDto stashTab =
+        this.stashTabService.priceCheckStashTab(accountName, poeSessionId, stashTabId);
+    model.addAttribute("stashTab", stashTab);
 
     return "fragments/stash-frags :: stash-tab-items";
   }

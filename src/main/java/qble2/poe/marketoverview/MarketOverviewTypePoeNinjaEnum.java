@@ -8,25 +8,30 @@ import lombok.Getter;
 @Getter
 public enum MarketOverviewTypePoeNinjaEnum {
 
+  UNKNOWN(null), //
+
   CURRENCY("Currency"), //
   FRAGMENT("Fragment"), //
 
-  BASETYPE("BaseType"), //
+  BASE_TYPE("BaseType"), //
   BEAST("Beast"), //
-  BLIGHTED_MAP("BlightedMap"), //
   CLUSTER_JEWEL("ClusterJewel"), //
   DELIRIUM_ORB("DeliriumOrb"), //
   DIVINATION_CARD("DivinationCard"), //
   ESSENCE("Essence"), //
   FOSSIL("Fossil"), //
 
-  // disabled because inaccurate
+  // disabled because not reliable/inaccurate
   // @JsonProperty("HelmetEnchant")
   // HELMET_ENCHANT("HelmetEnchant"), //
 
   INCUBATOR("Incubator"), //
   INVITATION("Invitation"), //
   MAP("Map"), //
+  UNIQUE_MAP("UniqueMap"), //
+  BLIGHTED_MAP("BlightedMap"), //
+  BLIGHT_RAVAGED_MAP("BlightRavagedMap"), //
+  SCOURGED_MAP("ScourgedMap"), //
   OIL("Oil"), //
   RESONATOR("Resonator"), //
   SCARAB("Scarab"), //
@@ -35,12 +40,11 @@ public enum MarketOverviewTypePoeNinjaEnum {
   UNIQUE_ARMOUR("UniqueArmour"), //
   UNIQUE_FLASK("UniqueFlask"), //
   UNIQUE_JEWEL("UniqueJewel"), //
-  UNIQUE_MAP("UniqueMap"), //
   UNIQUE_WEAPON("UniqueWeapon"), //
   VIAL("Vial"), //
 
   // Expedition artifact
-  ARTIFACT("Artifact");
+  ARTIFACT("Artifact"),;
 
   @JsonValue
   private String value;
@@ -51,8 +55,13 @@ public enum MarketOverviewTypePoeNinjaEnum {
 
   @JsonCreator
   public static MarketOverviewTypePoeNinjaEnum decode(final String value) {
-    return Stream.of(MarketOverviewTypePoeNinjaEnum.values())
+    return MarketOverviewTypePoeNinjaEnum.getValues()
         .filter(targetEnum -> targetEnum.value.equals(value)).findFirst().orElse(null);
+  }
+
+  public static Stream<MarketOverviewTypePoeNinjaEnum> getValues() {
+    return Stream.of(MarketOverviewTypePoeNinjaEnum.values())
+        .filter(type -> type.getValue() != null);
   }
 
 }

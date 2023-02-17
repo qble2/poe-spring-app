@@ -1,15 +1,24 @@
 package qble2.poe.marketoverview;
 
 import java.util.List;
-import java.util.stream.Stream;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qble2.poe.item.Item;
+import qble2.poe.item.ItemCategoryResolverService;
 
 @Service
+@Transactional
 public class MarketOverviewService {
 
   @Autowired
   private PoeNinjaWebClient poeNinjaWebClient;
+
+  @Autowired
+  private ItemCategoryResolverService itemCategoryResolverService;
+
+  @Autowired
+  private ItemPoeNinjaDetailsIdResolverService itemPoeNinjaDetailsIdResolverService;
 
   @Autowired
   private MarketOverviewRepository marketOverviewRepository;
@@ -27,7 +36,7 @@ public class MarketOverviewService {
 
   // data is too large to be returned
   public void reloadMarketOverview(String leagueId) {
-    Stream.of(MarketOverviewTypePoeNinjaEnum.values())
+    MarketOverviewTypePoeNinjaEnum.getValues()
         .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
   }
 
@@ -37,6 +46,17 @@ public class MarketOverviewService {
 
     return this.marketOverviewMapper.toDtoListFromEntityList(
         this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type));
+  }
+
+  public void updateMarketValue(List<Item> items) {
+    items.stream().forEach(item -> {
+      itemCategoryResolverService.updateItemCategory(item);
+      itemPoeNinjaDetailsIdResolverService.updateItemPoeNinjaDetailsId(item);
+      if (item.getPoeNinjaDetailsId() != null) {
+        this.marketOverviewRepository.findById(item.getPoeNinjaDetailsId())
+            .ifPresent(marketOverview -> item.setChaosValue(marketOverview.getChaosValue()));
+      }
+    });
   }
 
   /////

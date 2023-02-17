@@ -42,7 +42,7 @@ public class TradeWebClientGgg {
       }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
           .exchangeStrategies(exchangeStrategies).build();
 
-  // TODO BKE handle 400 Bad Request (Invalid query/sort/filter/...)
+  // TODO handle 400 Bad Request (Invalid query/sort/filter/...)
   // https://www.pathofexile.com/api/trade/search/Sanctum
   public TradeSearchResponseGgg search(TradeSearchPayloadDto tradeSearchPayloadDto) {
     TradeSearchPayloadGgg tradeSearchPayloadGgg =

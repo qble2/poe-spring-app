@@ -28,4 +28,6 @@ public interface ItemRepository extends JpaRepository<Item, String> {
 
   List<Item> findAllByStashTab_id(String stashTabId);
 
+  List<Item> findAllByStashTab_idOrderByChaosValueDesc(String stashTabId);
+
 }

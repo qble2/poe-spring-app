@@ -25,6 +25,20 @@ public class SecurityConfiguration {
 
   @Bean
   @Order(1)
+  SecurityFilterChain filterChainH2Console(HttpSecurity http) throws Exception {
+    http
+
+        .csrf().disable()
+
+        .antMatcher("/h2-console/**").authorizeRequests()
+
+        .antMatchers("/h2-console/**").permitAll();
+
+    return http.build();
+  }
+
+  @Bean
+  @Order(2)
   SecurityFilterChain filterChainRestApi(HttpSecurity http) throws Exception {
     http
 
@@ -38,7 +52,7 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  @Order(2)
+  @Order(3)
   SecurityFilterChain filterChainWebApp(HttpSecurity http) throws Exception {
     http
 
@@ -59,9 +73,6 @@ public class SecurityConfiguration {
         .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/image/**", "/img/**",
             "/webjars/**")
         .permitAll()
-
-        // allow others
-        .antMatchers("/h2-console/**").permitAll()
 
         // allow login page
         .antMatchers("/login").permitAll()

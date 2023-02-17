@@ -45,7 +45,7 @@ public class LadderService {
     }
 
     try {
-      log.debug("reloading ladder (league: {} , start: {} , end: {})...", leagueId, start, end);
+      log.debug("reloading ladder (league: {} , start: {} , end: {})", leagueId, start, end);
       int iterationsCount = Math.max(1, end / LadderWebClientGgg.GGG_FETCH_LIMIT);
       log.debug("iterations needed: {}", iterationsCount);
       IntStream.iterate(start, i -> i + LadderWebClientGgg.GGG_FETCH_LIMIT).limit(iterationsCount)
@@ -58,7 +58,7 @@ public class LadderService {
     }
   }
 
-  // TODO BKE start/end params
+  // TODO start/end params
   @Async
   public void reloadLadderItems(String leagueId) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
@@ -67,7 +67,7 @@ public class LadderService {
     }
     try (Stream<LadderEntry> streamOfLadderEntry =
         this.ladderRepository.findAllByLeagueIdAndIsPublic(leagueId, true)) {
-      log.info("reloading items for ladder (league: {})...", leagueId);
+      log.info("reloading items for ladder (league: {})", leagueId);
       streamOfLadderEntry
           // make sure the persistence context isn't keeping the reference to all the entities
           // .peek(entityManager::detach) // cant access Character.items

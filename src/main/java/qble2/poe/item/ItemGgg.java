@@ -37,6 +37,9 @@ public class ItemGgg {
   @JsonProperty("identified")
   private boolean identified;
 
+  @JsonProperty("corrupted")
+  private Boolean corrupted;
+
   @JsonProperty("searing")
   private Boolean searing;
 
@@ -45,6 +48,12 @@ public class ItemGgg {
 
   @JsonProperty("fractured")
   private Boolean fractured;
+
+  @JsonProperty("isRelic")
+  private Boolean isRelic;
+
+  @JsonProperty("foilVariation")
+  private Integer foilVariation;
 
   @JsonProperty("w")
   private int w;
@@ -60,6 +69,12 @@ public class ItemGgg {
 
   @JsonProperty("descrText")
   private String descrText;
+
+  @JsonProperty("stackSize")
+  private Integer stackSize;
+
+  @JsonProperty("maxStackSize")
+  private Integer maxStackSize;
 
   // @JsonProperty("properties")
   // private Requirement[] properties;

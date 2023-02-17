@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import qble2.poe.marketoverview.ItemCategoryEnum;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -20,8 +21,8 @@ public class ItemDto {
   @JsonProperty("name")
   private String name;
 
-  @JsonProperty("typeLine")
-  private String typeLine;
+  // @JsonProperty("typeLine")
+  // private String typeLine;
 
   @JsonProperty("baseType")
   private String baseType;
@@ -41,6 +42,9 @@ public class ItemDto {
   @JsonProperty("identified")
   private boolean identified;
 
+  @JsonProperty("corrupted")
+  private Boolean corrupted;
+
   @JsonProperty("searing")
   private Boolean searing;
 
@@ -49,6 +53,12 @@ public class ItemDto {
 
   @JsonProperty("fractured")
   private Boolean fractured;
+
+  @JsonProperty("isRelic")
+  private Boolean isRelic;
+
+  @JsonProperty("foilVariation")
+  private Integer foilVariation;
 
   @JsonProperty("w")
   private int w;
@@ -64,6 +74,12 @@ public class ItemDto {
 
   @JsonProperty("descrText")
   private String descrText;
+
+  @JsonProperty("stackSize")
+  private Integer stackSize;
+
+  @JsonProperty("maxStackSize")
+  private Integer maxStackSize;
 
   // @JsonProperty("properties")
   // private Requirement[] properties;
@@ -100,5 +116,15 @@ public class ItemDto {
 
   @JsonProperty("icon")
   private String icon;
+
+  // calculated fields
+  @JsonProperty("category")
+  private ItemCategoryEnum category;
+
+  @JsonProperty("poeNinjaDetailsId")
+  private String poeNinjaDetailsId;
+
+  @JsonProperty("chaosValue")
+  private Double chaosValue;
 
 }

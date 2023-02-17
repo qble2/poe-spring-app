@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qble2.poe.trade.enums.ItemCategoryEnum;
+import qble2.poe.trade.enums.TradeSearchFilterItemCategoryEnum;
 import qble2.poe.trade.enums.ItemRarityEnum;
 import qble2.poe.trade.enums.ListedSinceEnum;
 import qble2.poe.trade.enums.OnlineStatusEnum;
@@ -64,7 +64,7 @@ public class TradeSearchPayloadGgg {
     return this;
   }
 
-  public TradeSearchPayloadGgg setCategory(ItemCategoryEnum itemCategoryEnum) {
+  public TradeSearchPayloadGgg setCategory(TradeSearchFilterItemCategoryEnum itemCategoryEnum) {
     if (itemCategoryEnum != null) {
       getTypeFiltersFilters().setCategory(new StringFilterValueGgg(itemCategoryEnum.getValue()));
     }

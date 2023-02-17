@@ -3,9 +3,9 @@ package qble2.poe.trade.enums;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-// TODO BKE to be completed
+// TODO to be completed
 @Getter
-public enum ItemCategoryEnum {
+public enum TradeSearchFilterItemCategoryEnum {
 
   @JsonProperty("armour")
   ANY_ARMOUR("armour"),
@@ -57,7 +57,7 @@ public enum ItemCategoryEnum {
 
   private String value;
 
-  private ItemCategoryEnum(String value) {
+  private TradeSearchFilterItemCategoryEnum(String value) {
     this.value = value;
   }
 

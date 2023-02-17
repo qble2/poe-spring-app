@@ -1,5 +1,6 @@
 package qble2.poe.stash;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,10 +25,25 @@ public class StashTabDto {
   @JsonProperty("type")
   private String type;
 
+  @JsonProperty("color")
+  private int color;
+
   @JsonProperty("leagueId")
   private String leagueId;
 
   @JsonProperty("items")
   private List<ItemDto> items = new ArrayList<>();
+
+  public String getHexColor() {
+    return String.format("#%06X", (0xFFFFFF & this.color));
+  }
+
+  //
+
+  @JsonProperty("reloadedAt")
+  private ZonedDateTime reloadedAt;
+
+  @JsonProperty("priceCheckedAt")
+  private ZonedDateTime priceCheckedAt;
 
 }

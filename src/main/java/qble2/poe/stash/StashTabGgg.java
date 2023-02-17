@@ -18,11 +18,11 @@ public class StashTabGgg {
   @JsonProperty("type")
   private String type;
 
+  @JsonProperty("colour")
+  private ColourGgg colour;
+
   // @JsonProperty("selected")
   // private boolean selected;
-
-  // @JsonProperty("colour")
-  // private Colour colour;
 
   // @JsonProperty("srcL")
   // private String srcL;

@@ -43,7 +43,7 @@
 	<div
 		th:fragment="stash-tabs-list"
 		id="stash-tabs-list"
-		style="display: flex; flex-direction: column; min-width: 350px;">
+		style="display: flex; flex-direction: column; width: 300px;">
 
 		<!-- reloading the full page to reset league & items sections -->
 		<form
@@ -55,39 +55,78 @@
 			action="#"
 			th:action="@{/stash-tabs}"
 			th:method="POST">
-			<button id="reload-stash-tabs-button">Reload stash tabs</button>
+			<button id="reload-stash-tabs-button" class="outline">Reload stash tabs</button>
 		</form>
 
-		<table>
-			<tr th:each="stashTab: ${stashTabs}">
-				<td
-					class="clickable"
-					th:text="${stashTab.name}"
-					hx-trigger="click"
-					th:attr="hx-get=|/stash-tabs/${stashTab.id}/get-items|"
-					hx-target="#stash-tab-items"
-					hx-swap="outerHTML"></td>
-			</tr>
-		</table>
+		<div
+			th:style="|display: flex; flex-direction: column; height: 600px; overflow-y: auto;|">
+			<div
+				th:each="stashTab: ${stashTabs}"
+				th:class="stash-tab-header"
+				th:classappend="|clickable stash-tab-header-${stashTab.type}|"
+				th:style="|background-color: ${stashTab.getHexColor()}|"
+				th:text="${stashTab.name}"
+				hx-trigger="click"
+				th:attr="hx-get=|/stash-tabs/${stashTab.id}|"
+				hx-target="#stash-tab-items"
+				hx-swap="outerHTML"></div>
+		</div>
 	</div>
 
 	<!-- FRAGMENT :: stash-tab-items -->
 	<div
 		th:fragment="stash-tab-items"
 		id="stash-tab-items"
-		style="width: 100%;">
+		style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
 
-		<th:block th:if="${stashTabId != null}">
-			<button
-				hx-ext="loading-states"
-				data-loading-aria-busy
-				hx-trigger="click"
-				th:attr="hx-post=|/stash-tabs/${stashTabId}/reload-items|"
-				hx-target="#stash-tab-items"
-				hx-swap="outerHTML">Reload items</button>
+		<th:block th:if="${stashTab != null}">
+
+			<div
+				th:style="|min-height: 62px; color: white; background-color: ${stashTab.getHexColor()}; display: grid; align-items: center; justify-content: center;|"
+				th:text="${stashTab.name}"></div>
+
+			<div class="flex-column">
+				<div style="display: flex; flex-direction: row; gap: 10px;">
+					<button
+						class="outline"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-trigger="click"
+						th:attr="hx-post=|/stash-tabs/${stashTab.id}|"
+						hx-target="#stash-tab-items"
+						hx-swap="outerHTML">Reload items</button>
+
+					<button
+						class="outline"
+						th:if="${not #lists.isEmpty(stashTab.items)}"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-trigger="click"
+						th:attr="hx-post=|/stash-tabs/${stashTab.id}/price-check|"
+						hx-target="#stash-tab-items"
+						hx-swap="outerHTML">Price check items</button>
+				</div>
+
+				<div style="display: flex; flex-direction: row; gap: 10px;">
+					<div>Last reload:</div>
+					<div
+						th:if="${stashTab.reloadedAt != null}"
+						th:text="${#temporals.format(stashTab.reloadedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
+					<div th:unless="${stashTab.reloadedAt != null}">N/A</div>
+				</div>
+
+				<div style="display: flex; flex-direction: row; gap: 10px;">
+					<div>Last price check:</div>
+					<div
+						th:if="${stashTab.priceCheckedAt != null}"
+						th:text="${#temporals.format(stashTab.priceCheckedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
+					<div th:unless="${stashTab.priceCheckedAt != null}">N/A</div>
+				</div>
+
+			</div>
 
 			<table
-				th:if="${not #lists.isEmpty(items)}"
+				th:if="${not #lists.isEmpty(stashTab.items)}"
 				role="grid">
 				<thead>
 					<tr>
@@ -96,22 +135,38 @@
 							scope="col">icon</th>
 						<th scope="col">name</th>
 						<th scope="col">baseType</th>
-						<th scope="col">ilvl</th>
-						<th scope="col">inventoryId</th>
+						<th scope="col">frameType</th>
+						<th scope="col">category</th>
+						<th scope="col">detailsId</th>
+						<th scope="col">chaosValue</th>
+						<th scope="col">stackSize</th>
+						<th scope="col">total</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="item: ${items}">
+					<tr th:each="item: ${stashTab.items}">
 						<td class="align-center">
 							<img
+								class="stash-item-icon"
 								alt="icon"
 								th:src="${item.icon}"
 								th:title="${item.name} + ' ' + ${item.baseType}">
 						</td>
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.baseType}"></td>
-						<td th:text="${item.ilvl}"></td>
-						<td th:text="${item.inventoryId}"></td>
+						<td th:text="${item.frameType}"></td>
+						<td th:text="${item.category?.value}"></td>
+						<td th:text="${item.poeNinjaDetailsId}"></td>
+						<td th:text="${item.chaosValue}"></td>
+						<td th:text="${item.stackSize}"></td>
+						<td>
+							<span
+								th:if="${item.chaosValue != null && item.stackSize != null}"
+								th:text="${#numbers.formatDecimal(item.chaosValue * item.stackSize,0,2)}"></span>
+							<span
+								th:if="${item.chaosValue != null && item.stackSize == null}"
+								th:text="${item.chaosValue}"></span>
+						</td>
 					</tr>
 				</tbody>
 			</table>

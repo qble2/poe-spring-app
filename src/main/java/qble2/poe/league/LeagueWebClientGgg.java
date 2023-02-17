@@ -49,7 +49,7 @@ public class LeagueWebClientGgg {
     return this.leagueMapper.toDtoListFromGggList(listOfLeagueGgg);
   }
 
-  // TODO BKE handle invalid leagueId (404)
+  // TODO handle invalid leagueId (404)
   // https://api.pathofexile.com/leagues/Sanctum
   public LeagueDto retrieveLeague(String leagueId) {
     log.info("retrieving league (id: {}) from GGG...", leagueId);
