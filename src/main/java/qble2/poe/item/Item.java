@@ -2,18 +2,22 @@ package qble2.poe.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import qble2.poe.character.Character;
 import qble2.poe.marketoverview.ItemCategoryEnum;
@@ -100,46 +104,65 @@ public class Item {
   @Column(name = "maxStackSize", nullable = true)
   private Integer maxStackSize;
 
-  // private Requirement[] properties;
-  // private Requirement[] requirements;
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "item",
+      fetch = FetchType.LAZY)
+  @Builder.Default
+  @ToString.Exclude
+  private List<ItemProperty> properties = new ArrayList<>();
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "item",
+      fetch = FetchType.LAZY)
+  @Builder.Default
+  @ToString.Exclude
+  private List<ItemRequirement> requirements = new ArrayList<>();
+
   // private Socket[] sockets;
   // private SocketedItem[] socketedItems;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> enchantMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> implicitMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> explicitMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> craftedMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> fracturedMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> utilityMods = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
+  @ToString.Exclude
   private List<String> flavourText = new ArrayList<>();
 
   @Column(name = "icon")
   private String icon;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
+  @ToString.Exclude
   private Character character;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
+  @ToString.Exclude
   private StashTab stashTab;
 
   // calculated fields
@@ -152,20 +175,39 @@ public class Item {
   @Column(name = "chaosValue", nullable = true)
   private Double chaosValue;
 
+  // MapStruct collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+  public void addProperty(ItemProperty itemProperty) {
+    this.properties.add(itemProperty);
+    itemProperty.setItem(this);
+  }
+
+  // MapStruct collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+  public void addRequirement(ItemRequirement itemRequirement) {
+    this.requirements.add(itemRequirement);
+    itemRequirement.setItem(this);
+  }
+
   //
-  public Integer getGemLevel() {
-    // TODO read item.properties.Level
-    return 20;
+  public String getPropertyValue(ItemPropertyEnum itemPropertyEnum) {
+    String value = null;
+    Optional<ItemProperty> itemPropertyOptional = this.getProperties().stream()
+        .filter(itemProperty -> itemPropertyEnum.getName().equals(itemProperty.getName()))
+        .findFirst();
+    if (itemPropertyOptional.isPresent()) {
+      value = itemPropertyOptional.get().getValue();
+    }
+    return value;
   }
 
-  public Integer getGemQuality() {
-    // TODO read item.properties.Quality
-    return 20;
-  }
-
-  public Integer getMapTier() {
-    // TODO read item.properties.Map Tier
-    return 16;
+  public String getRequirementValue(ItemRequirementEnum itemRequirementEnum) {
+    String value = null;
+    Optional<ItemRequirement> itemRequirementOptional = this.getRequirements().stream()
+        .filter(itemRequirement -> itemRequirementEnum.getName().equals(itemRequirement.getName()))
+        .findFirst();
+    if (itemRequirementOptional.isPresent()) {
+      value = itemRequirementOptional.get().getValue();
+    }
+    return value;
   }
 
 }

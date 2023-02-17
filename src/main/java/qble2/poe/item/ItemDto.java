@@ -81,11 +81,11 @@ public class ItemDto {
   @JsonProperty("maxStackSize")
   private Integer maxStackSize;
 
-  // @JsonProperty("properties")
-  // private Requirement[] properties;
+  @JsonProperty("properties")
+  private List<ItemPropertyDto> properties = new ArrayList<>();
 
-  // @JsonProperty("requirements")
-  // private Requirement[] requirements;
+  @JsonProperty("requirements")
+  private List<ItemRequirementDto> requirements = new ArrayList<>();
 
   // @JsonProperty("sockets")
   // private Socket[] sockets;
@@ -126,5 +126,17 @@ public class ItemDto {
 
   @JsonProperty("chaosValue")
   private Double chaosValue;
+
+  // MapStruct collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+  public void addProperty(ItemPropertyDto itemPropertyDto) {
+    this.properties.add(itemPropertyDto);
+    itemPropertyDto.setItem(this);
+  }
+
+  // MapStruct collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+  public void addRequirement(ItemRequirementDto itemRequirementDto) {
+    this.requirements.add(itemRequirementDto);
+    itemRequirementDto.setItem(this);
+  }
 
 }

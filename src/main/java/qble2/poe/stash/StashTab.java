@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import qble2.poe.item.Item;
 
@@ -48,6 +49,7 @@ public class StashTab {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,
       mappedBy = "stashTab")
   @OrderBy(value = "chaosValue DESC")
+  @ToString.Exclude
   private List<Item> items = new ArrayList<>();
 
   public void addItem(Item item) {

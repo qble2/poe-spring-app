@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import qble2.poe.item.Item;
 
@@ -56,6 +57,7 @@ public class Character {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,
       mappedBy = "character")
   @Builder.Default
+  @ToString.Exclude
   private List<Item> items = new ArrayList<>();
 
   public void addItem(Item item) {

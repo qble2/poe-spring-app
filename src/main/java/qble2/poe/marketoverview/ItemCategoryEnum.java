@@ -31,7 +31,7 @@ public enum ItemCategoryEnum {
   INVITATION("Invitation", MarketOverviewTypePoeNinjaEnum.INVITATION), //
 
   MAP("Map", MarketOverviewTypePoeNinjaEnum.MAP), //
-  UNIQUE_MAP("UniqueMap", MarketOverviewTypePoeNinjaEnum.UNIQUE_MAP), //
+  UNIQUE_MAP("Unique Map", MarketOverviewTypePoeNinjaEnum.UNIQUE_MAP), //
   BLIGHTED_MAP("Blighted Map", MarketOverviewTypePoeNinjaEnum.BLIGHTED_MAP), //
   BLIGHT_RAVAGED_MAP("Blight-Ravaged Map", MarketOverviewTypePoeNinjaEnum.BLIGHT_RAVAGED_MAP), //
   SCOURGED_MAP("Scourged Map", MarketOverviewTypePoeNinjaEnum.SCOURGED_MAP), //

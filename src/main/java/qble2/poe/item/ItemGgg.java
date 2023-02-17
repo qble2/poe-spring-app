@@ -76,11 +76,11 @@ public class ItemGgg {
   @JsonProperty("maxStackSize")
   private Integer maxStackSize;
 
-  // @JsonProperty("properties")
-  // private Requirement[] properties;
+  @JsonProperty("properties")
+  private List<ItemPropertyGgg> properties;
 
-  // @JsonProperty("requirements")
-  // private Requirement[] requirements;
+  @JsonProperty("requirements")
+  private List<ItemRequirementGgg> requirements;
 
   // @JsonProperty("sockets")
   // private Socket[] sockets;

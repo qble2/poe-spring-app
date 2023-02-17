@@ -3,13 +3,16 @@ package qble2.poe.item;
 import java.util.List;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Builder;
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
-@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true),
+    uses = {ItemPropertyMapper.class, ItemRequirementMapper.class},
+    collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface ItemMapper {
 
   @Named("toItemDtoListFromGggList")
@@ -42,6 +45,10 @@ public interface ItemMapper {
   @Mapping(target = "descrText", source = "descrText")
   @Mapping(target = "stackSize", source = "stackSize")
   @Mapping(target = "maxStackSize", source = "maxStackSize")
+  @Mapping(target = "properties", source = "properties",
+      qualifiedByName = "toItemPropertyDtoFromGgg")
+  @Mapping(target = "requirements", source = "requirements",
+      qualifiedByName = "toItemRequirementDtoFromGgg")
   @Mapping(target = "enchantMods", source = "enchantMods")
   @Mapping(target = "implicitMods", source = "implicitMods")
   @Mapping(target = "explicitMods", source = "explicitMods")
@@ -85,6 +92,10 @@ public interface ItemMapper {
   @Mapping(target = "descrText", source = "descrText")
   @Mapping(target = "stackSize", source = "stackSize")
   @Mapping(target = "maxStackSize", source = "maxStackSize")
+  @Mapping(target = "properties", source = "properties",
+      qualifiedByName = "toItemPropertyEntityFromDto")
+  @Mapping(target = "requirements", source = "requirements",
+      qualifiedByName = "toItemRequirementEntityFromDto")
   @Mapping(target = "enchantMods", source = "enchantMods")
   @Mapping(target = "implicitMods", source = "implicitMods")
   @Mapping(target = "explicitMods", source = "explicitMods")
@@ -132,6 +143,10 @@ public interface ItemMapper {
   @Mapping(target = "descrText", source = "descrText")
   @Mapping(target = "stackSize", source = "stackSize")
   @Mapping(target = "maxStackSize", source = "maxStackSize")
+  @Mapping(target = "properties", source = "properties",
+      qualifiedByName = "toItemPropertyDtoFromEntity")
+  @Mapping(target = "requirements", source = "requirements",
+      qualifiedByName = "toItemRequirementDtoFromEntity")
   @Mapping(target = "enchantMods", source = "enchantMods")
   @Mapping(target = "implicitMods", source = "implicitMods")
   @Mapping(target = "explicitMods", source = "explicitMods")

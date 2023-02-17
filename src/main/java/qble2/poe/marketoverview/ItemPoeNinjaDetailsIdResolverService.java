@@ -2,10 +2,12 @@ package qble2.poe.marketoverview;
 
 import java.util.List;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.item.Item;
+import qble2.poe.item.ItemPropertyEnum;
 
 @Service
 @Slf4j
@@ -47,35 +49,29 @@ public class ItemPoeNinjaDetailsIdResolverService {
 
   // name
   private String resolveItemPoeNinjaDetailsIdFromName(Item item) {
-    String detailsId = item.getName().trim().toLowerCase();
-
-    return replaceWhitespaceAndQuote(detailsId);
+    return normalizeToPoeNinjaStandard(item.getName());
   }
 
   // baseType
   private String resolveItemPoeNinjaDetailsIdFromBaseType(Item item) {
-    String detailsId = item.getBaseType().trim().toLowerCase();
-
-    return replaceWhitespaceAndQuote(detailsId);
+    return normalizeToPoeNinjaStandard(item.getBaseType());
   }
 
   // name (if present) + baseType
   private String resolveItemPoeNinjaDetailsIdFromNameAndBaseType(Item item) {
-    String detailsId =
-        Joiner.on(" ").skipNulls().join(item.getName(), item.getBaseType()).trim().toLowerCase();
-
-    return replaceWhitespaceAndQuote(detailsId);
+    return normalizeToPoeNinjaStandard(
+        Joiner.on(" ").skipNulls().join(item.getName(), item.getBaseType()));
   }
 
   private String resolveItemPoeNinjaDetailsIdForSkillGem(Item item) {
     String detailsId = resolveItemPoeNinjaDetailsIdFromNameAndBaseType(item);
 
-    Integer gemLevel = item.getGemLevel();
+    String gemLevel = item.getPropertyValue(ItemPropertyEnum.LEVEL);
     if (gemLevel != null) {
       detailsId = detailsId + "-" + gemLevel;
     }
 
-    Integer gemQuality = item.getGemQuality();
+    String gemQuality = item.getPropertyValue(ItemPropertyEnum.QUALITY);
     if (gemQuality != null) {
       detailsId = detailsId + "-" + gemQuality;
     }
@@ -90,7 +86,7 @@ public class ItemPoeNinjaDetailsIdResolverService {
   private String resolveItemPoeNinjaDetailsIdForMap(Item item) {
     String detailsId = resolveItemPoeNinjaDetailsIdFromBaseType(item);
 
-    Integer mapTier = item.getMapTier();
+    String mapTier = item.getPropertyValue(ItemPropertyEnum.MAP_TIER);
     if (mapTier != null) {
       detailsId = detailsId + "-t" + mapTier;
     }
@@ -103,7 +99,7 @@ public class ItemPoeNinjaDetailsIdResolverService {
   private String resolveItemPoeNinjaDetailsIdForUniqueMap(Item item) {
     String detailsId = resolveItemPoeNinjaDetailsIdFromName(item);
 
-    Integer mapTier = item.getMapTier();
+    String mapTier = item.getPropertyValue(ItemPropertyEnum.MAP_TIER);
     if (mapTier != null) {
       detailsId = detailsId + "-t" + mapTier;
     }
@@ -118,7 +114,12 @@ public class ItemPoeNinjaDetailsIdResolverService {
     return detailsId;
   }
 
-  private String replaceWhitespaceAndQuote(String detailsId) {
+  private String normalizeToPoeNinjaStandard(String detailsId) {
+    detailsId = detailsId.trim().toLowerCase();
+
+    // maelström -> maelstrom
+    detailsId = StringUtils.stripAccents(detailsId);
+
     detailsId = detailsId.replaceAll(" ", "-");
     detailsId = detailsId.replaceAll("'", "");
 
