@@ -38,7 +38,7 @@ public class ItemPoeNinjaDetailsIdResolverService {
       case MAP -> resolveItemPoeNinjaDetailsIdForMap(item);
       case UNIQUE_MAP -> resolveItemPoeNinjaDetailsIdForUniqueMap(item);
       case UNIQUE_FOIL_ITEM -> resolveItemPoeNinjaDetailsIdForUniqueFoilItem(item);
-      default -> resolveItemPoeNinjaDetailsIdFromNameAndBaseType(item);
+      default -> resolveItemPoeNinjaDetailsIdGeneric(item);
     };
   }
 
@@ -47,24 +47,8 @@ public class ItemPoeNinjaDetailsIdResolverService {
         && item.getCategory() != ItemCategoryEnum.UNIDENTIFIED;
   }
 
-  // name
-  private String resolveItemPoeNinjaDetailsIdFromName(Item item) {
-    return normalizeToPoeNinjaStandard(item.getName());
-  }
-
-  // baseType
-  private String resolveItemPoeNinjaDetailsIdFromBaseType(Item item) {
-    return normalizeToPoeNinjaStandard(item.getBaseType());
-  }
-
-  // name (if present) + baseType
-  private String resolveItemPoeNinjaDetailsIdFromNameAndBaseType(Item item) {
-    return normalizeToPoeNinjaStandard(
-        Joiner.on(" ").skipNulls().join(item.getName(), item.getBaseType()));
-  }
-
   private String resolveItemPoeNinjaDetailsIdForSkillGem(Item item) {
-    String detailsId = resolveItemPoeNinjaDetailsIdFromNameAndBaseType(item);
+    String detailsId = normalizeToPoeNinjaStandard(item.getTypeLine());
 
     String gemLevel = item.getPropertyValue(ItemPropertyEnum.LEVEL);
     if (gemLevel != null) {
@@ -84,7 +68,7 @@ public class ItemPoeNinjaDetailsIdResolverService {
   }
 
   private String resolveItemPoeNinjaDetailsIdForMap(Item item) {
-    String detailsId = resolveItemPoeNinjaDetailsIdFromBaseType(item);
+    String detailsId = normalizeToPoeNinjaStandard(item.getBaseType());
 
     String mapTier = item.getPropertyValue(ItemPropertyEnum.MAP_TIER);
     if (mapTier != null) {
@@ -97,7 +81,7 @@ public class ItemPoeNinjaDetailsIdResolverService {
   }
 
   private String resolveItemPoeNinjaDetailsIdForUniqueMap(Item item) {
-    String detailsId = resolveItemPoeNinjaDetailsIdFromName(item);
+    String detailsId = normalizeToPoeNinjaStandard(item.getName());
 
     String mapTier = item.getPropertyValue(ItemPropertyEnum.MAP_TIER);
     if (mapTier != null) {
@@ -108,10 +92,16 @@ public class ItemPoeNinjaDetailsIdResolverService {
   }
 
   private String resolveItemPoeNinjaDetailsIdForUniqueFoilItem(Item item) {
-    String detailsId = resolveItemPoeNinjaDetailsIdFromNameAndBaseType(item);
+    String detailsId = resolveItemPoeNinjaDetailsIdGeneric(item);
     detailsId += "-relic";
 
     return detailsId;
+  }
+
+  // name (if present) + baseType
+  private String resolveItemPoeNinjaDetailsIdGeneric(Item item) {
+    return normalizeToPoeNinjaStandard(
+        Joiner.on(" ").skipNulls().join(item.getName(), item.getBaseType()));
   }
 
   private String normalizeToPoeNinjaStandard(String detailsId) {

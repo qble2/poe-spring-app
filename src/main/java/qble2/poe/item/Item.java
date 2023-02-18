@@ -44,8 +44,8 @@ public class Item {
   @Column(name = "name")
   private String name;
 
-  // @Column(name = "typeLine")
-  // private String typeLine;
+  @Column(name = "typeLine")
+  private String typeLine;
 
   @Column(name = "baseType")
   private String baseType;

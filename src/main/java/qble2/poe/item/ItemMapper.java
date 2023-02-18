@@ -1,12 +1,14 @@
 package qble2.poe.item;
 
 import java.util.List;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Builder;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
@@ -24,7 +26,7 @@ public interface ItemMapper {
   @Mapping(target = "id", source = "id")
   @Mapping(target = "leagueId", source = "league")
   @Mapping(target = "name", source = "name")
-  // @Mapping(target = "typeLine", source = "typeLine")
+  @Mapping(target = "typeLine", source = "typeLine")
   @Mapping(target = "baseType", source = "baseType")
   @Mapping(target = "frameType", source = "frameType")
   @Mapping(target = "ilvl", source = "ilvl")
@@ -71,7 +73,7 @@ public interface ItemMapper {
   @Mapping(target = "id", source = "id")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "name", source = "name")
-  // @Mapping(target = "typeLine", source = "typeLine")
+  @Mapping(target = "typeLine", source = "typeLine")
   @Mapping(target = "baseType", source = "baseType")
   @Mapping(target = "frameType", source = "frameType")
   @Mapping(target = "ilvl", source = "ilvl")
@@ -122,7 +124,7 @@ public interface ItemMapper {
   @Mapping(target = "id", source = "id")
   @Mapping(target = "leagueId", source = "leagueId")
   @Mapping(target = "name", source = "name")
-  // @Mapping(target = "typeLine", source = "typeLine")
+  @Mapping(target = "typeLine", source = "typeLine")
   @Mapping(target = "baseType", source = "baseType")
   @Mapping(target = "frameType", source = "frameType")
   @Mapping(target = "ilvl", source = "ilvl")
@@ -159,5 +161,15 @@ public interface ItemMapper {
   @Mapping(target = "poeNinjaDetailsId", source = "poeNinjaDetailsId")
   @Mapping(target = "chaosValue", source = "chaosValue")
   ItemDto toDtoFromEntity(Item source);
+
+  @AfterMapping
+  default void after(Item source, @MappingTarget ItemDto target) {
+    Double totalValue = source.getChaosValue();
+    if (source.getChaosValue() != null && source.getStackSize() != null
+        && source.getStackSize() > 1) {
+      totalValue = source.getChaosValue() * source.getStackSize();
+    }
+    target.setTotal(totalValue);
+  }
 
 }

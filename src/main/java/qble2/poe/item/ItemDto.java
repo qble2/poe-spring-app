@@ -21,8 +21,8 @@ public class ItemDto {
   @JsonProperty("name")
   private String name;
 
-  // @JsonProperty("typeLine")
-  // private String typeLine;
+  @JsonProperty("typeLine")
+  private String typeLine;
 
   @JsonProperty("baseType")
   private String baseType;
@@ -126,6 +126,10 @@ public class ItemDto {
 
   @JsonProperty("chaosValue")
   private Double chaosValue;
+
+  // caluclated during MapStruct mapping
+  @JsonProperty("total")
+  private Double total;
 
   // MapStruct collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
   public void addProperty(ItemPropertyDto itemPropertyDto) {
