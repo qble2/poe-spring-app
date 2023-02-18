@@ -11,6 +11,7 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
+		
 		<div
 			th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/stash-tabs/get-stash-tabs-list', targetElementToUpdate='#stash-tabs-list')"></div>
 

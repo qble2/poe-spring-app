@@ -100,7 +100,12 @@ a {
 .flex-row {
 	display: flex;
 	flex-direction: row;
-	align-items: baseline;
+	gap: 10px;
+}
+
+.flex-column {
+	display: flex;
+	flex-direction: column;
 	gap: 10px;
 }
 
@@ -109,12 +114,6 @@ a {
 	flex-direction: row;
 	align-items: baseline;
 	justify-content: space-between;
-	gap: 10px;
-}
-
-.flex-column {
-	display: flex;
-	flex-direction: column;
 	gap: 10px;
 }
 
@@ -382,7 +381,11 @@ a {
 	align-items: center;
 	gap: 5px;
 	padding: 5px;
+}
+.stash-tab-header-name {
+	overflow: hidden;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .stash-tab-header-NormalStash::before,
@@ -402,14 +405,10 @@ a {
 	display: inline-block;
 	width: 28px;
 	height: 28px;
-/* 	vertical-align: middle; */
-/* 	margin-left: 4px; */
-/* 	margin-right: 4px; */
 }
 
 .stash-tab-header-NormalStash::before {
     content: "";
-	margin-right: 4px;
 }
 .stash-tab-header-PremiumStash::before {
 /* 	content: url('https://web.poecdn.com/protected/image/layout/stash/premium-tab-icon.png?v=1674770173658&key=eFcoMl6FRQpBrNgSIvNgYQ'); */

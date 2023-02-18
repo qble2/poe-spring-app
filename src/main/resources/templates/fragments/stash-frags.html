@@ -55,21 +55,24 @@
 			action="#"
 			th:action="@{/stash-tabs}"
 			th:method="POST">
-			<button id="reload-stash-tabs-button" class="outline">Reload stash tabs</button>
+			<button
+				id="reload-stash-tabs-button"
+				class="outline">Reload stash tabs</button>
 		</form>
 
 		<div
-			th:style="|display: flex; flex-direction: column; height: 600px; overflow-y: auto;|">
+			th:style="|display: flex; flex-direction: column; height: 90vh; overflow-y: auto;|">
 			<div
 				th:each="stashTab: ${stashTabs}"
 				th:class="stash-tab-header"
 				th:classappend="|clickable stash-tab-header-${stashTab.type}|"
 				th:style="|background-color: ${stashTab.getHexColor()}|"
-				th:text="${stashTab.name}"
 				hx-trigger="click"
 				th:attr="hx-get=|/stash-tabs/${stashTab.id}|"
 				hx-target="#stash-tab-items"
-				hx-swap="outerHTML"></div>
+				hx-swap="outerHTML">
+				<span class="stash-tab-header-name" th:text="${stashTab.name}"></span>
+			</div>
 		</div>
 	</div>
 
