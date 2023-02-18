@@ -380,7 +380,7 @@ a {
 	gap: 10px;
 	grid-template:
 		" reload-stash-tabs-list select-league-dropdown-menu select-league-dropdown-menu "
-		" stash-tabs-list        stash-tab-items             stash-tab-items             "
+		" stash-tabs-list        stash-tab-details             stash-tab-details             "
 		/ 300px 1fr 1fr;
 	;
 }
@@ -391,16 +391,11 @@ a {
 	grid-area: stash-tabs-list;
 	display: flex;
 	flex-direction: column;
-	height: 90vh;
+	height: 100vh;
 	overflow-y: auto;
+	position: sticky;
+	top: 0;
 }
-.stash-tab-items {
-	grid-area: stash-tab-items;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
 .stash-tab-header {
 	color: white;
 	border: 1px solid black;
@@ -414,6 +409,22 @@ a {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+.stash-tab-details {
+	grid-area: stash-tab-details;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.stash-tab-details-header {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	min-height: 62px;
+	position: sticky;
+	top: 0;
+	z-index: 999;
 }
 
 /* 'stash-tab-header' + stashTab.type */

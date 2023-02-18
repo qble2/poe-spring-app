@@ -75,7 +75,7 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 	if(document.body){
-		/* add CSRF token to every AJAX request header (HTMX requests) */
+		/*[- add CSRF token to every AJAX request header (HTMX requests) -]*/
 		document.body.addEventListener('htmx:configRequest', (event) => {
 			var _csrf_header =  /*[[${_csrf.headerName}]]*/ 'default csrf header name';
 		    var _csrf =  /*[[${_csrf.token}]]*/ 'default csrf value';
@@ -87,18 +87,11 @@
 			event.detail.headers[_csrf_header] = _csrf;
 		});
 		
-		/* redirect to login page if session has expired when sending an AJAX request (HTMX requests) */
+		/*[- redirect to login page if session has expired when sending an AJAX request (HTMX requests) -]*/
 		document.body.addEventListener('htmx:beforeOnLoad', (event) => {
 			if(event.detail.xhr.responseURL.indexOf("/login?expired") > -1) {
 				window.location.replace("/login?expired");
 			}
-		});
-		
-		document.body.addEventListener('htmx:afterRequest', (event) => {
-			/*[- data-toggle="table" does not seem to work on AJAX loaded content -]*/
-			$(function() {
-				$('#stash-tab-items-table').bootstrapTable();
-			});
 		});
 	}
 /*]]>*/

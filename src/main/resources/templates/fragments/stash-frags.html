@@ -34,7 +34,7 @@
 			th:style="|background-color: ${stashTab.getHexColor()}|"
 			hx-trigger="click"
 			th:attr="hx-get=|/stash-tabs/${stashTab.id}|"
-			hx-target="#stash-tab-items"
+			hx-target="#stash-tab-details"
 			hx-swap="outerHTML">
 			<span
 				class="stash-tab-header-name"
@@ -42,16 +42,16 @@
 		</div>
 	</div>
 
-	<!-- FRAGMENT :: stash-tab-items -->
+	<!-- FRAGMENT :: stash-tab-details -->
 	<div
-		th:fragment="stash-tab-items"
-		id="stash-tab-items"
-		class="stash-tab-items">
+		th:fragment="stash-tab-details"
+		id="stash-tab-details"
+		class="stash-tab-details">
 
 		<th:block th:if="${stashTab != null}">
-
 			<div
-				th:style="|min-height: 62px; color: white; background-color: ${stashTab.getHexColor()}; display: grid; align-items: center; justify-content: center;|"
+				class="stash-tab-details-header"
+				th:style="|background-color: ${stashTab.getHexColor()};|"
 				th:text="${stashTab.name}"></div>
 
 			<div class="flex-column">
@@ -62,7 +62,7 @@
 						data-loading-aria-busy
 						hx-trigger="click"
 						th:attr="hx-post=|/stash-tabs/${stashTab.id}|"
-						hx-target="#stash-tab-items"
+						hx-target="#stash-tab-details"
 						hx-swap="outerHTML">Reload items</button>
 
 					<button
@@ -72,7 +72,7 @@
 						data-loading-aria-busy
 						hx-trigger="click"
 						th:attr="hx-post=|/stash-tabs/${stashTab.id}/price-check|"
-						hx-target="#stash-tab-items"
+						hx-target="#stash-tab-details"
 						hx-swap="outerHTML">Price check items</button>
 				</div>
 
@@ -96,13 +96,13 @@
 
 			<!-- Bootstrap Table
 				data-toggle="table" does not seem to work on AJAX loaded content.
-					$('#stash-tab-items-table').bootstrapTable() is used instead.
+					$('#stash-tab-details-table').bootstrapTable() is used instead.
 				Bootstrap CSS conflicts with Pico.css and has been disabled
 					data-show-multi-sort requires Bootstrap CSS to work properly.
 					data-pagination requires Bootstrap CSS to work properly.
 			-->
 			<table
-				id="stash-tab-items-table"
+				id="stash-tab-details-table"
 				data-toggle="table"
 				data-search="true"
 				data-show-columns="false"
@@ -128,12 +128,19 @@
 							scope="col"
 							data-field="baseType"
 							data-sortable="false">baseType</th>
-						<th
-							scope="col"
-							data-field="frameType"
-							data-sortable="true">f</th>
+						<!-- 						<th -->
+						<!-- 							scope="col" -->
+						<!-- 							data-field="typeLine" -->
+						<!-- 							data-sortable="false">typeLine</th> -->
+						<!-- 						<th -->
+						<!-- 							scope="col" -->
+						<!-- 							data-field="frameType" -->
+						<!-- 							data-sortable="true">frameType</th> -->
 						<!-- 						<th scope="col" data-field="category" data-sortable="false">category</th> -->
-						<!-- 						<th scope="col" data-field="detailsId" data-sortable="false">detailsId</th> -->
+						<!-- 						<th -->
+						<!-- 							scope="col" -->
+						<!-- 							data-field="detailsId" -->
+						<!-- 							data-sortable="false">detailsId</th> -->
 						<th
 							scope="col"
 							data-field="stackSize"
@@ -141,12 +148,11 @@
 						<th
 							scope="col"
 							data-field="chaosValue"
-							data-sortable="true">price</th>
-						<!-- sort does not seem to work on the total field since its a calculated field -->
+							data-sortable="true">chaos</th>
 						<th
 							scope="col"
 							data-field="total"
-							data-sortable="false">total</th>
+							data-sortable="true">total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -160,23 +166,33 @@
 						</td>
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.baseType}"></td>
-						<td th:text="${item.frameType}"></td>
+						<!-- 						<td th:text="${item.typeLine}"></td> -->
+						<!-- 						<td th:text="${item.frameType}"></td> -->
 						<!-- 						<td th:text="${item.category?.value}"></td> -->
 						<!-- 						<td th:text="${item.poeNinjaDetailsId}"></td> -->
 						<td th:text="${item.stackSize}"></td>
 						<td th:text="${item.chaosValue}"></td>
-						<td>
-							<span
-								th:if="${item.chaosValue != null && item.stackSize != null}"
-								th:text="${#numbers.formatDecimal(item.chaosValue * item.stackSize,0,2)}"></span>
-							<span
-								th:if="${item.chaosValue != null && item.stackSize == null}"
-								th:text="${item.chaosValue}"></span>
-						</td>
+						<td th:text="${#numbers.formatDecimal(item.total,0,2)}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</th:block>
+
+		<script th:inline="javascript">
+			document.body.addEventListener('htmx:afterRequest', (event) => {
+				if (event.detail.target.id == "stash-tab-details") {
+				/*[- data-toggle="table" does not seem to work on AJAX loaded content -]*/
+					$(function() {
+						$('#stash-tab-details-table').bootstrapTable();
+					});
+					
+					/*[-
+					Scroll back to the start of stash-tab-details when selecting a new stash tab
+					 * -]*/
+					 document.getElementById("stash-tab-details").scrollIntoView();
+				}
+			});
+		</script>
 	</div>
 
 </body>

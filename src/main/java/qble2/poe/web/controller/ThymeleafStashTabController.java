@@ -77,16 +77,16 @@ public class ThymeleafStashTabController {
   }
 
   @GetMapping(path = "/{stashTabId}", headers = "HX-Request")
-  public String htmxGetDetailedStashTabFragment(
+  public String htmxGetStashTabDetailsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
     StashTabDto stashTab = this.stashTabService.getDetailedStashTab(stashTabId);
     model.addAttribute("stashTab", stashTab);
 
-    return "fragments/stash-frags :: stash-tab-items";
+    return "fragments/stash-frags :: stash-tab-details";
   }
 
   @PostMapping(path = "/{stashTabId}", headers = "HX-Request")
-  public String htmxReloadDetailsStashTabFragment(
+  public String htmxReloadStashTabDetailsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
     String accountName = principalUtils.getAccountName();
     String poeSessionId = principalUtils.getPoeSessionId();
@@ -95,7 +95,7 @@ public class ThymeleafStashTabController {
         this.stashTabService.reloadStashTab(accountName, poeSessionId, stashTabId);
     model.addAttribute("stashTab", stashTab);
 
-    return "fragments/stash-frags :: stash-tab-items";
+    return "fragments/stash-frags :: stash-tab-details";
   }
 
   @PostMapping(path = "/{stashTabId}/price-check", headers = "HX-Request")
@@ -108,7 +108,7 @@ public class ThymeleafStashTabController {
         this.stashTabService.priceCheckStashTab(accountName, poeSessionId, stashTabId);
     model.addAttribute("stashTab", stashTab);
 
-    return "fragments/stash-frags :: stash-tab-items";
+    return "fragments/stash-frags :: stash-tab-details";
   }
 
 }
