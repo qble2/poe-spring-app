@@ -23,11 +23,11 @@
 		hx-swap="outerHTML">Reload stash tabs</button>
 
 	<!-- FRAGMENT :: stash-tabs-list -->
-	<div
+	<ul
 		th:fragment="stash-tabs-list"
 		id="stash-tabs-list"
 		class="stash-tabs-list">
-		<div
+		<li
 			th:each="stashTab: ${stashTabs}"
 			th:class="stash-tab-header"
 			th:classappend="|clickable stash-tab-header-${stashTab.type}|"
@@ -39,8 +39,8 @@
 			<span
 				class="stash-tab-header-name"
 				th:text="${stashTab.name}"></span>
-		</div>
-	</div>
+		</li>
+	</ul>
 
 	<!-- FRAGMENT :: stash-tab-details -->
 	<div

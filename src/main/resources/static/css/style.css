@@ -57,6 +57,10 @@ a {
 	cursor: pointer;
 }
 
+ol, ul, li {
+	margin: 0;
+}
+
 .clickable,
 .clickable * {
 	display: block;
@@ -389,8 +393,6 @@ a {
 }
 .stash-tabs-list {
 	grid-area: stash-tabs-list;
-	display: flex;
-	flex-direction: column;
 	height: 100vh;
 	overflow-y: auto;
 	position: sticky;
