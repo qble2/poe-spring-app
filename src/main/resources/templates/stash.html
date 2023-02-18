@@ -11,17 +11,16 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		
-		<div
-			th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/stash-tabs/get-stash-tabs-list', targetElementToUpdate='#stash-tabs-list')"></div>
 
-		<div
-			style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
+		<div class="stash-container">
+			<div
+				th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/stash-tabs/get-stash-tabs-list', targetElementToUpdate='#stash-tabs-list')">
+			</div>
+
+			<div th:replace="fragments/stash-frags :: reload-stash-tabs-list"></div>
 
 			<div th:replace="fragments/stash-frags :: stash-tabs-list"></div>
-
 			<div th:replace="fragments/stash-frags :: stash-tab-items"></div>
-
 		</div>
 
 	</section>

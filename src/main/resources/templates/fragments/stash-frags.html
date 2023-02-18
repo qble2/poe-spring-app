@@ -40,39 +40,52 @@
 	</div>
 
 	<!-- FRAGMENT :: stash-tabs-list -->
+	<!-- 	<form -->
+	<!-- 		th:fragment="reload-stash-tabs-list" -->
+	<!-- 		id="reload-stash-tabs-list" -->
+	<!-- 		class="reload-stash-tabs-list" -->
+	<!-- 		hx-boost="true" -->
+	<!-- 		hx-ext="loading-states" -->
+	<!-- 		hx-include="#select-league-dropdown-menu-select" -->
+	<!-- 		data-loading-aria-busy -->
+	<!-- 		data-loading-target="#reload-stash-tabs-button" -->
+	<!-- 		action="#" -->
+	<!-- 		th:action="@{/stash-tabs}" -->
+	<!-- 		th:method="POST"> -->
+	<!-- 	<button -->
+	<!-- 		id="reload-stash-tabs-button" -->
+	<!-- 		class="outline">Reload stash tabs</button> -->
+	<!-- 	</form> -->
+	<button
+		th:fragment="reload-stash-tabs-list"
+		id="reload-stash-tabs-list"
+		class="reload-stash-tabs-list outline"
+		hx-trigger="click"
+		hx-ext="loading-states"
+		hx-include="#select-league-dropdown-menu-select"
+		data-loading-aria-busy
+		data-loading-target="#reload-stash-tabs-list"
+		th:attr="hx-post=|/stash-tabs/reload-stash-tabs-list|"
+		hx-target="#stash-tabs-list"
+		hx-swap="outerHTML">Reload stash tabs</button>
+
+	<!-- FRAGMENT :: stash-tabs-list -->
 	<div
 		th:fragment="stash-tabs-list"
 		id="stash-tabs-list"
-		style="display: flex; flex-direction: column; width: 300px;">
-
-		<!-- reloading the full page to reset league & items sections -->
-		<form
-			hx-boost="true"
-			hx-ext="loading-states"
-			hx-include="#select-league-dropdown-menu-select"
-			data-loading-aria-busy
-			data-loading-target="#reload-stash-tabs-button"
-			action="#"
-			th:action="@{/stash-tabs}"
-			th:method="POST">
-			<button
-				id="reload-stash-tabs-button"
-				class="outline">Reload stash tabs</button>
-		</form>
-
+		class="stash-tabs-list">
 		<div
-			th:style="|display: flex; flex-direction: column; height: 90vh; overflow-y: auto;|">
-			<div
-				th:each="stashTab: ${stashTabs}"
-				th:class="stash-tab-header"
-				th:classappend="|clickable stash-tab-header-${stashTab.type}|"
-				th:style="|background-color: ${stashTab.getHexColor()}|"
-				hx-trigger="click"
-				th:attr="hx-get=|/stash-tabs/${stashTab.id}|"
-				hx-target="#stash-tab-items"
-				hx-swap="outerHTML">
-				<span class="stash-tab-header-name" th:text="${stashTab.name}"></span>
-			</div>
+			th:each="stashTab: ${stashTabs}"
+			th:class="stash-tab-header"
+			th:classappend="|clickable stash-tab-header-${stashTab.type}|"
+			th:style="|background-color: ${stashTab.getHexColor()}|"
+			hx-trigger="click"
+			th:attr="hx-get=|/stash-tabs/${stashTab.id}|"
+			hx-target="#stash-tab-items"
+			hx-swap="outerHTML">
+			<span
+				class="stash-tab-header-name"
+				th:text="${stashTab.name}"></span>
 		</div>
 	</div>
 
@@ -80,7 +93,7 @@
 	<div
 		th:fragment="stash-tab-items"
 		id="stash-tab-items"
-		style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+		class="stash-tab-items">
 
 		<th:block th:if="${stashTab != null}">
 

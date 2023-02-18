@@ -370,9 +370,43 @@ a {
 	border-radius: .125rem;
 }
 /* ************************************************************************* */
+/* league */
+/* ************************************************************************* */
+.select-league-dropdown-menu {
+	grid-area: select-league-dropdown-menu;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+/* ************************************************************************* */
 /* stash */
 /* ************************************************************************* */
-/* 'stash-tab-header' + stashTab.type */
+.stash-container {
+	display: grid;
+	gap: 10px;
+	grid-template:
+		" reload-stash-tabs-list select-league-dropdown-menu select-league-dropdown-menu "
+		" stash-tabs-list        stash-tab-items             stash-tab-items             "
+		/ 300px 1fr 1fr;
+	;
+}
+.reload-stash-tabs-list {
+	grid-area: reload-stash-tabs-list;
+}
+.stash-tabs-list {
+	grid-area: stash-tabs-list;
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+	overflow-y: auto;
+}
+.stash-tab-items {
+	grid-area: stash-tab-items;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .stash-tab-header {
 	color: white;
 	border: 1px solid black;
@@ -388,6 +422,7 @@ a {
 	text-overflow: ellipsis;
 }
 
+/* 'stash-tab-header' + stashTab.type */
 .stash-tab-header-NormalStash::before,
 .stash-tab-header-PremiumStash::before,
 .stash-tab-header-QuadStash::before,

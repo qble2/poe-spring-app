@@ -49,7 +49,8 @@
 	<!-- load polling leagues -->
 	<div
 		th:fragment="select-league-dropdown-menu"
-		class="flex-row"
+		id="select-league-dropdown-menu"
+		class="select-league-dropdown-menu"
 		hx-trigger="load"
 		hx-get="/leagues/select-league-dropdown-menu-options"
 		hx-target="#select-league-dropdown-menu-select"
@@ -77,9 +78,15 @@
 	<!-- FRAGMENT :: select-league-dropdown-menu-options -->
 	<th:block th:fragment="select-league-dropdown-menu-options">
 		<option
+			th:if="${not #lists.isEmpty(leagues)}"
 			value=""
 			disabled
 			selected>Select league</option>
+		<option
+			th:if="${#lists.isEmpty(leagues)}"
+			value=""
+			disabled
+			selected>Please reload leagues first</option>
 		<option
 			th:if="${not #lists.isEmpty(leagues)}"
 			th:each="league: ${leagues}"
