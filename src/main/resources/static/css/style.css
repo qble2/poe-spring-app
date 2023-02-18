@@ -53,15 +53,9 @@
   display: none;
 }
 /** **/
-
 a {
 	cursor: pointer;
-/* 	text-overflow: ellipsis; */
 }
-
-/* label { */
-/* 	text-overflow: ellipsis; */
-/* } */
 
 .clickable,
 .clickable * {

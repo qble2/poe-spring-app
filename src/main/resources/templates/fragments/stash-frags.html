@@ -8,54 +8,7 @@
 <head>
 </head>
 <body>
-	<!-- FRAGMENT :: stash-tabs-table -->
-	<div
-		th:fragment="stash-tabs-table"
-		id="stash-tabs-table">
-		<div th:if="${#lists.isEmpty(stashTabs)}">No stash tab found.</div>
-		<table
-			th:if="${not #lists.isEmpty(stashTabs)}"
-			role="grid">
-			<thead>
-				<tr>
-					<th scope="col">index</th>
-					<th scope="col">name</th>
-					<th scope="col">type</th>
-					<th scope="col">leagueId</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="stashTab: ${stashTabs}">
-					<td th:text="${stashTab.index}"></td>
-					<td>
-						<a
-							th:text="${stashTab.name}"
-							th:href="|/stash-tabs/${stashTab.id}|"></a>
-					</td>
-					<td th:text="${stashTab.type}"></td>
-					<td th:text="${stashTab.leagueId}"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<!-- FRAGMENT :: stash-tabs-list -->
-	<!-- 	<form -->
-	<!-- 		th:fragment="reload-stash-tabs-list" -->
-	<!-- 		id="reload-stash-tabs-list" -->
-	<!-- 		class="reload-stash-tabs-list" -->
-	<!-- 		hx-boost="true" -->
-	<!-- 		hx-ext="loading-states" -->
-	<!-- 		hx-include="#select-league-dropdown-menu-select" -->
-	<!-- 		data-loading-aria-busy -->
-	<!-- 		data-loading-target="#reload-stash-tabs-button" -->
-	<!-- 		action="#" -->
-	<!-- 		th:action="@{/stash-tabs}" -->
-	<!-- 		th:method="POST"> -->
-	<!-- 	<button -->
-	<!-- 		id="reload-stash-tabs-button" -->
-	<!-- 		class="outline">Reload stash tabs</button> -->
-	<!-- 	</form> -->
+	<!-- FRAGMENT :: reload-stash-tabs-list -->
 	<button
 		th:fragment="reload-stash-tabs-list"
 		id="reload-stash-tabs-list"
@@ -141,22 +94,59 @@
 
 			</div>
 
+			<!-- Bootstrap Table
+				data-toggle="table" does not seem to work on AJAX loaded content.
+					$('#stash-tab-items-table').bootstrapTable() is used instead.
+				Bootstrap CSS conflicts with Pico.css and has been disabled
+					data-show-multi-sort requires Bootstrap CSS to work properly.
+					data-pagination requires Bootstrap CSS to work properly.
+			-->
 			<table
-				th:if="${not #lists.isEmpty(stashTab.items)}"
-				role="grid">
+				id="stash-tab-items-table"
+				data-toggle="table"
+				data-search="true"
+				data-show-columns="false"
+				data-pagination="false"
+				data-show-multi-sort="true"
+				data-sort-name="chaosValue"
+				data-sort-order="desc"
+				data-sort-empty-last="true"
+				role="grid"
+				th:if="${not #lists.isEmpty(stashTab.items)}">
 				<thead>
 					<tr>
 						<th
-							class="align-center"
-							scope="col">icon</th>
-						<th scope="col">name</th>
-						<th scope="col">baseType</th>
-						<th scope="col">frameType</th>
-						<th scope="col">category</th>
-						<th scope="col">detailsId</th>
-						<th scope="col">chaosValue</th>
-						<th scope="col">stackSize</th>
-						<th scope="col">total</th>
+							scope="col"
+							data-field="icon"
+							data-sortable="false"
+							class="align-center">icon</th>
+						<th
+							scope="col"
+							data-field="name"
+							data-sortable="false">name</th>
+						<th
+							scope="col"
+							data-field="baseType"
+							data-sortable="false">baseType</th>
+						<th
+							scope="col"
+							data-field="frameType"
+							data-sortable="true">f</th>
+						<!-- 						<th scope="col" data-field="category" data-sortable="false">category</th> -->
+						<!-- 						<th scope="col" data-field="detailsId" data-sortable="false">detailsId</th> -->
+						<th
+							scope="col"
+							data-field="stackSize"
+							data-sortable="false">quant</th>
+						<th
+							scope="col"
+							data-field="chaosValue"
+							data-sortable="true">price</th>
+						<!-- sort does not seem to work on the total field since its a calculated field -->
+						<th
+							scope="col"
+							data-field="total"
+							data-sortable="false">total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -171,10 +161,10 @@
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.baseType}"></td>
 						<td th:text="${item.frameType}"></td>
-						<td th:text="${item.category?.value}"></td>
-						<td th:text="${item.poeNinjaDetailsId}"></td>
-						<td th:text="${item.chaosValue}"></td>
+						<!-- 						<td th:text="${item.category?.value}"></td> -->
+						<!-- 						<td th:text="${item.poeNinjaDetailsId}"></td> -->
 						<td th:text="${item.stackSize}"></td>
+						<td th:text="${item.chaosValue}"></td>
 						<td>
 							<span
 								th:if="${item.chaosValue != null && item.stackSize != null}"

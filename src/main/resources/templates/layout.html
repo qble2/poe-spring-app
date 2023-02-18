@@ -14,7 +14,6 @@
 <meta
 	name="_csrf"
 	th:content="${_csrf.token}" />
-<!-- Bootstrap CSS -->
 <!-- Pico.css -->
 <link
 	th:rel="stylesheet"
@@ -31,6 +30,19 @@
 <link
 	th:rel="stylesheet"
 	th:href="@{/css/style.css}" />
+<!-- Bootstrap Table CSS -->
+<link
+	th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap-table/dist/bootstrap-table.min.css}">
+<!-- Bootstrap CSS (Required by Bootstrap Table) -->
+<!-- Disabled because it conflicts with Pico.css -->
+<!-- <link -->
+<!-- 	th:rel="stylesheet" -->
+<!-- 	th:href="@{/webjars/bootstrap/5.3.0-alpha1/dist/css/bootstrap.min.css}"> -->
+<!-- Bootstrap CSS (Required by Bootstrap Table) -->
+<script
+	type="text/javascript"
+	th:src="@{/webjars/bootstrap/5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body class="container">
 	<nav th:replace="fragments/nav :: nav">Nav content.</nav>
@@ -46,7 +58,19 @@
 	</main>
 
 	<footer th:replace="fragments/footer :: footer">Footer content.</footer>
+
+	<!-- JQuery (Required by Bootstrap Table) -->
+	<script
+		type="text/javascript"
+		th:src="@{/webjars/jquery/jquery.min.js}"
+		defer></script>
+	<!-- Bootstrap Table JS  -->
+	<script
+		type="text/javascript"
+		th:src="@{/webjars/bootstrap-table/dist/bootstrap-table.min.js}"
+		defer></script>
 </body>
+
 
 <script th:inline="javascript">
 /*<![CDATA[*/
@@ -68,6 +92,13 @@
 			if(event.detail.xhr.responseURL.indexOf("/login?expired") > -1) {
 				window.location.replace("/login?expired");
 			}
+		});
+		
+		document.body.addEventListener('htmx:afterRequest', (event) => {
+			/*[- data-toggle="table" does not seem to work on AJAX loaded content -]*/
+			$(function() {
+				$('#stash-tab-items-table').bootstrapTable();
+			});
 		});
 	}
 /*]]>*/
