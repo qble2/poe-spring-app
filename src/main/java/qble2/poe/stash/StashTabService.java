@@ -105,7 +105,7 @@ public class StashTabService {
 
     List<ItemDto> listOfItemDto = this.stashWebClientGgg.retrieveStashTabItems(accountName,
         poeSessionId, stashTab.getLeagueId(), stashTab.getIndex());
-    updateLastReloadAt(stashTab);
+    updateLastReloadedAt(stashTab);
 
     stashTab.getItems().clear();
     this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(stashTab::addItem);
@@ -114,19 +114,14 @@ public class StashTabService {
   }
 
   private StashTab updateStashTabItemsMarketValue(StashTab stashTab) {
-    marketOverviewService.updateMarketValue(stashTab.getItems());
-    updateLastPriceCheckedAt(stashTab);
+    marketOverviewService.updateMarketValue(stashTab);
 
     return this.stashTabRepository.save(stashTab);
   }
 
-  private void updateLastReloadAt(StashTab stashTab) {
+  private void updateLastReloadedAt(StashTab stashTab) {
     stashTab.setReloadedAt(ZonedDateTime.now());
     stashTab.setPriceCheckedAt(null);
-  }
-
-  private void updateLastPriceCheckedAt(StashTab stashTab) {
-    stashTab.setPriceCheckedAt(ZonedDateTime.now());
   }
 
 }

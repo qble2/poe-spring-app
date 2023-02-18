@@ -1,11 +1,13 @@
 package qble2.poe.marketoverview;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemCategoryResolverService;
+import qble2.poe.stash.StashTab;
 
 @Service
 @Transactional
@@ -46,6 +48,11 @@ public class MarketOverviewService {
 
     return this.marketOverviewMapper.toDtoListFromEntityList(
         this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type));
+  }
+
+  public void updateMarketValue(StashTab stashTab) {
+    updateMarketValue(stashTab.getItems());
+    stashTab.setPriceCheckedAt(ZonedDateTime.now());
   }
 
   public void updateMarketValue(List<Item> items) {
