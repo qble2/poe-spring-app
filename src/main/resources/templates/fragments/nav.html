@@ -21,19 +21,19 @@
 				<a
 					href="/leagues"
 					th:href="@{/leagues}"
-					role="button">Leagues</a>
+					th:role="${#request.getRequestURI() == '/leagues' ? 'button' : ''}">Leagues</a>
 			</li>
 			<li>
 				<a
 					href="/characters"
 					th:href="@{/characters}"
-					role="button">Profile</a>
+					th:role="${#request.getRequestURI() == '/characters' ? 'button' : ''}">Profile</a>
 			</li>
 			<li>
 				<a
 					href="/stash-tabs"
 					th:href="@{/stash-tabs}"
-					role="button">Stash</a>
+					th:role="${#request.getRequestURI() == '/stash-tabs' ? 'button' : ''}">Stash</a>
 			</li>
 
 			<li>
