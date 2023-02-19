@@ -59,6 +59,7 @@ a {
 
 ol, ul, li {
 	margin: 0;
+	padding: 0;
 }
 
 .clickable,
@@ -75,7 +76,6 @@ ol, ul, li {
 }
 
 .error-color {
-	/* Material dark theme color */
 	color: #CF6679;
 }
 
@@ -107,6 +107,12 @@ ol, ul, li {
 	gap: 10px;
 }
 
+.grid-align-center {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
 .flex-row-space-between {
 	display: flex;
 	flex-direction: row;
@@ -124,7 +130,7 @@ ol, ul, li {
 }
 
 /** 'icon-' + character.characterClass */
-/* 	background: url('https://web.poecdn.com/protected/image/gen/inventory-sprite.png?v=1675225309458&key=utM9ksjtnos9jfBiHEVUNA'); */
+/* 	background: url('https://web.poecdn.com/protected/image/gen/inventory-sprite.png'); */
 .character-class-icon-Elementalist {
 	background: url('/image/inventory-sprite.png');
     background-position: -240px -500px;
@@ -250,70 +256,60 @@ ol, ul, li {
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Offhand {
 	grid-area: Offhand;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Helm {
 	grid-area: Helm;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Gloves {
 	grid-area: Gloves;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Boots {
 	grid-area: Boots;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-BodyArmour {
 	grid-area: BodyArmour;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Amulet {
 	grid-area: Amulet;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Ring {
 	grid-area: Ring;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Ring2 {
 	grid-area: Ring2;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Belt {
 	grid-area: Belt;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 /* -${item.inventoryId}-${item.x} */
 .character-inventory-Flask0 {
 	grid-area: Flask0;
@@ -321,28 +317,24 @@ ol, ul, li {
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Flask1 {
 	grid-area: Flask1;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Flask2 {
 	grid-area: Flask2;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Flask3 {
 	grid-area: Flask3;
     display: grid;
     justify-items: center;
     align-items: center;
 }
-
 .character-inventory-Flask4 {
 	grid-area: Flask4;
     display: grid;
@@ -383,13 +375,13 @@ ol, ul, li {
 	display: grid;
 	gap: 10px;
 	grid-template:
-		" reload-stash-tabs-list select-league-dropdown-menu select-league-dropdown-menu "
-		" stash-tabs-list        stash-tab-details             stash-tab-details             "
+		" reload-stash-tabs-list-button select-league-dropdown-menu select-league-dropdown-menu "
+		" stash-tabs-list               stash-tab-details           stash-tab-details           "
 		/ 300px 1fr 1fr;
 	;
 }
-.reload-stash-tabs-list {
-	grid-area: reload-stash-tabs-list;
+.reload-stash-tabs-list-button {
+	grid-area: reload-stash-tabs-list-button;
 }
 .stash-tabs-list {
 	grid-area: stash-tabs-list;
@@ -429,7 +421,7 @@ ol, ul, li {
 	z-index: 999;
 }
 
-/* 'stash-tab-header' + stashTab.type */
+/* 'stash-tab-header-' + stashTab.type */
 .stash-tab-header-NormalStash::before,
 .stash-tab-header-PremiumStash::before,
 .stash-tab-header-QuadStash::before,
@@ -453,47 +445,146 @@ ol, ul, li {
     content: "";
 }
 .stash-tab-header-PremiumStash::before {
-/* 	content: url('https://web.poecdn.com/protected/image/layout/stash/premium-tab-icon.png?v=1674770173658&key=eFcoMl6FRQpBrNgSIvNgYQ'); */
-	content: url('/image/stash/premium-tab-icon.png?v=1674770173658&key=eFcoMl6FRQpBrNgSIvNgYQ');
+/* 	content: url('https://web.poecdn.com/protected/image/layout/stash/premium-tab-icon.png'); */
+	content: url('/image/stash/icon/premium-tab-icon.png');
 }
 .stash-tab-header-QuadStash::before {
-	content: url('/image/stash/quad-tab-icon.png?v=1674770173658&key=SO7Jf8d6g68rhHKJVt1Itw');
+	content: url('/image/stash/icon/quad-tab-icon.png');
 }
 .stash-tab-header-CurrencyStash::before {
-	content: url('/image/stash/currency-tab-icon.png?v=1674770173394&key=c4JmwvlEdlm1iitgRJ-LtQ');
+	content: url('/image/stash/icon/currency-tab-icon.png');
 }
 .stash-tab-header-MapStash::before {
-	content: url('/image/stash/map-tab-icon.png?v=1674770173590&key=jLp8L5BgKpzzyf8Jdu51Zg');
+	content: url('/image/stash/icon/map-tab-icon.png');
 }
 .stash-tab-header-FragmentStash::before {
-	content: url('/image/stash/fragment-tab-icon.png?v=1674770173510&key=NIXjytgKBeGX-0ed5uJWeA');
+	content: url('/image/stash/icon/fragment-tab-icon.png');
 }
 .stash-tab-header-DivinationCardStash::before {
-	content: url('/image/stash/divination-tab-icon.png?v=1674770173430&key=FaLsxYtmuqBXkJebdF62_w');
+	content: url('/image/stash/icon/divination-tab-icon.png');
 }
 .stash-tab-header-EssenceStash::before {
-	content: url('/image/stash/essence-tab-icon.png?v=1674770173430&key=3sC1L24_-V0QEze0P8r_Dg');
+	content: url('/image/stash/icon/essence-tab-icon.png');
 }
 .stash-tab-header-DelveStash::before {
-	content: url('/image/stash/delve-tab-icon.png?v=1674770173430&key=1eC3WO6hAEtNVN7wtLT6jA');
+	content: url('/image/stash/icon/delve-tab-icon.png');
 }
 .stash-tab-header-MetamorphStash::before {
-	content: url('/image/stash/metamorph-tab-icon.png?v=1674770173658&key=9fUlHmwXXM7dKdwFt_RvnQ');
+	content: url('/image/stash/icon/metamorph-tab-icon.png');
 }
 .stash-tab-header-BlightStash::before {
-	content: url('/image/stash/blight-tab-icon.png?v=1674770173382&key=PL1k11by4nAQDMPTAnPZdA');
+	content: url('/image/stash/icon/blight-tab-icon.png');
 }
 .stash-tab-header-DeliriumStash::before {
-	content: url('/image/stash/delirium-tab-icon.png?v=1674770173410&key=sIX1JMexEbOTIezUWYJqvg');
+	content: url('/image/stash/icon/delirium-tab-icon.png');
 }
 .stash-tab-header-GemStash::before {
-	content: url('/image/stash/gem-tab-icon.png?v=1674770173570&key=KE0pPt-_F4uZcdNWL6ff4Q');
+	content: url('/image/stash/icon/gem-tab-icon.png');
 }
 .stash-tab-header-FlaskStash::before {
-	content: url('/image/stash/flask-tab-icon.png?v=1674770173494&key=-UDcfP_cV6F7uvzOxyD3rw');
+	content: url('/image/stash/icon/flask-tab-icon.png');
 }
 
 .stash-item-icon {
 	max-width: none !important;
+}
+
+.stash-tab-2d {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
+.stash-tab-2d-CurrencyStash {
+	background-image: url('/image/stash/background/CurrencyStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-MapStash {
+	background-image: url('/image/stash/background/MapStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-FragmentStash {
+	background-image: url('/image/stash/background/FragmentStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-DivinationCardStash {
+	background-image: url('/image/stash/background/DivinationCardStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-EssenceStash {
+	background-image: url('/image/stash/background/EssenceStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-DelveStash {
+	background-image: url('/image/stash/background/DelveStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-MetamorphStash {
+	background-image: url('/image/stash/background/MetamorphStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-BlightStash {
+	background-image: url('/image/stash/background/BlightStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-DeliriumStash {
+	background-image: url('/image/stash/background/DeliriumStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-GemStash {
+	background-image: url('/image/stash/background/GemStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-FlaskStash  {
+		background-image: url('/image/stash/background/FlaskStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+/* 'stash-tab-2d-' + stashTab.type */
+.stash-tab-2d-NormalStash,
+.stash-tab-2d-PremiumStash {
+	display: grid;
+	grid-template-columns: repeat(12, calc(570/12 * 1px));
+	grid-template-rows:	repeat(12, calc(570/12 * 1px));
+	background-image: url('/image/stash/background/NormalStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+.stash-tab-2d-QuadStash {
+	display: grid;
+	grid-template-columns: repeat(24, calc(570/24 * 1px));
+	grid-template-rows:	repeat(24, calc(570/24 * 1px));
+	background-image: url('/image/stash/background/QuadStash-background.png');
+	width: 570px;
+	height: 570px;
+}
+/* stash tab item.x and item.y are 0-based */
+/* CSS Grid positioning is 1-based */
+.stash-tab-2d-item {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	grid-column-start: calc(var(--item-x) + 1);
+	grid-column-end: span var(--item-w);
+	grid-row-start: calc(var(--item-y) + 1);
+	grid-row-end: span var(--item-h);
+}
+.stash-tab-2d-item:hover {
+	background-color: rgba(0, 137, 123, 0.2);
+}
+.stash-tab-2d-item > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 /* ************************************************************************* */

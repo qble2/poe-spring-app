@@ -8,16 +8,16 @@
 <head>
 </head>
 <body>
-	<!-- FRAGMENT :: reload-stash-tabs-list -->
+	<!-- FRAGMENT :: reload-stash-tabs-list-button -->
 	<button
-		th:fragment="reload-stash-tabs-list"
-		id="reload-stash-tabs-list"
-		class="reload-stash-tabs-list outline"
+		th:fragment="reload-stash-tabs-list-button"
+		id="reload-stash-tabs-list-button"
+		class="reload-stash-tabs-list-button outline"
 		hx-trigger="click"
-		hx-ext="loading-states"
 		hx-include="#select-league-dropdown-menu-select"
+		hx-ext="loading-states"
 		data-loading-aria-busy
-		data-loading-target="#reload-stash-tabs-list"
+		data-loading-target="#reload-stash-tabs-list-button"
 		th:attr="hx-post=|/stash-tabs/reload-stash-tabs-list|"
 		hx-target="#stash-tabs-list"
 		hx-swap="outerHTML">Reload stash tabs</button>
@@ -47,145 +47,90 @@
 		th:fragment="stash-tab-details"
 		id="stash-tab-details"
 		class="stash-tab-details">
-
 		<th:block th:if="${stashTab != null}">
-			<div
-				class="stash-tab-details-header"
-				th:style="|background-color: ${stashTab.getHexColor()};|"
-				th:text="${stashTab.name}"></div>
-
 			<div class="flex-column">
-				<div style="display: flex; flex-direction: row; gap: 10px;">
+				<div
+					class="stash-tab-details-header"
+					th:style="|background-color: ${stashTab.getHexColor()};|"
+					th:text="${stashTab.name}"></div>
+
+				<div class="flex-row">
 					<button
 						class="outline"
+						style="flex-grow: 1; flex-basis: 0;"
 						hx-ext="loading-states"
 						data-loading-aria-busy
 						hx-trigger="click"
 						th:attr="hx-post=|/stash-tabs/${stashTab.id}|"
 						hx-target="#stash-tab-details"
-						hx-swap="outerHTML">Reload items</button>
-
+						hx-swap="outerHTML">
+						Reload items <br>
+						<div
+							class="grid-align-center"
+							style="flex-grow: 1; flex-basis: 0;"
+							th:text="${#temporals.format(stashTab.reloadedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
+					</button>
 					<button
-						class="outline"
 						th:if="${not #lists.isEmpty(stashTab.items)}"
+						class="outline"
+						style="flex-grow: 1; flex-basis: 0;"
 						hx-ext="loading-states"
 						data-loading-aria-busy
 						hx-trigger="click"
 						th:attr="hx-post=|/stash-tabs/${stashTab.id}/price-check|"
 						hx-target="#stash-tab-details"
-						hx-swap="outerHTML">Price check items</button>
+						hx-swap="outerHTML">
+						Price check items<br>
+						<div
+							th:text="${#temporals.format(stashTab.priceCheckedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
+					</button>
 				</div>
-
-				<div style="display: flex; flex-direction: row; gap: 10px;">
-					<div>Last reload:</div>
-					<div
-						th:if="${stashTab.reloadedAt != null}"
-						th:text="${#temporals.format(stashTab.reloadedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
-					<div th:unless="${stashTab.reloadedAt != null}">N/A</div>
-				</div>
-
-				<div style="display: flex; flex-direction: row; gap: 10px;">
-					<div>Last price check:</div>
-					<div
-						th:if="${stashTab.priceCheckedAt != null}"
-						th:text="${#temporals.format(stashTab.priceCheckedAt, 'dd/MM/yyyy HH:mm:ss')}"></div>
-					<div th:unless="${stashTab.priceCheckedAt != null}">N/A</div>
-				</div>
-
 			</div>
 
-			<!-- Bootstrap Table
-				data-toggle="table" does not seem to work on AJAX loaded content.
-					$('#stash-tab-details-table').bootstrapTable() is used instead.
-				Bootstrap CSS conflicts with Pico.css and has been disabled
-					data-show-multi-sort requires Bootstrap CSS to work properly.
-					data-pagination requires Bootstrap CSS to work properly.
-			-->
-			<table
-				id="stash-tab-details-table"
-				data-toggle="table"
-				data-search="true"
-				data-show-columns="false"
-				data-pagination="false"
-				data-show-multi-sort="true"
-				data-sort-name="chaosValue"
-				data-sort-order="desc"
-				data-sort-empty-last="true"
-				role="grid"
-				th:if="${not #lists.isEmpty(stashTab.items)}">
-				<thead>
-					<tr>
-						<th
-							scope="col"
-							data-field="icon"
-							data-sortable="false"
-							class="align-center">icon</th>
-						<th
-							scope="col"
-							data-field="name"
-							data-sortable="false">name</th>
-						<th
-							scope="col"
-							data-field="baseType"
-							data-sortable="false">baseType</th>
-						<!-- 						<th -->
-						<!-- 							scope="col" -->
-						<!-- 							data-field="typeLine" -->
-						<!-- 							data-sortable="false">typeLine</th> -->
-						<!-- 						<th -->
-						<!-- 							scope="col" -->
-						<!-- 							data-field="frameType" -->
-						<!-- 							data-sortable="true">frameType</th> -->
-						<!-- 						<th scope="col" data-field="category" data-sortable="false">category</th> -->
-						<!-- 						<th -->
-						<!-- 							scope="col" -->
-						<!-- 							data-field="detailsId" -->
-						<!-- 							data-sortable="false">detailsId</th> -->
-						<th
-							scope="col"
-							data-field="stackSize"
-							data-sortable="false">quant</th>
-						<th
-							scope="col"
-							data-field="chaosValue"
-							data-sortable="true">chaos</th>
-						<th
-							scope="col"
-							data-field="total"
-							data-sortable="true">total</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item: ${stashTab.items}">
-						<td class="align-center">
-							<img
-								class="stash-item-icon"
-								alt="icon"
-								th:src="${item.icon}"
-								th:title="${item.name} + ' ' + ${item.baseType}">
-						</td>
-						<td th:text="${item.name}"></td>
-						<td th:text="${item.baseType}"></td>
-						<!-- 						<td th:text="${item.typeLine}"></td> -->
-						<!-- 						<td th:text="${item.frameType}"></td> -->
-						<!-- 						<td th:text="${item.category?.value}"></td> -->
-						<!-- 						<td th:text="${item.poeNinjaDetailsId}"></td> -->
-						<td th:text="${item.stackSize}"></td>
-						<td th:text="${item.chaosValue}"></td>
-						<td th:text="${#numbers.formatDecimal(item.total,0,2)}"></td>
-					</tr>
-				</tbody>
-			</table>
+			<div
+				th:if="${not #lists.isEmpty(stashTab.items)}"
+				class="flex-column">
+				<div
+					class="flex-row"
+					style="justify-content: flex-end;">
+					<a
+						class="outline"
+						hx-trigger="click"
+						th:attr="hx-get=|/stash-tabs/${stashTab.id}/table|"
+						hx-target="#stash-tab-details-items"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-swap="innerHTML">Table</a>
+					/
+					<a
+						class="outline"
+						hx-trigger="click"
+						th:attr="hx-get=|/stash-tabs/${stashTab.id}/2d|"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-target="#stash-tab-details-items"
+						hx-swap="innerHTML">2D</a>
+				</div>
+
+				<div
+					id="stash-tab-details-items"
+					hx-trigger="load"
+					th:attr="hx-get=|/stash-tabs/${stashTab.id}/table|"
+					hx-target="#stash-tab-details-items"
+					hx-swap="innerHTML"></div>
+			</div>
 		</th:block>
 
 		<script th:inline="javascript">
+			document.body.addEventListener("stashTabDetailsTable", function(evt) {
+				/*[- data-toggle="table" does not seem to work on AJAX loaded content -]*/
+				$(function() {
+					$('#stash-tab-details-table').bootstrapTable();
+				});
+			});
+			
 			document.body.addEventListener('htmx:afterRequest', (event) => {
 				if (event.detail.target.id == "stash-tab-details") {
-				/*[- data-toggle="table" does not seem to work on AJAX loaded content -]*/
-					$(function() {
-						$('#stash-tab-details-table').bootstrapTable();
-					});
-					
 					/*[-
 					Scroll back to the start of stash-tab-details when selecting a new stash tab
 					 * -]*/
@@ -193,6 +138,114 @@
 				}
 			});
 		</script>
+	</div>
+
+	<!-- FRAGMENT :: stash-tab-details-table -->
+	<!-- Bootstrap Table
+				data-toggle="table" does not seem to work on AJAX loaded content.
+					$('#stash-tab-details-table').bootstrapTable() is used instead.
+				Bootstrap CSS conflicts with Pico.css and has been disabled
+					data-show-multi-sort requires Bootstrap CSS to work properly.
+					data-pagination requires Bootstrap CSS to work properly.
+			-->
+	<table
+		th:fragment="stash-tab-details-table"
+		id="stash-tab-details-table"
+		data-toggle="table"
+		data-search="true"
+		data-show-columns="false"
+		data-pagination="false"
+		data-show-multi-sort="true"
+		data-sort-name="chaosValue"
+		data-sort-order="desc"
+		data-sort-empty-last="true"
+		role="grid"
+		th:if="${not #lists.isEmpty(stashTab.items)}">
+		<thead>
+			<tr>
+				<th
+					scope="col"
+					data-field="icon"
+					data-sortable="false"
+					class="align-center">icon</th>
+				<th
+					scope="col"
+					data-field="name"
+					data-sortable="false">name</th>
+				<th
+					scope="col"
+					data-field="baseType"
+					data-sortable="false">baseType</th>
+				<!-- 				<th -->
+				<!-- 					scope="col" -->
+				<!-- 					data-field="typeLine" -->
+				<!-- 					data-sortable="false">typeLine</th> -->
+				<!-- 				<th -->
+				<!-- 					scope="col" -->
+				<!-- 					data-field="frameType" -->
+				<!-- 					data-sortable="true">frameType</th> -->
+				<th
+					scope="col"
+					data-field="category"
+					data-sortable="false">category</th>
+				<!-- 				<th -->
+				<!-- 					scope="col" -->
+				<!-- 					data-field="detailsId" -->
+				<!-- 					data-sortable="false">detailsId</th> -->
+				<th
+					scope="col"
+					data-field="stackSize"
+					data-sortable="false">quant</th>
+				<th
+					scope="col"
+					data-field="chaosValue"
+					data-sortable="true">chaos</th>
+				<th
+					scope="col"
+					data-field="total"
+					data-sortable="true">total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item: ${stashTab.items}">
+				<td class="align-center">
+					<img
+						class="stash-item-icon"
+						alt="icon"
+						th:src="${item.icon}"
+						th:title="${item.name} + ' ' + ${item.baseType}">
+				</td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.baseType}"></td>
+				<!-- 				<td th:text="${item.typeLine}"></td> -->
+				<!-- 				<td th:text="${item.frameType}"></td> -->
+				<td th:text="${item.category?.value}"></td>
+				<!-- 				<td th:text="${item.poeNinjaDetailsId}"></td> -->
+				<td th:text="${item.stackSize}"></td>
+				<td th:text="${item.chaosValue}"></td>
+				<td th:text="${#numbers.formatDecimal(item.total,0,2)}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!-- FRAGMENT :: stash-tab-details-2d -->
+	<div
+		th:fragment="stash-tab-details-2d"
+		id="stash-tab-details-2d"
+		class="stash-tab-2d">
+		<div th:class="|stash-tab-2d-${stashTab.type}|">
+			<div
+				class="flex-row"
+				style="justify-content: center;"
+				th:if="${!previewAvailable}">Preview not available</div>
+			<div
+				th:if="${previewAvailable}"
+				th:each="item: ${stashTab.items}"
+				class="stash-tab-2d-item"
+				th:style="|--item-x: ${item.x} ; --item-y: ${item.y} ; --item-w: ${item.w} ; --item-h: ${item.h}|">
+				<img th:src="${item.icon}">
+			</div>
+		</div>
 	</div>
 
 </body>

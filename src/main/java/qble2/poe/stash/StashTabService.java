@@ -91,6 +91,11 @@ public class StashTabService {
     return this.stashMapper.toDetailedDtoFromEntity(stashTab);
   }
 
+  public boolean isStashTabPreviewAvailable(StashTabDto stashTab) {
+    return "NormalStash".equals(stashTab.getType()) || "PremiumStash".equals(stashTab.getType())
+        || "QuadStash".equals(stashTab.getType());
+  }
+
   /////
   /////
   /////

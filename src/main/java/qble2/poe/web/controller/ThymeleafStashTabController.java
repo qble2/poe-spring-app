@@ -1,6 +1,7 @@
 package qble2.poe.web.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -109,6 +110,30 @@ public class ThymeleafStashTabController {
     model.addAttribute("stashTab", stashTab);
 
     return "fragments/stash-frags :: stash-tab-details";
+  }
+
+  @GetMapping(path = "/{stashTabId}/table", headers = "HX-Request")
+  public String htmxGetStashTabDetailsTableFragment(
+      @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model,
+      HttpServletResponse response) {
+    StashTabDto stashTab = this.stashTabService.getDetailedStashTab(stashTabId);
+    model.addAttribute("stashTab", stashTab);
+
+    response.setHeader("HX-Trigger", "stashTabDetailsTable");
+
+    return "fragments/stash-frags :: stash-tab-details-table";
+  }
+
+  @GetMapping(path = "/{stashTabId}/2d", headers = "HX-Request")
+  public String htmxGetStashTabDetails2DFragment(
+      @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
+    StashTabDto stashTab = this.stashTabService.getDetailedStashTab(stashTabId);
+    model.addAttribute("stashTab", stashTab);
+
+    boolean isPreviewAvailable = this.stashTabService.isStashTabPreviewAvailable(stashTab);
+    model.addAttribute("previewAvailable", isPreviewAvailable);
+
+    return "fragments/stash-frags :: stash-tab-details-2d";
   }
 
 }
