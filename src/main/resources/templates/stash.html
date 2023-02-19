@@ -14,7 +14,7 @@
 
 		<div class="stash-container">
 			<div
-				th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/stash-tabs/get-stash-tabs-list', targetElementToUpdate='#stash-tabs-list')">
+				th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/stash-tabs/list', targetElementToUpdate='#stash-tabs-list')">
 			</div>
 
 			<div th:replace="fragments/stash-frags :: reload-stash-tabs-list-button"></div>
