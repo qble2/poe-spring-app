@@ -60,16 +60,16 @@ public class ThymeleafLeagueController {
     return "league";
   }
 
-  @GetMapping(path = "get-leagues-table", headers = "HX-Request")
-  public String htmxGetLeaguesListFragment(Model model) {
+  @GetMapping(path = "table", headers = "HX-Request")
+  public String htmxGetLeaguesTableFragment(Model model) {
     List<LeagueDto> leagues = this.leagueService.getLeagues();
     model.addAttribute("leagues", leagues);
 
     return "fragments/leagues-frags :: leagues-table";
   }
 
-  @PostMapping(path = "reload-leagues-table", headers = "HX-Request")
-  public String htmxReloadLeaguesListFragment(Model model) {
+  @PostMapping(path = "table", headers = "HX-Request")
+  public String htmxReloadLeaguesTableFragment(Model model) {
     List<LeagueDto> leagues = this.leagueService.reloadLeagues();
     model.addAttribute("leagues", leagues);
 
