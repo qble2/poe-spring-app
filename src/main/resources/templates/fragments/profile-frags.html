@@ -57,31 +57,28 @@
 		hx-swap="outerHTML">Reload characters</button>
 
 	<!-- FRAGMENT :: characters-list -->
-	<div
+	<ul
 		th:fragment="characters-list"
 		id="characters-list"
 		class="characters-list">
-
-		<ul>
-			<li
-				th:each="character: ${characters}"
-				class="flex-row clickable"
-				style="padding: 10px; align-items: center; border: 1px solid black"
-				hx-trigger="click"
-				th:attr="hx-get=|/characters/${character.name}/inventory|"
-				hx-target="#character-inventory"
-				hx-swap="outerHTML">
-				<div th:class="|character-class-icon-${character.characterClass}|"></div>
-				<div style="display: flex; flex-direction: column;">
-					<label
-						class="primary-color"
-						th:text="${character.name}"></label>
-					<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
-					<label th:text="|${character.leagueId} League|"></label>
-				</div>
-			</li>
-		</ul>
-	</div>
+		<li
+			th:each="character: ${characters}"
+			class="flex-row clickable"
+			style="padding: 10px; align-items: center; border: 1px solid black"
+			hx-trigger="click"
+			th:attr="hx-get=|/characters/${character.name}/inventory|"
+			hx-target="#character-inventory"
+			hx-swap="outerHTML">
+			<div th:class="|character-class-icon-${character.characterClass}|"></div>
+			<div style="display: flex; flex-direction: column;">
+				<label
+					class="primary-color"
+					th:text="${character.name}"></label>
+				<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
+				<label th:text="|${character.leagueId} League|"></label>
+			</div>
+		</li>
+	</ul>
 
 	<!-- FRAGMENT :: character-inventory -->
 	<div
