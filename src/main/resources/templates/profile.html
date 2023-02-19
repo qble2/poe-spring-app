@@ -11,17 +11,18 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div
-			th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/characters/get-characters-list', targetElementToUpdate='#characters-list')"></div>
 
-		<div
-			style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
+		<div class="profile-container">
+			<div
+				th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/characters/list', targetElementToUpdate='#characters-list')"></div>
+
+			<div th:replace="fragments/profile-frags :: reload-characters-list-button"></div>
 
 			<div th:replace="fragments/profile-frags :: characters-list"></div>
 
-			<div
-				th:replace="fragments/profile-frags :: character-inventory"></div>
+			<div th:replace="fragments/profile-frags :: character-inventory"></div>
 		</div>
+		
 	</section>
 </body>
 </html>

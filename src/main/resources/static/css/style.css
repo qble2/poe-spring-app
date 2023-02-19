@@ -129,6 +129,32 @@ ol, ul, li {
 	background-color: var(--primary-focus);
 }
 
+/* ************************************************************************* */
+/* profile */
+/* ************************************************************************* */
+.profile-container {
+	display: grid;
+	gap: 10px;
+	grid-template:
+		" reload-characters-list-button select-league-dropdown-menu select-league-dropdown-menu "
+		" characters-list               character-inventory         character-inventory         "
+		/ 300px 1fr 1fr;
+	;
+}
+.reload-stash-tabs-list-button {
+	grid-area: reload-stash-tabs-list-button;
+}
+.characters-list {
+	grid-area: characters-list;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: auto;
+}
+.character-inventory {
+	grid-area: character-inventory;
+}
+
 /** 'icon-' + character.characterClass */
 /* 	background: url('https://web.poecdn.com/protected/image/gen/inventory-sprite.png'); */
 .character-class-icon-Elementalist {
@@ -229,9 +255,6 @@ ol, ul, li {
     height: var(--character-icon-size);
 }
 
-/* ************************************************************************* */
-/* profile . character inventory */
-/* ************************************************************************* */
 .character-inventory-grid {
 	display: grid;
 	grid-template-rows: repeat(8, 60px);

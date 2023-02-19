@@ -64,7 +64,7 @@ public class ThymeleafCharacterController {
     return "character";
   }
 
-  @GetMapping(path = "get-characters-list", headers = "HX-Request")
+  @GetMapping(path = "list", headers = "HX-Request")
   public String htmxGetCharactersListFragment(
       @RequestParam(name = "leagueId", required = false) String leagueId, Model model) {
     String accountName = principalUtils.getAccountName();
@@ -75,7 +75,7 @@ public class ThymeleafCharacterController {
     return "fragments/profile-frags :: characters-list";
   }
 
-  @PostMapping(path = "reload-characters-list", headers = "HX-Request")
+  @PostMapping(path = "list", headers = "HX-Request")
   public String htmxReloadCharactersListFragment(
       @RequestParam(name = "leagueId", required = false) String leagueId, Model model) {
     String accountName = principalUtils.getAccountName();
@@ -86,7 +86,7 @@ public class ThymeleafCharacterController {
     return "fragments/profile-frags :: characters-list";
   }
 
-  @GetMapping(path = "/{characterName}/get-inventory", headers = "HX-Request")
+  @GetMapping(path = "/{characterName}/inventory", headers = "HX-Request")
   public String htmxGetCharacterInventoryFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model) {
     List<ItemDto> items = this.characterService.getCharacterItems(characterName);
@@ -96,7 +96,7 @@ public class ThymeleafCharacterController {
     return "fragments/profile-frags :: character-inventory";
   }
 
-  @PostMapping(path = "/{characterName}/reload-inventory", headers = "HX-Request")
+  @PostMapping(path = "/{characterName}/inventory", headers = "HX-Request")
   public String htmxReloadCharacterInventoryFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model) {
     String accountName = principalUtils.getAccountName();

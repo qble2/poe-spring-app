@@ -29,7 +29,7 @@
 		class="stash-tabs-list">
 		<li
 			th:each="stashTab: ${stashTabs}"
-			th:class="stash-tab-header clickable"
+			class="stash-tab-header clickable"
 			th:classappend="|stash-tab-header-${stashTab.type}|"
 			th:style="|background-color: ${stashTab.getHexColor()}|"
 			hx-trigger="click"
