@@ -7,7 +7,6 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import qble2.poe.ladder.LeagueDto;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))

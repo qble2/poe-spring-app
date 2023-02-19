@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import qble2.poe.ladder.LeagueDto;
 
 @RestController
 @RequestMapping(path = "api/leagues", produces = MediaType.APPLICATION_JSON_VALUE)

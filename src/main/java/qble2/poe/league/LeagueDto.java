@@ -1,4 +1,4 @@
-package qble2.poe.ladder;
+package qble2.poe.league;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

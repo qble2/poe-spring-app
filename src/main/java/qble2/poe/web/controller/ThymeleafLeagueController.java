@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import qble2.poe.ladder.LeagueDto;
+import qble2.poe.league.LeagueDto;
 import qble2.poe.league.LeagueService;
 
 @Controller

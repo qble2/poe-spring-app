@@ -7,7 +7,6 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
-import qble2.poe.ladder.LeagueDto;
 import reactor.core.publisher.Mono;
 
 @Component

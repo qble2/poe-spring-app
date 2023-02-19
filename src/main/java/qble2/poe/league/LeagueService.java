@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qble2.poe.exception.LeagueNotFoundException;
-import qble2.poe.ladder.LeagueDto;
 
 @Service
 public class LeagueService {
