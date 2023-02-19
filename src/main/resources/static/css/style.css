@@ -247,6 +247,7 @@ ol, ul, li {
 		" .      Flask0 Flask1 Flask2     Flask3     Flask4  .      .       "
 		" .      Flask0 Flask1 Flask2     Flask3     Flask4  .      .       "
 	;
+	justify-content: center;
 }
 
 /* -${item.inventoryId} */
