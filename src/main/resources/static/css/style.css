@@ -95,6 +95,12 @@ ol, ul, li {
 	font-size: larger;
 }
 
+.ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 .flex-row {
 	display: flex;
 	flex-direction: row;
@@ -146,109 +152,144 @@ ol, ul, li {
 }
 .characters-list {
 	grid-area: characters-list;
-	display: flex;
-	flex-direction: column;
 	height: 100vh;
-	overflow: auto;
+	overflow-y: auto;
 }
 .character-inventory {
 	grid-area: character-inventory;
 }
 
-/** 'icon-' + character.characterClass */
+.character-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	border: 1px solid black;
+	padding: 5px;
+}
+
+/** 'character-header-' + character.characterClass */
 /* 	background: url('https://web.poecdn.com/protected/image/gen/inventory-sprite.png'); */
-.character-class-icon-Elementalist {
+.character-header-Elementalist::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -240px -500px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Occultist {
+.character-header-Occultist::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -658px -240px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Ascendant {
+.character-header-Ascendant::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -220px -180px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Assassin {
+.character-header-Assassin::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -330px -260px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Chieftain {
+.character-header-Chieftain::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: 0px -500px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Inquisitor {
+.character-header-Inquisitor::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -560px -500px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Guardian {
+.character-header-Guardian::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -400px -500px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Slayer {
+.character-header-Slayer::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
     background-position: -240px -580px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Necromancer {
+.character-header-Necromancer::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: -658px -160px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Hierophant {
+.character-header-Hierophant::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: -480px -500px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Champion {
+.character-header-Champion::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: -440px -420px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Pathfinder {
+.character-header-Pathfinder::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: -658px -320px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Saboteur {
+.character-header-Saboteur::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: 0px -580px;
 	width: var(--character-icon-size);
     height: var(--character-icon-size);
 }
 
-.character-class-icon-Berserker {
+.character-header-Berserker::before {
+	display: inline-block;
+	content: " ";
 	background: url('/image/inventory-sprite.png');
    	background-position: -330px -340px;
 	width: var(--character-icon-size);
@@ -415,18 +456,14 @@ ol, ul, li {
 	top: 0;
 }
 .stash-tab-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 5px;
 	color: white;
 	border: 1px solid black;
 	min-height: 50px;
-	display: flex;
-	align-items: center;
-	gap: 5px;
 	padding: 5px;
-}
-.stash-tab-header-name {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .stash-tab-details {
 	grid-area: stash-tab-details;

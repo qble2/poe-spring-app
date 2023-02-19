@@ -63,18 +63,17 @@
 		class="characters-list">
 		<li
 			th:each="character: ${characters}"
-			class="flex-row clickable"
-			style="padding: 10px; align-items: center; border: 1px solid black"
+			class="character-header clickable"
+			th:classappend="|character-header-${character.characterClass}|"
 			hx-trigger="click"
 			th:attr="hx-get=|/characters/${character.name}/inventory|"
 			hx-target="#character-inventory"
 			hx-swap="outerHTML">
-			<div th:class="|character-class-icon-${character.characterClass}|"></div>
-			<div style="display: flex; flex-direction: column;">
+			<div class="flex-column ellipsis">
 				<label
-					class="primary-color"
+					class="primary-color ellipsis"
 					th:text="${character.name}"></label>
-				<label th:text="|Level ${character.level} ${character.characterClass}|"></label>
+				<label th:text="|${character.level} ${character.characterClass}|"></label>
 				<label th:text="|${character.leagueId} League|"></label>
 			</div>
 		</li>
