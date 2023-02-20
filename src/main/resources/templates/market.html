@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Market</title>
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+
+		<nav hx-boost="true">
+			<ul class="pagination">
+				<li class="page-item">
+					<a
+						role="button"
+						class="page-link"
+						th:disabled="${marketOverviewsPage.currentPage == 0}"
+						th:href="|/market-overviews?page=${marketOverviewsPage.currentPage - 1}|">Previous</a>
+				</li>
+				<!-- 				<li -->
+				<!-- 					th:each="page: ${#numbers.sequence(0, marketOverviewsPage.totalPages)}" -->
+				<!-- 					class="page-item"> -->
+				<!-- 					<a -->
+				<!-- 						class="page-link" -->
+				<!-- 						th:href="|/market-overviews?page=${page}|" -->
+				<!-- 						th:text="${page}"></a> -->
+				<!-- 				</li> -->
+				<li th:text="|Page ${marketOverviewsPage.currentPage} / ${marketOverviewsPage.totalPages}|"></li>
+				<li class="page-item">
+					<a
+						role="button"
+						class="page-link"
+						th:disabled="${marketOverviewsPage.currentPage == marketOverviewsPage.totalPages}"
+						th:href="|/market-overviews?page=${marketOverviewsPage.currentPage + 1}|">Next</a>
+				</li>
+			</ul>
+		</nav>
+
+		<table role="grid">
+			<thead>
+				<tr>
+					<th scope="col">icon</th>
+					<th scope="col">detailsId</th>
+					<th scope="col">leagueId</th>
+					<th scope="col">type</th>
+					<th scope="col">name</th>
+					<th scope="col">baseType</th>
+					<th scope="col">count</th>
+					<th scope="col">listingCount</th>
+					<th scope="col">chaosValue</th>
+					<th scope="col">exaltedValue</th>
+					<th scope="col">divineValue</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr th:each="marketOverview: ${marketOverviewsPage.marketOverviews}">
+					<td class="align-center">
+						<img th:src="${marketOverview.icon}">
+					</td>
+					<td th:text="${marketOverview.detailsId}"></td>
+					<td th:text="${marketOverview.leagueId}"></td>
+					<td th:text="${marketOverview.type}"></td>
+					<td th:text="${marketOverview.name}"></td>
+					<td th:text="${marketOverview.baseType}"></td>
+					<td th:text="${marketOverview.count}"></td>
+					<td th:text="${marketOverview.listingCount}"></td>
+					<td th:text="${marketOverview.chaosValue}"></td>
+					<td th:text="${marketOverview.exaltedValue}"></td>
+					<td th:text="${marketOverview.divineValue}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</section>
+</body>
+</html>

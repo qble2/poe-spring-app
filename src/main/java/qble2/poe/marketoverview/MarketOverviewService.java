@@ -4,6 +4,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemCategoryResolverService;
@@ -28,26 +30,32 @@ public class MarketOverviewService {
   @Autowired
   private MarketOverviewMapper marketOverviewMapper;
 
-  public List<MarketOverviewDto> getMarketOverview(String leagueId,
+  public MarketOverviewsPageDto getMarketOverview(Pageable pageable, String leagueId,
       MarketOverviewTypePoeNinjaEnum type) {
-    List<MarketOverview> listOfMarketOverview =
-        this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type);
+    if (leagueId != null && type != null) {
+      return toMarketOverviewsPage(
+          this.marketOverviewRepository.findAllByLeagueIdAndType(pageable, leagueId, type));
+    }
 
-    return this.marketOverviewMapper.toDtoListFromEntityList(listOfMarketOverview);
+    if (leagueId != null) {
+      return toMarketOverviewsPage(
+          this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
+    }
+
+    if (type != null) {
+      return toMarketOverviewsPage(this.marketOverviewRepository.findAllByType(pageable, type));
+    }
+
+    return toMarketOverviewsPage(this.marketOverviewRepository.findAll(pageable));
   }
 
-  // data is too large to be returned
   public void reloadMarketOverview(String leagueId) {
     MarketOverviewTypePoeNinjaEnum.getValues()
         .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
   }
 
-  public List<MarketOverviewDto> reloadMarketOverviewType(String leagueId,
-      MarketOverviewTypePoeNinjaEnum type) {
+  public void reloadMarketOverviewType(String leagueId, MarketOverviewTypePoeNinjaEnum type) {
     reloadAndStoreMarketOverviewType(leagueId, type);
-
-    return this.marketOverviewMapper.toDtoListFromEntityList(
-        this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type));
   }
 
   public void updateMarketValue(StashTab stashTab) {
@@ -81,6 +89,13 @@ public class MarketOverviewService {
     }
     this.marketOverviewRepository
         .saveAll(this.marketOverviewMapper.toEntityListFromDto(listOfMarketOverviewDto));
+  }
+
+  private MarketOverviewsPageDto toMarketOverviewsPage(Page<MarketOverview> page) {
+    return MarketOverviewsPageDto.builder()
+        .marketOverviews(this.marketOverviewMapper.toDtoListFromEntityList(page.getContent()))
+        .currentPage(page.getNumber()).totalPages(page.getTotalPages())
+        .totalElements(page.getTotalElements()).build();
   }
 
 }
