@@ -8,44 +8,80 @@
 <head>
 </head>
 <body>
-	<!-- FRAGMENT :: market-overview-table -->
-	<table
-		th:fragment="market-overview-table"
-		id="market-overview-table"
-		role="grid">
-		<thead>
-			<tr>
-				<th scope="col">icon</th>
-				<th scope="col">detailsId</th>
-				<th scope="col">leagueId</th>
-				<th scope="col">type</th>
-				<th scope="col">name</th>
-				<th scope="col">baseType</th>
-				<th scope="col">count</th>
-				<th scope="col">listingCount</th>
-				<th scope="col">chaosValue</th>
-				<th scope="col">exaltedValue</th>
-				<th scope="col">divineValue</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="marketOverview: ${marketOverviewsPage.marketOverviews}">
-				<td class="align-center">
-					<img th:src="${marketOverview.icon}">
-				</td>
-				<td th:text="${marketOverview.detailsId}"></td>
-				<td th:text="${marketOverview.leagueId}"></td>
-				<td th:text="${marketOverview.type}"></td>
-				<td th:text="${marketOverview.name}"></td>
-				<td th:text="${marketOverview.baseType}"></td>
-				<td th:text="${marketOverview.count}"></td>
-				<td th:text="${marketOverview.listingCount}"></td>
-				<td th:text="${marketOverview.chaosValue}"></td>
-				<td th:text="${marketOverview.exaltedValue}"></td>
-				<td th:text="${marketOverview.divineValue}"></td>
-			</tr>
-		</tbody>
-	</table>
+	<!-- FRAGMENT :: market-overviews-table -->
+	<div
+		th:fragment="market-overviews-table"
+		id="market-overviews-table">
+		<nav>
+			<ul class="pagination">
+				<li class="page-item">
+					<a
+						th:disabled="${marketOverviewsPage.currentPage == 0}"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-trigger="click"
+						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewsPage.currentPage - 1}|"
+						hx-target="#market-overviews-table"
+						hx-swap="outerHTML">Previous</a>
+				</li>
+				<!-- 				<li -->
+				<!-- 					th:each="page: ${#numbers.sequence(0, marketOverviewsPage.totalPages)}" -->
+				<!-- 					class="page-item"> -->
+				<!-- 					<a -->
+				<!-- 						class="page-link" -->
+				<!-- 						th:href="|/market-overviews?page=${page}|" -->
+				<!-- 						th:text="${page}"></a> -->
+				<!-- 				</li> -->
+				<li
+					th:text="|Page ${marketOverviewsPage.currentPage} / ${marketOverviewsPage.totalPages}|"></li>
+				<li class="page-item">
+					<a
+						th:disabled="${marketOverviewsPage.currentPage == marketOverviewsPage.totalPages}"
+						hx-ext="loading-states"
+						data-loading-aria-busy
+						hx-trigger="click"
+						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewsPage.currentPage + 1}|"
+						hx-target="#market-overviews-table"
+						hx-swap="outerHTML">Next</a>
+				</li>
+			</ul>
+		</nav>
+
+		<table role="grid">
+			<thead>
+				<tr>
+					<th scope="col">icon</th>
+					<th scope="col">detailsId</th>
+					<th scope="col">leagueId</th>
+					<th scope="col">type</th>
+					<th scope="col">name</th>
+					<th scope="col">baseType</th>
+					<th scope="col">count</th>
+					<th scope="col">listingCount</th>
+					<th scope="col">chaosValue</th>
+					<th scope="col">exaltedValue</th>
+					<th scope="col">divineValue</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="marketOverview: ${marketOverviewsPage.marketOverviews}">
+					<td class="align-center">
+						<img th:src="${marketOverview.icon}">
+					</td>
+					<td th:text="${marketOverview.detailsId}"></td>
+					<td th:text="${marketOverview.leagueId}"></td>
+					<td th:text="${marketOverview.type}"></td>
+					<td th:text="${marketOverview.name}"></td>
+					<td th:text="${marketOverview.baseType}"></td>
+					<td th:text="${marketOverview.count}"></td>
+					<td th:text="${marketOverview.listingCount}"></td>
+					<td th:text="${marketOverview.chaosValue}"></td>
+					<td th:text="${marketOverview.exaltedValue}"></td>
+					<td th:text="${marketOverview.divineValue}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 </body>
 </html>

@@ -64,7 +64,7 @@ public class ThymeleafMarketOverviewController {
         this.marketOverviewService.getMarketOverview(pageable, null, null);
     model.addAttribute("marketOverviewsPage", marketOverviewsPage);
 
-    return "fragments/market-frags :: market-overview-table";
+    return "fragments/market-frags :: market-overviews-table";
   }
 
   @PostMapping(path = "table", headers = "HX-Request")
@@ -77,7 +77,7 @@ public class ThymeleafMarketOverviewController {
         this.marketOverviewService.reloadMarketOverview(pageable, leagueId);
     model.addAttribute("marketOverviewsPage", marketOverviewsPage);
 
-    return "fragments/market-frags :: market-overview-table";
+    return "fragments/market-frags :: market-overviews-table";
   }
 
 }
