@@ -49,9 +49,12 @@ public class MarketOverviewService {
     return toMarketOverviewsPage(this.marketOverviewRepository.findAll(pageable));
   }
 
-  public void reloadMarketOverview(String leagueId) {
+  public MarketOverviewsPageDto reloadMarketOverview(Pageable pageable, String leagueId) {
     MarketOverviewTypePoeNinjaEnum.getValues()
         .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
+
+    return toMarketOverviewsPage(
+        this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
   }
 
   public void reloadMarketOverviewType(String leagueId, MarketOverviewTypePoeNinjaEnum type) {

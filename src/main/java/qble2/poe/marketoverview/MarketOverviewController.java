@@ -31,11 +31,13 @@ public class MarketOverviewController {
   }
 
   @PostMapping(path = "/leagues/{leagueId}")
-  public ResponseEntity<Void> reloadMarketOverview(
-      @PathVariable(name = "leagueId", required = true) String leagueId) {
-    marketOverviewService.reloadMarketOverview(leagueId);
+  public MarketOverviewsPageDto reloadMarketOverview(
+      @PathVariable(name = "leagueId", required = true) String leagueId,
+      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+      @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
+    Pageable pageable = PageRequest.of(page, size);
 
-    return ResponseEntity.ok().build();
+    return marketOverviewService.reloadMarketOverview(pageable, leagueId);
   }
 
   @PostMapping(path = "/leagues/{leagueId}/types/{type}")
