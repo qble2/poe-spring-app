@@ -14,6 +14,7 @@ The frontend is built using [Thymeleaf](https://www.thymeleaf.org) coupled with 
 The frontend form-based authentication process is managed by [Spring Security](https://docs.spring.io/spring-security/reference/index.html) using a custom authentication provider (to be eventually replaced by OATH 2).  
 Reloading partial views of a page is made possible using [HTMX](https://htmx.org).  
 The styling is done with the Minimal CSS Framework [Pico.css](https://picocss.com).  
+[Bootstrap Table](https://bootstrap-table.com) adds sorting and searching capabilities to some tables.
 Frontend dependencies, such as JavaScript and CSS libraries, are managed through [Maven](https://maven.apache.org) via [Webjars](https://www.webjars.org).  
 
 
@@ -22,12 +23,12 @@ The mapping between Java bean types is done using [MapStruct](https://mapstruct.
 The project's build is managed by [Maven](https://maven.apache.org).  
 
 ## Features:
-The application allows the user to fetch
+The application allows the user to access:
 - The active leagues
 - His account's characters
-- The items of a character
+- A character's inventory
 - His stash tabs
-- The items of a stash tab
+- A stash tab content (table view and 2D preview)
 
 ## Built with:
 - Java 17
@@ -40,7 +41,19 @@ The application allows the user to fetch
 - [Thymeleaf Layout Dialect](https://ultraq.github.io/thymeleaf-layout-dialect)
 - [HTMX](https://htmx.org)
 - [Pico.css](https://picocss.com)
+- [Bootstrap Table](https://bootstrap-table.com)
 - [Webjars](https://www.webjars.org)
 - [Lombok](https://projectlombok.org)
 - [MapStruct](https://mapstruct.org)
 - [Maven](https://maven.apache.org)
+
+## Screenshot:
+![poe-spring-app-screenshot-1](https://user-images.githubusercontent.com/76587083/220020146-547c4c86-8493-4ce6-8141-fbcb4e51f5bf.png)  
+
+![poe-spring-app-screenshot-2](https://user-images.githubusercontent.com/76587083/220020148-8c83adbd-338a-49fc-9142-8f978ba51abd.png)  
+
+![poe-spring-app-screenshot-3](https://user-images.githubusercontent.com/76587083/220020149-d0b84e19-46fa-4842-8ac3-281e5cdb790a.png)  
+
+![poe-spring-app-screenshot-4](https://user-images.githubusercontent.com/76587083/220021162-dcb97e7c-d487-4fdc-9d90-c5022ebcda60.png)  
+
+
