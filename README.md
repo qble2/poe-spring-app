@@ -1,7 +1,7 @@
 # POE Spring 
 
-A Java [Spring Boot](https://spring.io/projects/spring-boot) web application that acts as a proxy to a [Third party API](https://www.pathofexile.com/developer/docs/reference).  
-The application allows the user to fetch data from a [Third party API](https://www.pathofexile.com/developer/docs/reference) and stores it for an offline access.  
+A Java [Spring Boot](https://spring.io/projects/spring-boot) web application that acts as a bridge between a user and two third party APIs [[1]](https://www.pathofexile.com/developer/docs/reference) [[2]](https://github.com/5k-mirrors/misc-poe-tools/blob/master/doc/poe-ninja-api.md).  
+The application allows the user to fetch and store data locally, for a later offline access.  
 The data is made available to the user through two means:
 - A REST API exchanging data using the JSON format.  
 - A simple yet modern graphical user interface.  
