@@ -17,15 +17,6 @@ public class ThymeleafItemController {
   @Autowired
   private ItemService itemService;
 
-  @GetMapping(path = "/characters/{characterName}", headers = "HX-Request")
-  public String htmxGetCharacterItemsFragment(
-      @PathVariable(name = "characterName", required = true) String characterName, Model model) {
-    List<ItemDto> items = this.itemService.getCharacterItems(characterName);
-    model.addAttribute("items", items);
-
-    return "fragments/items-frags :: items-list";
-  }
-
   @GetMapping(path = "/stashTabs/{stashTabId}", headers = "HX-Request")
   public String htmxGetStashTabItemsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {

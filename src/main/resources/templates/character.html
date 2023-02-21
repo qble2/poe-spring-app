@@ -71,7 +71,7 @@
 				hx-ext="loading-states"
 				data-loading-aria-busy
 				hx-trigger="click"
-				th:attr="hx-post=|/characters/${character.name}/inventory|"
+				th:attr="hx-post=|/characters/${character.name}/inventory/2d|"
 				hx-target="#character-items"
 				hx-swap="innerHTML">Reload items</button>
 
@@ -79,7 +79,7 @@
 			<div
 				id="character-items"
 				hx-trigger="load"
-				th:attr="hx-get=|/items/characters/${character.name}|"
+				th:attr="hx-get=|/characters/${character.name}/inventory/table|"
 				hx-swap="innerHTML"></div>
 		</details>
 	</section>

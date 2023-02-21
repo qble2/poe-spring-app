@@ -24,7 +24,7 @@ public interface ItemRepository extends JpaRepository<Item, String> {
   List<EnchantedItemBaseWithOccurrenceProjectionDto> findEnchantItemBasesWithOccurrenceByProjection(
       String enchantId, String leagueId);
 
-  List<Item> findAllByCharacter_name(String characterName);
+  List<Item> findAllByCharacter_nameOrderByChaosValueDesc(String characterName);
 
   List<Item> findAllByStashTab_id(String stashTabId);
 

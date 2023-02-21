@@ -108,7 +108,7 @@ public class LadderService {
     log.info("reloading items for character (accountName: {} , characterName: {})",
         character.getAccountName(), character.getName());
     try {
-      characterService.updateCharacterItems(character.getAccountName(), character.getName());
+      characterService.reloadCharacterItems(character);
     } catch (TooManyRequestsException e) {
       log.warn("Rate limit exceeded: {}", e.getMessage());
       log.warn("Retry-After: {}", e.getRetryAfter());

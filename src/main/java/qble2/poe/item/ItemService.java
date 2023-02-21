@@ -4,6 +4,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qble2.poe.character.Character;
+import qble2.poe.character.CharacterWebClientGgg;
 import qble2.poe.exception.ItemNotFoundException;
 
 @Service
@@ -16,13 +18,28 @@ public class ItemService {
   @Autowired
   private ItemMapper itemMapper;
 
+  @Autowired
+  private CharacterWebClientGgg characterWebClientGgg;
+
   public ItemDto getItem(String itemId) {
     return this.itemMapper.toDtoFromEntity(findItemByIdOrThrow(itemId));
   }
 
-  public List<ItemDto> getCharacterItems(String characterName) {
-    return this.itemMapper
-        .toDtoListFromEntityList(this.itemRepository.findAllByCharacter_name(characterName));
+  public List<ItemDto> getCharacterItemsDto(Character character) {
+    return this.itemMapper.toDtoListFromEntityList(getCharacterItems(character));
+  }
+
+  public List<Item> getCharacterItems(Character character) {
+    return this.itemRepository.findAllByCharacter_nameOrderByChaosValueDesc(character.getName());
+  }
+
+  public List<Item> reloadCharacterItems(Character character) {
+    return this.itemMapper.toEntityListFromDtoList(reloadCharacterItemsDto(character));
+  }
+
+  public List<ItemDto> reloadCharacterItemsDto(Character character) {
+    return this.characterWebClientGgg.retrieveCharacterItems(character.getAccountName(),
+        character.getName());
   }
 
   public List<ItemDto> getStashTabItems(String stashTabId) {

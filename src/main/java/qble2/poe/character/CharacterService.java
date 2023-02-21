@@ -5,8 +5,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qble2.poe.exception.CharacterNotFoundException;
+import qble2.poe.item.Item;
 import qble2.poe.item.ItemDto;
-import qble2.poe.item.ItemMapper;
+import qble2.poe.item.ItemService;
 
 @Service
 @Transactional
@@ -22,7 +23,7 @@ public class CharacterService {
   private CharacterMapper characterMapper;
 
   @Autowired
-  private ItemMapper itemMapper;
+  private ItemService itemService;
 
   public List<CharacterDto> getCharacters(String accountName, String leagueId) {
     if (accountName != null && leagueId != null) {
@@ -78,33 +79,27 @@ public class CharacterService {
   /////
 
   public List<ItemDto> getCharacterItems(String characterName) {
-    Character character = findCharacterByIdOrThrow(characterName);
-
-    return this.itemMapper.toDtoListFromEntityList(character.getItems());
+    return this.itemService.getCharacterItemsDto(findCharacterByIdOrThrow(characterName));
   }
 
   public List<ItemDto> reloadCharacterItems(String accountName, String characterName) {
-    updateCharacterItems(accountName, characterName);
+    reloadCharacterItems(findCharacterByIdOrThrow(characterName));
 
-    return this.itemMapper
-        .toDtoListFromEntityList(findCharacterByIdOrThrow(characterName).getItems());
+    return getCharacterItems(characterName);
   }
 
   public CharacterDto reloadDetailedCharacter(String accountName, String characterName) {
-    Character character = updateCharacterItems(accountName, characterName);
+    Character character = reloadCharacterItems(findCharacterByIdOrThrow(characterName));
 
     return this.characterMapper.toDetailedDtoFromEntity(character);
   }
 
-  public Character updateCharacterItems(String accountName, String characterName) {
-    Character character = findCharacterByIdOrThrow(characterName);
-
-    List<ItemDto> listOfItemDto =
-        this.characterWebClientGgg.retrieveCharacterItems(accountName, characterName);
+  public Character reloadCharacterItems(Character character) {
+    List<Item> listOfItem = this.itemService.reloadCharacterItems(character);
 
     character.getItems().clear();
-    this.itemMapper.toEntityListFromDtoList(listOfItemDto).stream().forEach(character::addItem);
-    this.characterRepository.save(character);
+    listOfItem.stream().forEach(character::addItem);
+    character = this.characterRepository.save(character);
 
     return character;
   }
