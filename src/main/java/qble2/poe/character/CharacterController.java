@@ -25,17 +25,17 @@ public class CharacterController {
     return this.characterService.getCharacters(accountName, leagueId);
   }
 
-  @GetMapping(path = "/{characterName}")
-  public CharacterDto getCharacter(
-      @PathVariable(name = "characterName", required = true) String characterName) {
-    return this.characterService.getCharacter(characterName);
-  }
-
   @PostMapping
   public List<CharacterDto> reloadCharacters(
       @RequestParam(name = "accountName", required = true) String accountName,
       @RequestParam(name = "leagueId", required = false) String leagueId) {
     return this.characterService.reloadCharacters(accountName, leagueId);
+  }
+
+  @GetMapping(path = "/{characterName}")
+  public CharacterDto getCharacter(
+      @PathVariable(name = "characterName", required = true) String characterName) {
+    return this.characterService.getCharacter(characterName);
   }
 
   @GetMapping(path = "/{characterName}/items")

@@ -45,7 +45,7 @@ public class LeagueControllerTest {
   private LeagueService leagueService;
 
   @Test
-  void given_no_leagues_getLeagues_willReturnEmptyList() throws Exception {
+  void given_noLeagues_getLeagues_willReturnEmptyList() throws Exception {
     // given
     given(leagueService.getLeagues()).willReturn(Collections.emptyList());
 
@@ -83,7 +83,7 @@ public class LeagueControllerTest {
     // then
     String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).build().toString();
     final ResultActions resultActions = mockMvc.perform(post(urlTemplate)).andDo(print())
-        .andExpect(jsonPath("$", hasSize(leagues.size())));
+        .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(leagues.size())));
 
     verifyReponseHeaderContentType(resultActions);
   }
