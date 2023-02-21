@@ -21,11 +21,6 @@ public class LeagueController {
     return this.leagueService.getLeagues();
   }
 
-  @GetMapping(path = "/{leagueId}")
-  public LeagueDto getLeague(@PathVariable(name = "leagueId", required = true) String leagueId) {
-    return this.leagueService.getLeague(leagueId);
-  }
-
   @PostMapping
   public List<LeagueDto> reloadLeagues() {
     return this.leagueService.reloadLeagues();
@@ -34,6 +29,11 @@ public class LeagueController {
   @PostMapping("/{leagueId}")
   public LeagueDto reloadLeague(@PathVariable(name = "leagueId", required = true) String leagueId) {
     return this.leagueService.reloadLeague(leagueId);
+  }
+
+  @GetMapping(path = "/{leagueId}")
+  public LeagueDto getLeague(@PathVariable(name = "leagueId", required = true) String leagueId) {
+    return this.leagueService.getLeague(leagueId);
   }
 
 }

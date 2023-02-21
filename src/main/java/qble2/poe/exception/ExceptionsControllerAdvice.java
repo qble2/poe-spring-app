@@ -30,7 +30,7 @@ public class ExceptionsControllerAdvice {
     return createErrorResponseEntity(request, HttpStatus.BAD_REQUEST, exception);
   }
 
-  @ExceptionHandler(AbstractResourceNotFoundException.class)
+  @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<ResponseErrorDto> handleResourceNotFoundException(
       HttpServletRequest request, Exception exception) {
     return createErrorResponseEntity(request, HttpStatus.NOT_FOUND, exception);

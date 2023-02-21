@@ -1,6 +1,6 @@
 package qble2.poe.exception;
 
-public class CharacterNotFoundException extends AbstractResourceNotFoundException {
+public class CharacterNotFoundException extends ResourceNotFoundException {
 
   private static final long serialVersionUID = 1L;
 
