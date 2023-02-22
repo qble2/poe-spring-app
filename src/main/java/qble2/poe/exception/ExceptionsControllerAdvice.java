@@ -41,7 +41,7 @@ public class ExceptionsControllerAdvice {
   public ResponseEntity<ResponseErrorDto> unhandledExceptions(HttpServletRequest request,
       Exception exception) {
     log.error("(unhandled exception) An internal server error has occurred", exception);
-    return createErrorResponseEntity(request.getRequestURI(), HttpStatus.INTERNAL_SERVER_ERROR,
+    return createErrorResponseEntity(request, HttpStatus.INTERNAL_SERVER_ERROR,
         INTERNAL_SERVER_ERROR_MESSAGE, null);
   }
 
@@ -51,15 +51,20 @@ public class ExceptionsControllerAdvice {
 
   private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(HttpServletRequest request,
       HttpStatus httpStatus, Exception exception) {
-    return createErrorResponseEntity(request.getRequestURI(), httpStatus, exception.getMessage(),
-        null);
+    return createErrorResponseEntity(request, httpStatus, exception.getMessage(), null);
   }
 
-  private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(String requestUri,
+  private ResponseEntity<ResponseErrorDto> createErrorResponseEntity(HttpServletRequest request,
       HttpStatus httpStatus, String message, List<String> details) {
+    String requestUrl = request.getRequestURI();
+    String queryString = request.getQueryString();
+    if (queryString != null) {
+      requestUrl = requestUrl + "?" + queryString;
+    }
+
     ResponseErrorDto responseError =
         ResponseErrorDto.builder().status(httpStatus.value()).error(httpStatus.getReasonPhrase())
-            .message(message).details(details).path(requestUri).build();
+            .message(message).details(details).path(requestUrl).build();
     return new ResponseEntity<>(responseError, httpStatus);
   }
 

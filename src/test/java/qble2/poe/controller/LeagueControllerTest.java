@@ -3,7 +3,7 @@ package qble2.poe.controller;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -89,10 +89,10 @@ public class LeagueControllerTest {
   }
 
   @Test
-  void given_leagueDoesNotExist_getLeague_willReturnNotFound() throws Exception {
+  void given_leagueDoesNotExist_getLeague_willReturnLeagueNotFound() throws Exception {
     // given
     String leagueId = "xxx";
-    given(leagueService.getLeague(leagueId)).willThrow(new LeagueNotFoundException(leagueId));
+    given(leagueService.getLeague(anyString())).willThrow(new LeagueNotFoundException(leagueId));
 
     // when
     // then
@@ -112,7 +112,7 @@ public class LeagueControllerTest {
     League league = League.builder().id("xxx").build();
     LeagueDto leagueDto = new LeagueDto();
     BeanUtils.copyProperties(leagueDto, league);
-    given(leagueService.getLeague(any())).willReturn(leagueDto);
+    given(leagueService.getLeague(anyString())).willReturn(leagueDto);
 
     // when
     // then
@@ -130,7 +130,7 @@ public class LeagueControllerTest {
     League league = League.builder().id("xxx").build();
     LeagueDto leagueDto = new LeagueDto();
     BeanUtils.copyProperties(leagueDto, league);
-    given(leagueService.reloadLeague(any())).willReturn(leagueDto);
+    given(leagueService.reloadLeague(anyString())).willReturn(leagueDto);
 
     // when
     // then

@@ -19,8 +19,7 @@ public class TestUtils {
 
   public static void verifyResponseError(final ResultActions resultActions, String urlTemplate,
       ResultMatcher statusResultMatcher, HttpStatus httpStatus, String message) throws Exception {
-    resultActions.andExpect(statusResultMatcher) // status().isBadRequest()
-        .andExpect(jsonPath("$.path", is(urlTemplate)))
+    resultActions.andExpect(statusResultMatcher).andExpect(jsonPath("$.path", is(urlTemplate)))
         .andExpect(jsonPath("$.status", is(httpStatus.value())))
         .andExpect(jsonPath("$.error", is(httpStatus.getReasonPhrase())))
         .andExpect(jsonPath("$.message", is(message)));

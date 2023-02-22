@@ -78,6 +78,12 @@ public class CharacterService {
   ///// character . items
   /////
 
+  public CharacterDto reloadDetailedCharacter(String accountName, String characterName) {
+    Character character = reloadCharacterItems(findCharacterByIdOrThrow(characterName));
+
+    return this.characterMapper.toDetailedDtoFromEntity(character);
+  }
+
   public List<ItemDto> getCharacterItems(String characterName) {
     return this.itemService.getCharacterItemsDto(findCharacterByIdOrThrow(characterName));
   }
@@ -86,12 +92,6 @@ public class CharacterService {
     reloadCharacterItems(findCharacterByIdOrThrow(characterName));
 
     return getCharacterItems(characterName);
-  }
-
-  public CharacterDto reloadDetailedCharacter(String accountName, String characterName) {
-    Character character = reloadCharacterItems(findCharacterByIdOrThrow(characterName));
-
-    return this.characterMapper.toDetailedDtoFromEntity(character);
   }
 
   public Character reloadCharacterItems(Character character) {
