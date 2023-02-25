@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface MarketOverviewRepository extends JpaRepository<MarketOverview, String> {
+public interface MarketOverviewRepository extends JpaRepository<MarketOverview, MarketOverviewId> {
 
   @Query("SELECT COUNT(*) FROM MarketOverview")
   int tableCount();

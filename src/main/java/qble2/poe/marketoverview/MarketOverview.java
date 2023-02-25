@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import lombok.experimental.Accessors;
 
 @Entity(name = "MarketOverview")
 @Table(name = "MarketOverview")
+@IdClass(MarketOverviewId.class)
 @Data
 @NoArgsConstructor
 @Builder
@@ -26,6 +28,7 @@ public class MarketOverview {
   @EqualsAndHashCode.Include
   private String detailsId;
 
+  @Id
   @Column(name = "leagueId")
   @EqualsAndHashCode.Include
   private String leagueId;

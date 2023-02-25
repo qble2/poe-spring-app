@@ -71,7 +71,8 @@ public class MarketOverviewService {
       itemCategoryResolverService.updateItemCategory(item);
       itemPoeNinjaDetailsIdResolverService.updateItemPoeNinjaDetailsId(item);
       if (item.getPoeNinjaDetailsId() != null) {
-        this.marketOverviewRepository.findById(item.getPoeNinjaDetailsId())
+        this.marketOverviewRepository
+            .findById(new MarketOverviewId(item.getPoeNinjaDetailsId(), item.getLeagueId()))
             .ifPresent(marketOverview -> item.setChaosValue(marketOverview.getChaosValue()));
       }
     });
@@ -90,8 +91,10 @@ public class MarketOverviewService {
     } else {
       listOfMarketOverviewDto = poeNinjaWebClient.getItemOverview(leagueId, type);
     }
-    this.marketOverviewRepository
-        .saveAll(this.marketOverviewMapper.toEntityListFromDto(listOfMarketOverviewDto));
+
+    List<MarketOverview> listOfMarketOverview =
+        this.marketOverviewMapper.toEntityListFromDto(listOfMarketOverviewDto);
+    this.marketOverviewRepository.saveAll(listOfMarketOverview);
   }
 
   private MarketOverviewsPageDto toMarketOverviewsPage(Page<MarketOverview> page) {
