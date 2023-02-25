@@ -134,7 +134,8 @@
 					/*[-
 					Scroll back to the start of stash-tab-details when selecting a new stash tab
 					 * -]*/
-					 document.getElementById("stash-tab-details").scrollIntoView();
+					 /*[-  document.getElementById("stash-tab-details").scrollIntoView(); -]*/
+					window.scrollTo(0, 0);
 				}
 			});
 		</script>
