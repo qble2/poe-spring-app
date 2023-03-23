@@ -45,7 +45,7 @@ public class CharacterWebClientGgg {
 
   // https://www.pathofexile.com/character-window/get-characters
   public List<CharacterDto> retrieveAccountCharacters(String accountName) {
-    log.info("retrieving characters (accountName: {}) from GGG...", accountName);
+    log.info("Retrieving characters (accountName: {}) from GGG...", accountName);
     Mono<CharacterGgg[]> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_CHARACTERS_URI)
             .queryParam("accountName", accountName).queryParam("realm", "pc").build())
@@ -67,7 +67,7 @@ public class CharacterWebClientGgg {
 
   // https://www.pathofexile.com/character-window/get-items?accountName=${accountName}&character=QbleSanctum
   public List<ItemDto> retrieveCharacterItems(String accountName, String characterName) {
-    log.info("retrieving character items (accountName: {} , characterName: {}) from GGG...",
+    log.info("Retrieving character items (accountName: {} , characterName: {}) from GGG...",
         accountName, characterName);
     Mono<GetCharacterItemsGgg> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_CHARACTER_ITEMS_URI)
@@ -83,7 +83,7 @@ public class CharacterWebClientGgg {
         }).bodyToMono(GetCharacterItemsGgg.class);
 
     GetCharacterItemsGgg getCharacterItemsGgg = mono.block();
-    log.info("character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
+    log.info("Character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
         accountName, characterName);
 
     return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.getItems());

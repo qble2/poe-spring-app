@@ -28,18 +28,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     String accountName = authentication.getName();
     String poeSessionId = authentication.getCredentials().toString();
     if (StringUtils.isEmpty(accountName) || StringUtils.isEmpty(poeSessionId)) {
-      log.error("authentication failed: missing POE credentials");
+      log.error("Authentication failed: missing POE credentials");
       throw new BadCredentialsException("Invalid POE credentials");
     }
 
     // verify the credentials
     boolean isValidPoeCredentials = verifyPoeCredentials(accountName, poeSessionId);
     if (!isValidPoeCredentials) {
-      log.error("authentication failed: invalid POE credentials.");
+      log.error("Authentication failed: invalid POE credentials.");
       throw new BadCredentialsException("Invalid POE credentials");
     }
 
-    log.info("authentication succeeded with valid POE credentials.");
+    log.info("Authentication succeeded with valid POE credentials.");
 
     // we need to be able to access poeSessionId
     return new UsernamePasswordAuthenticationToken(new CustomUserDetails(accountName, poeSessionId),

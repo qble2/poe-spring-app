@@ -44,7 +44,7 @@ public class PoeNinjaWebClient {
   public List<MarketOverviewDto> getCurrencyOverview(String leagueId,
       MarketOverviewTypePoeNinjaEnum typeEnum) {
     String type = typeEnum.getValue();
-    log.info("retrieving currency overview (league: {} , type: {}) from poe.ninja...", leagueId,
+    log.info("Retrieving currency overview (league: {} , type: {}) from poe.ninja...", leagueId,
         type);
     Mono<CurrencyOverviewPoeNinja> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(CURRENCY_OVERVIEW_URI).queryParam("league", leagueId)
@@ -52,7 +52,7 @@ public class PoeNinjaWebClient {
         .retrieve().bodyToMono(CurrencyOverviewPoeNinja.class);
 
     CurrencyOverviewPoeNinja currencyOverviewPoeNinja = mono.block();
-    log.info("currency overview (league: {} , type: {}) have been retrieved from poe.ninja.",
+    log.info("Currency overview (league: {} , type: {}) have been retrieved from poe.ninja.",
         leagueId, type);
 
     return this.marketOverviewMapper.toDtoListFromCurrencyOverviewPoeNinjaList(
@@ -63,7 +63,7 @@ public class PoeNinjaWebClient {
   public List<MarketOverviewDto> getItemOverview(String leagueId,
       MarketOverviewTypePoeNinjaEnum typeEnum) {
     String type = typeEnum.getValue();
-    log.info("retrieving item overview (league: {} , type: {}) from poe.ninja...", leagueId, type);
+    log.info("Retrieving item overview (league: {} , type: {}) from poe.ninja...", leagueId, type);
 
     Mono<ItemOverviewPoeNinja> mono =
         webClient.get()
@@ -72,7 +72,7 @@ public class PoeNinjaWebClient {
             .retrieve().bodyToMono(ItemOverviewPoeNinja.class);
 
     ItemOverviewPoeNinja itemOverviewPoeNinja = mono.block();
-    log.info("item overview (league: {} , type: {}) have been retrieved from poe.ninja.", leagueId,
+    log.info("Item overview (league: {} , type: {}) have been retrieved from poe.ninja.", leagueId,
         type);
 
     return this.marketOverviewMapper

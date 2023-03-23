@@ -38,12 +38,12 @@ public class LeagueWebClientGgg {
 
   // https://api.pathofexile.com/leagues
   public List<LeagueDto> retrieveLeagues() {
-    log.info("retrieving leagues from GGG...");
+    log.info("Retrieving leagues from GGG...");
     Mono<LeagueGgg[]> mono =
         webClient.get().uri(GET_LEAGUES_URI).retrieve().bodyToMono(LeagueGgg[].class);
 
     List<LeagueGgg> listOfLeagueGgg = List.of(mono.block());
-    log.info("leagues have been retrieved from GGG.");
+    log.info("Leagues have been retrieved from GGG.");
 
     return this.leagueMapper.toDtoListFromGggList(listOfLeagueGgg);
   }
@@ -51,12 +51,12 @@ public class LeagueWebClientGgg {
   // TODO handle invalid leagueId (404)
   // https://api.pathofexile.com/leagues/Sanctum
   public LeagueDto retrieveLeague(String leagueId) {
-    log.info("retrieving league (id: {}) from GGG...", leagueId);
+    log.info("Retrieving league (id: {}) from GGG...", leagueId);
     Mono<LeagueGgg> mono = webClient.get().uri(GET_LEAGUES_URI + "/" + leagueId).retrieve()
         .bodyToMono(LeagueGgg.class);
 
     LeagueGgg leagueGgg = mono.block();
-    log.info("league ({}) has been retrieved from GGG.", leagueId);
+    log.info("League ({}) has been retrieved from GGG.", leagueId);
 
     return this.leagueMapper.toDtoFromGgg(leagueGgg);
   }

@@ -40,7 +40,7 @@ public class ExceptionsControllerAdvice {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ResponseErrorDto> unhandledExceptions(HttpServletRequest request,
       Exception exception) {
-    log.error("(unhandled exception) An internal server error has occurred", exception);
+    log.error("(Unhandled exception) An internal server error has occurred", exception);
     return createErrorResponseEntity(request, HttpStatus.INTERNAL_SERVER_ERROR,
         INTERNAL_SERVER_ERROR_MESSAGE, null);
   }

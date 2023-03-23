@@ -40,18 +40,18 @@ public class LadderService {
   @Async
   public void reloadLadder(String leagueId, int start, int end) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
-      log.warn("reloading ladder discarded, a ladder task is already running");
+      log.warn("Reloading ladder discarded, a ladder task is already running");
       return;
     }
 
     try {
-      log.debug("reloading ladder (league: {} , start: {} , end: {})", leagueId, start, end);
+      log.debug("Reloading ladder (league: {} , start: {} , end: {})", leagueId, start, end);
       int iterationsCount = Math.max(1, end / LadderWebClientGgg.GGG_FETCH_LIMIT);
-      log.debug("iterations needed: {}", iterationsCount);
+      log.debug("Iterations needed: {}", iterationsCount);
       IntStream.iterate(start, i -> i + LadderWebClientGgg.GGG_FETCH_LIMIT).limit(iterationsCount)
           .forEach(i -> reloadLadderFragmentRetryOnError(leagueId, i, end));
 
-      log.info("ladder for league (league: {} , start: {} , end: {}) has been reloaded.", leagueId,
+      log.info("Ladder for league (league: {} , start: {} , end: {}) has been reloaded.", leagueId,
           start, end);
     } finally {
       this.singlePermitSemaphore.release();
@@ -62,18 +62,18 @@ public class LadderService {
   @Async
   public void reloadLadderItems(String leagueId) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
-      log.warn("reloading ladder items discarded, a ladder task is already running");
+      log.warn("Reloading ladder items discarded, a ladder task is already running");
       return;
     }
     try (Stream<LadderEntry> streamOfLadderEntry =
         this.ladderRepository.findAllByLeagueIdAndIsPublic(leagueId, true)) {
-      log.info("reloading items for ladder (league: {})", leagueId);
+      log.info("Reloading items for ladder (league: {})", leagueId);
       streamOfLadderEntry
           // make sure the persistence context isn't keeping the reference to all the entities
           // .peek(entityManager::detach) // cant access Character.items
           .forEach(this::reloadLadderEntryItemsRetryOnError);
 
-      log.info("items for ladder (league: {}) have been reloaded.", leagueId);
+      log.info("Items for ladder (league: {}) have been reloaded.", leagueId);
     } finally {
       this.singlePermitSemaphore.release();
     }
@@ -105,7 +105,7 @@ public class LadderService {
 
   private void reloadLadderEntryItemsRetryOnError(LadderEntry ladderEntry) {
     Character character = ladderEntry.getCharacter();
-    log.info("reloading items for character (accountName: {} , characterName: {})",
+    log.info("Reloading items for character (accountName: {} , characterName: {})",
         character.getAccountName(), character.getName());
     try {
       characterService.reloadCharacterItems(character);

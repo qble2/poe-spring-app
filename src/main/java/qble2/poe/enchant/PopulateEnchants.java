@@ -32,7 +32,7 @@ public class PopulateEnchants implements ApplicationListener<ApplicationReadyEve
 
   // cannot differenciate lab enchants from other type of enchants (such as ring anointments)
   private void populateEnchants() {
-    log.info("populating database with enchants parsed from line-defined json file {}",
+    log.info("Populating database with enchants parsed from line-defined json file {}",
         AWAKENED_POE_TRADE_STATS_NDJSON);
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -52,15 +52,15 @@ public class PopulateEnchants implements ApplicationListener<ApplicationReadyEve
           // not overriding existing data/relationships
           if (this.enchantRepository.findById(enchantId).isEmpty()) {
             this.enchantRepository.save(enchant);
-            log.info("added lab enchant (id: {} , tradeIds: {}) into database", enchantId,
+            log.info("Added lab enchant (id: {} , tradeIds: {}) into database", enchantId,
                 enchantTradeIds);
           }
         }
       }
 
-      log.info("populating database with enchants completed.");
+      log.info("Populating database with enchants completed.");
     } catch (IOException e) {
-      log.error("an error has occured", e);
+      log.error("An error has occured", e);
     }
   }
 

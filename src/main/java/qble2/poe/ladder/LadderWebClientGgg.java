@@ -47,7 +47,7 @@ public class LadderWebClientGgg {
   // offset 200 + limit 200 => rank 201 to rank 400 both included
   public LadderDto retrieveLadder(String leagueId, int start, int end) {
     int limit = Math.min(GGG_FETCH_LIMIT, end);
-    log.info("retrieving ladder (leagueId: {} , offset: {} , limit: {}) from GGG...", leagueId,
+    log.info("Retrieving ladder (leagueId: {} , offset: {} , limit: {}) from GGG...", leagueId,
         start, limit);
     Mono<LadderGgg> mono = webClient.get()
         .uri(uriBuilder -> uriBuilder.path(GET_LADDER_URI).queryParam("type", "league")
@@ -62,7 +62,7 @@ public class LadderWebClientGgg {
         }).bodyToMono(LadderGgg.class);
 
     LadderGgg ladderGgg = mono.block();
-    log.info("ladder (leagueId: {} , offset: {} , limit: {}) have been retrieved from GGG.",
+    log.info("Ladder (leagueId: {} , offset: {} , limit: {}) have been retrieved from GGG.",
         leagueId, start, GGG_FETCH_LIMIT);
 
     return this.ladderMapper.toDtoFromGgg(ladderGgg, leagueId);

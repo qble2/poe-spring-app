@@ -48,11 +48,11 @@ public class StashWebClientGgg {
   // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0&tabs=1&
   public List<StashTabDto> retrieveStashTabs(String accountName, String poeSessionId,
       String leagueId) {
-    log.info("retrieving stash tabs headers (accountName: {} , leagueId: {}) from GGG...",
+    log.info("Retrieving stash tabs headers (accountName: {} , leagueId: {}) from GGG...",
         accountName, leagueId);
     List<StashTabGgg> listOfStashTabGgg =
         retrieveStash(accountName, poeSessionId, leagueId, 0, true).getTabs();
-    log.info("stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
+    log.info("Stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
         accountName, leagueId);
 
     return this.stashMapper.toDtoListFromGggList(listOfStashTabGgg, leagueId);
@@ -62,12 +62,12 @@ public class StashWebClientGgg {
   public List<ItemDto> retrieveStashTabItems(String accountName, String poeSessionId,
       String leagueId, int tabIndex) {
     log.info(
-        "retrieving stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
+        "Retrieving stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
         accountName, leagueId, tabIndex);
     List<ItemGgg> listOfItemGgg =
         retrieveStash(accountName, poeSessionId, leagueId, tabIndex, false).getItems();
     log.info(
-        "stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
+        "Stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
         accountName, leagueId, tabIndex);
 
     return this.itemMapper.toDtoListFromGggList(listOfItemGgg);

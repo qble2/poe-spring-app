@@ -9,7 +9,7 @@ public class AsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
 
   @Override
   public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-    log.error("async uncaught exception", ex);
+    log.error("Async uncaught exception", ex);
     for (Object param : params) {
       log.error("Parameter value - {}", param);
     }
