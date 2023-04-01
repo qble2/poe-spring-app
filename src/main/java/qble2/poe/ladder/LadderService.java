@@ -69,22 +69,29 @@ public class LadderService {
     }
   }
 
-  // TODO start/end params
+  // FIXME nexpectedRollbackException:
+  // Transaction silently rolled back because it has been marked as rollback-only
+  // happening after Rate limit exceeded causing a Thread.sleep
   @Async
   public void reloadLadderItems(String leagueId) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
       log.warn("Reloading ladder items discarded, a ladder task is already running");
       return;
     }
+
+    log.info("Reloading items for characters on ladder (league: {})", leagueId);
+
+    int charactersFound = (int) this.ladderRepository.count();
+    log.info("Characters found: {}", charactersFound);
+
     try (Stream<LadderEntry> streamOfLadderEntry =
         this.ladderRepository.findAllByLeagueIdAndIsPublic(leagueId, true)) {
-      log.info("Reloading items for ladder (league: {})", leagueId);
       streamOfLadderEntry
           // make sure the persistence context isn't keeping the reference to all the entities
           // .peek(entityManager::detach) // cant access Character.items
           .forEach(this::reloadLadderEntryItemsRetryOnError);
 
-      log.info("Items for ladder (league: {}) have been reloaded.", leagueId);
+      log.info("items for characters on ladder (league: {}) have been reloaded.", leagueId);
     } finally {
       this.singlePermitSemaphore.release();
     }
