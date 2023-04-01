@@ -1,17 +1,20 @@
 package qble2.poe.ladder;
 
-import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.character.Character;
 import qble2.poe.character.CharacterService;
 import qble2.poe.exception.TooManyRequestsException;
+import qble2.poe.ladder.specification.LadderSpecifications;
+import qble2.poe.web.ThymeleafLadderForm;
 
 @Service
 @Transactional
@@ -32,9 +35,17 @@ public class LadderService {
   @Autowired
   private CharacterService characterService;
 
-  public List<LadderEntryDto> getLadder(String leagueId) {
-    return this.ladderMapper.toDtoListFromEntityList(
-        this.ladderRepository.findAllByLeagueIdOrderByLeagueIdAscRankAsc(leagueId));
+  public LadderPageDto getLadder(String leagueId, Pageable pageable) {
+    return toLadderPageDto(
+        this.ladderRepository.findAllByLeagueIdOrderByLeagueIdAscRankAsc(leagueId, pageable));
+  }
+
+  public LadderPageDto getLadderBySpecification(Pageable pageable,
+      ThymeleafLadderForm thymeleafLadderForm) {
+    Page<LadderEntry> page = this.ladderRepository
+        .findAll(LadderSpecifications.getLadderByForm(thymeleafLadderForm), pageable);
+
+    return toLadderPageDto(page);
   }
 
   @Async
@@ -124,6 +135,13 @@ public class LadderService {
         log.error("an error has occured", e1);
       }
     }
+  }
+
+  private LadderPageDto toLadderPageDto(Page<LadderEntry> page) {
+    return LadderPageDto.builder()
+        .ladderEntries(this.ladderMapper.toDtoListFromEntityList(page.getContent()))
+        .currentPage(page.getNumber()).totalPages(page.getTotalPages())
+        .totalElements(page.getTotalElements()).build();
   }
 
 }

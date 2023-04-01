@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Ladder</title>
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
+	<section layout:fragment="content">
+
+		<form
+			action="#"
+			th:action="@{/ladders}"
+			th:method="POST"
+			th:object="${ladderForm}">
+
+			<fieldset>
+				<div>
+					<label for="league-id">League</label>
+					<select
+						id="league-id"
+						th:field="*{leagueId}">
+						<option
+							th:each="league: ${leagues}"
+							th:value="${league.id}"
+							th:text="${league.id}"></option>
+					</select>
+				</div>
+
+				<div class="flex-row">
+					<div style="width: 100%;">
+						<label for="min-rank">Min rank</label>
+						<input
+							id="min-rank"
+							type="number"
+							th:field="*{minRank}" />
+					</div>
+					<div style="width: 100%;">
+						<label for="max-rank">Max rank</label>
+						<input
+							id="max-rank"
+							type="number"
+							th:field="*{maxRank}" />
+					</div>
+				</div>
+			</fieldset>
+
+			<button type=submit>Load</button>
+
+			<table>
+				<thead>
+					<tr>
+						<th>rank</th>
+						<th>leagueId</th>
+						<th>character name</th>
+						<th>isPublic</th>
+						<th>lastUpdateAt</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="ladderEntry: ${ladderPage.ladderEntries}">
+						<td th:text="${ladderEntry.rank}"></td>
+						<td th:text="${ladderEntry.leagueId}"></td>
+						<td th:text="${ladderEntry.character.name}"></td>
+						<td th:text="${ladderEntry.isPublic}"></td>
+						<td th:text="${ladderEntry.lastUpdateAt}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</form>
+
+	</section>
+</body>
+</html>
