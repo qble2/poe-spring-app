@@ -13,6 +13,6 @@ public interface LadderRepository
 
   Stream<LadderEntry> findAllByLeagueId(String leagueId);
 
-  Stream<LadderEntry> findAllByLeagueIdAndIsPublic(String leagueId, boolean isPublic);
+  Stream<LadderEntry> findAllByLeagueIdAndIsPublicOrderByRankAsc(String leagueId, boolean isPublic);
 
 }

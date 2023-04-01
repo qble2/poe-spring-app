@@ -1,5 +1,6 @@
 package qble2.poe.character;
 
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.NumberUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
+import qble2.poe.exception.ForbiddenRequestException;
 import qble2.poe.exception.TooManyRequestsException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -69,24 +72,34 @@ public class CharacterWebClientGgg {
   public List<ItemDto> retrieveCharacterItems(String accountName, String characterName) {
     log.info("Retrieving character items (accountName: {} , characterName: {}) from GGG...",
         accountName, characterName);
-    Mono<GetCharacterItemsGgg> mono = webClient.get()
-        .uri(uriBuilder -> uriBuilder.path(GET_CHARACTER_ITEMS_URI)
-            .queryParam("accountName", accountName).queryParam("realm", "pc")
-            .queryParam("character", characterName).build())
-        // .cookie("POESESSID", poeSessionId)
-        .retrieve()
-        .onStatus(status -> status.value() == HttpStatus.TOO_MANY_REQUESTS.value(), response -> {
-          int retryAfter = NumberUtils.parseNumber(response.headers().header("Retry-After").get(0),
-              Integer.class);
-          return Mono.error(new TooManyRequestsException(
-              "Rate limit exceeded, Please try again later.", retryAfter));
-        }).bodyToMono(GetCharacterItemsGgg.class);
 
-    GetCharacterItemsGgg getCharacterItemsGgg = mono.block();
-    log.info("Character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
-        accountName, characterName);
+    try {
+      Mono<GetCharacterItemsGgg> mono = webClient.get()
+          .uri(uriBuilder -> uriBuilder.path(GET_CHARACTER_ITEMS_URI)
+              .queryParam("accountName", accountName).queryParam("realm", "pc")
+              .queryParam("character", characterName).build())
+          // .cookie("POESESSID", poeSessionId)
+          .retrieve().onStatus(HttpStatus.TOO_MANY_REQUESTS::equals, response -> {
+            int retryAfter = NumberUtils
+                .parseNumber(response.headers().header("Retry-After").get(0), Integer.class);
+            return Mono.error(new TooManyRequestsException(
+                "Rate limit exceeded, Please try again later.", retryAfter));
+          })
+          .onStatus(HttpStatus.FORBIDDEN::equals,
+              response -> Mono.error(ForbiddenRequestException::new))
+          .bodyToMono(GetCharacterItemsGgg.class);
 
-    return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.getItems());
+      GetCharacterItemsGgg getCharacterItemsGgg = mono.block();
+      log.info(
+          "Character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
+          accountName, characterName);
+
+      return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.getItems());
+    } catch (WebClientResponseException e) {
+      log.error("An error has occurred", e);
+    }
+
+    return Collections.emptyList();
   }
 
 }

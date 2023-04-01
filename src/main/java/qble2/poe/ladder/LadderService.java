@@ -1,5 +1,6 @@
 package qble2.poe.ladder;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -48,11 +49,13 @@ public class LadderService {
     return toLadderPageDto(page);
   }
 
+  // Fixing UnexpectedRollbackException: change return from void to CompletableFuture<Void>
+  // Transaction silently rolled back because it has been marked as rollback-only
   @Async
-  public void reloadLadder(String leagueId, int start, int end) {
+  public CompletableFuture<Void> reloadLadder(String leagueId, int start, int end) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
       log.warn("Reloading ladder discarded, a ladder task is already running");
-      return;
+      return null;
     }
 
     try {
@@ -67,16 +70,17 @@ public class LadderService {
     } finally {
       this.singlePermitSemaphore.release();
     }
+
+    return new CompletableFuture<Void>();
   }
 
-  // FIXME nexpectedRollbackException:
+  // Fixing UnexpectedRollbackException: change return from void to CompletableFuture<Void>
   // Transaction silently rolled back because it has been marked as rollback-only
-  // happening after Rate limit exceeded causing a Thread.sleep
   @Async
-  public void reloadLadderItems(String leagueId) {
+  public CompletableFuture<Void> reloadLadderItems(String leagueId) {
     if (!this.singlePermitSemaphore.tryAcquire()) {
       log.warn("Reloading ladder items discarded, a ladder task is already running");
-      return;
+      return null;
     }
 
     log.info("Reloading items for characters on ladder (league: {})", leagueId);
@@ -85,7 +89,7 @@ public class LadderService {
     log.info("Characters found: {}", charactersFound);
 
     try (Stream<LadderEntry> streamOfLadderEntry =
-        this.ladderRepository.findAllByLeagueIdAndIsPublic(leagueId, true)) {
+        this.ladderRepository.findAllByLeagueIdAndIsPublicOrderByRankAsc(leagueId, true)) {
       streamOfLadderEntry
           // make sure the persistence context isn't keeping the reference to all the entities
           // .peek(entityManager::detach) // cant access Character.items
@@ -95,6 +99,8 @@ public class LadderService {
     } finally {
       this.singlePermitSemaphore.release();
     }
+
+    return new CompletableFuture<Void>();
   }
 
   /////
