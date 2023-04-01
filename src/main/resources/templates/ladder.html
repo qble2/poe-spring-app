@@ -67,9 +67,13 @@
 						<td th:text="${ladderEntry.leagueId}"></td>
 						<td>
 							<a
+								th:if="${ladderEntry.isPublic}"
 								th:text="${ladderEntry.character.name}"
 								th:href="|/characters/${ladderEntry.character.name}|"
 								target="_blank"></a>
+							<span
+								th:unless="${ladderEntry.isPublic}"
+								th:text="${ladderEntry.character.name}"></span>
 						</td>
 						<td th:text="${ladderEntry.isPublic}"></td>
 						<td th:text="${ladderEntry.lastUpdateAt}"></td>
