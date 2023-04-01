@@ -11,19 +11,6 @@
 <body>
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
-		<div class="flex-row-space-between">
-			<a
-				href="/characters"
-				th:href="@{/characters}"
-				role="button">Back to Characters</a>
-			<h3 th:text="${character.name}"></h3>
-			<form
-				action="#"
-				th:action="|/characters/${character.name}|"
-				th:method="GET">
-				<button>Reload page</button>
-			</form>
-		</div>
 
 		<details>
 			<summary>Details</summary>
@@ -67,19 +54,12 @@
 
 		<details open>
 			<summary>Items</summary>
-			<button
-				hx-ext="loading-states"
-				data-loading-aria-busy
-				hx-trigger="click"
-				th:attr="hx-post=|/characters/${character.name}/inventory/2d|"
-				hx-target="#character-items"
-				hx-swap="innerHTML">Reload items</button>
 
 			<!-- load polling character items -->
 			<div
 				id="character-items"
 				hx-trigger="load"
-				th:attr="hx-get=|/characters/${character.name}/inventory/table|"
+				th:attr="hx-get=|/characters/${character.name}/inventory/2d|"
 				hx-swap="innerHTML"></div>
 		</details>
 	</section>

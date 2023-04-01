@@ -65,7 +65,12 @@
 					<tr th:each="ladderEntry: ${ladderPage.ladderEntries}">
 						<td th:text="${ladderEntry.rank}"></td>
 						<td th:text="${ladderEntry.leagueId}"></td>
-						<td th:text="${ladderEntry.character.name}"></td>
+						<td>
+							<a
+								th:text="${ladderEntry.character.name}"
+								th:href="|/characters/${ladderEntry.character.name}|"
+								target="_blank"></a>
+						</td>
 						<td th:text="${ladderEntry.isPublic}"></td>
 						<td th:text="${ladderEntry.lastUpdateAt}"></td>
 					</tr>
