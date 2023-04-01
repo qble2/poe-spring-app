@@ -315,6 +315,12 @@ ol, ul, li {
 }
 
 /* -${item.inventoryId} */
+/* weapon swap */
+.character-inventory-2d-Weapon2,
+.character-inventory-2d-Offhand1 {
+	visibility: hidden;
+}
+
 .character-inventory-2d-Weapon {
 	grid-area: Weapon;
     display: grid;
