@@ -45,7 +45,7 @@ public interface LadderMapper {
   @Mapping(target = "character.accountName", source = "account.name")
   // character.leagueId not returned by ggg ladder api
   @Mapping(target = "character.leagueId", expression = "java(leagueId)")
-  @Mapping(target = "lastUpdateAt", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "lastUpdateAt", expression = "java(java.time.ZonedDateTime.now())")
   @Mapping(target = "leagueId", expression = "java(leagueId)")
   LadderEntryDto toDtoFromGgg(LadderEntryGgg source, @Context String leagueId);
 

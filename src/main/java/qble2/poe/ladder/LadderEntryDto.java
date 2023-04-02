@@ -1,6 +1,6 @@
 package qble2.poe.ladder;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import qble2.poe.character.CharacterDto;
@@ -27,6 +27,6 @@ public class LadderEntryDto {
   private String alternativeProfileUrl;
 
   @JsonProperty("lastUpdateAt")
-  private LocalDateTime lastUpdateAt;
+  private ZonedDateTime lastUpdateAt;
 
 }

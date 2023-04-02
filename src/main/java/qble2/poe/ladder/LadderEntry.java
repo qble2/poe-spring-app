@@ -1,6 +1,6 @@
 package qble2.poe.ladder;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +40,6 @@ public class LadderEntry {
   private Character character;
 
   @Column(name = "lastUpdateAt")
-  private LocalDateTime lastUpdateAt;
+  private ZonedDateTime lastUpdateAt;
 
 }

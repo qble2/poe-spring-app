@@ -8,10 +8,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import qble2.poe.common.ToZonedDateTimeFromUTC;
 
 // disabling Lombok @Buidler is needed to make @AfterMapping work with @MappingTarget
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
-public interface LeagueMapper {
+public interface LeagueMapper extends ToZonedDateTimeFromUTC {
 
   @Named(value = "toLeagueDtoListFromGggList")
   @IterableMapping(qualifiedByName = "toLeagueDtoFromGgg")
@@ -23,10 +24,8 @@ public interface LeagueMapper {
   @Mapping(target = "id", source = "id")
   @Mapping(target = "realm", source = "realm")
   @Mapping(target = "url", source = "url")
-  @Mapping(target = "startAt",
-      expression = "java(null==source.getStartAt() ? null : java.time.LocalDateTime.ofInstant(java.time.Instant.parse(source.getStartAt()), java.time.ZoneOffset.UTC))")
-  @Mapping(target = "endAt",
-      expression = "java(null==source.getEndAt() ? null : java.time.LocalDateTime.ofInstant(java.time.Instant.parse(source.getEndAt()), java.time.ZoneOffset.UTC))")
+  @Mapping(target = "startAt", source = "startAt", qualifiedByName = "toZonedDateTimeFromUTC")
+  @Mapping(target = "endAt", source = "endAt", qualifiedByName = "toZonedDateTimeFromUTC")
   LeagueDto toDtoFromGgg(LeagueGgg source);
 
   /////
