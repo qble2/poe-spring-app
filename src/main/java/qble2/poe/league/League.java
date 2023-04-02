@@ -1,5 +1,6 @@
 package qble2.poe.league;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,9 +34,9 @@ public class League {
   private String url;
 
   @Column(name = "startAt")
-  private String startAt;
+  private LocalDateTime startAt;
 
   @Column(name = "endAt")
-  private String endAt;
+  private LocalDateTime endAt;
 
 }

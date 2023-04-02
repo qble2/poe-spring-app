@@ -33,8 +33,8 @@
 							th:href="|/leagues/${league.id}|"></a>
 					</td>
 					<td th:text="${league.realm}"></td>
-					<td th:text="${league.startAt}"></td>
-					<td th:text="${league.endAt}"></td>
+					<td th:text="${#temporals.format(league.startAt, 'dd/MM/yyyy HH:mm:ss')}"></td>
+					<td th:text="${#temporals.format(league.endAt, 'dd/MM/yyyy HH:mm:ss')}"></td>
 					<td>
 						<a
 							th:href="|${league.url}|"

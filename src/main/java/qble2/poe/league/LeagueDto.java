@@ -1,5 +1,6 @@
 package qble2.poe.league;
 
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -16,9 +17,9 @@ public class LeagueDto {
   private String url;
 
   @JsonProperty("startAt")
-  private String startAt;
+  private LocalDateTime startAt;
 
   @JsonProperty("endAt")
-  private String endAt;
+  private LocalDateTime endAt;
 
 }
