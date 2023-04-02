@@ -101,6 +101,12 @@ ol, ul, li {
 	text-overflow: ellipsis;
 }
 
+.grid-align-center {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
 .flex-row {
 	display: flex;
 	flex-direction: row;
@@ -113,18 +119,12 @@ ol, ul, li {
 	gap: 10px;
 }
 
-.grid-align-center {
-	display: grid;
-	justify-content: center;
-	align-content: center;
+.space-between {
+	justify-content: space-between;
 }
 
-.flex-row-space-between {
-	display: flex;
-	flex-direction: row;
+.align-baseline {
 	align-items: baseline;
-	justify-content: space-between;
-	gap: 10px;
 }
 
 .align-center {
