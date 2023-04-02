@@ -19,19 +19,19 @@
 			th:object="${ladderForm}">
 
 			<fieldset>
-				<div>
-					<label for="league-id">League</label>
-					<select
-						id="league-id"
-						th:field="*{leagueId}">
-						<option
-							th:each="league: ${leagues}"
-							th:value="${league.id}"
-							th:text="${league.id}"></option>
-					</select>
-				</div>
-
 				<div class="flex-row">
+					<div style="width: 100%;">
+						<label for="league-id">League</label>
+						<select
+							id="league-id"
+							th:field="*{leagueId}">
+							<option
+								th:each="league: ${leagues}"
+								th:value="${league.id}"
+								th:text="${league.id}"></option>
+						</select>
+					</div>
+
 					<div style="width: 100%;">
 						<label for="min-rank">Min rank</label>
 						<input
@@ -47,6 +47,39 @@
 							th:field="*{maxRank}" />
 					</div>
 				</div>
+
+				<div class="flex-row"></div>
+
+				<div class="flex-row">
+					<div style="width: 100%;">
+						<label for="character-name">Character name</label>
+						<input
+							id="character-name"
+							th:field="*{characterName}" />
+					</div>
+					<div style="width: 100%;">
+						<label for="account-name">Account name</label>
+						<input
+							id="account-name"
+							th:field="*{accountName}" />
+					</div>
+
+					<div style="width: 100%;">
+						<label for="min-level">Min level</label>
+						<input
+							id="min-level"
+							type="number"
+							th:field="*{minLevel}" />
+					</div>
+					<div style="width: 100%;">
+						<label for="max-level">Max level</label>
+						<input
+							id="max-level"
+							type="number"
+							th:field="*{maxLevel}" />
+					</div>
+				</div>
+
 			</fieldset>
 
 			<button type=submit>Load</button>
@@ -56,7 +89,10 @@
 					<tr>
 						<th>rank</th>
 						<th>leagueId</th>
-						<th>character name</th>
+						<th>account</th>
+						<th>character</th>
+						<th>level</th>
+						<th>class</th>
 						<th>isPublic</th>
 						<th>lastUpdateAt</th>
 					</tr>
@@ -67,6 +103,12 @@
 						<td th:text="${ladderEntry.leagueId}"></td>
 						<td>
 							<a
+								th:text="${ladderEntry.character.accountName}"
+								th:href="|https://www.pathofexile.com/account/view-profile/${ladderEntry.character.accountName}/characters?characterName=${ladderEntry.character.name}|"
+								target="_blank"></a>
+						</td>
+						<td>
+							<a
 								th:if="${ladderEntry.isPublic}"
 								th:text="${ladderEntry.character.name}"
 								th:href="|/characters/${ladderEntry.character.name}|"
@@ -75,6 +117,8 @@
 								th:unless="${ladderEntry.isPublic}"
 								th:text="${ladderEntry.character.name}"></span>
 						</td>
+						<td th:text="${ladderEntry.character.level}"></td>
+						<td th:text="${ladderEntry.character.characterClass}"></td>
 						<td th:text="${ladderEntry.isPublic}"></td>
 						<td th:text="${ladderEntry.lastUpdateAt}"></td>
 					</tr>
