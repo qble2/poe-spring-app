@@ -48,8 +48,6 @@
 					</div>
 				</div>
 
-				<div class="flex-row"></div>
-
 				<div class="flex-row">
 					<div style="width: 100%;">
 						<label for="character-name">Character name</label>
@@ -84,46 +82,50 @@
 
 			<button type=submit>Load</button>
 
-			<table>
-				<thead>
-					<tr>
-						<th>rank</th>
-						<th>leagueId</th>
-						<th>account</th>
-						<th>character</th>
-						<th>level</th>
-						<th>class</th>
-						<th>isPublic</th>
-						<th>lastUpdateAt</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="ladderEntry: ${ladderPage.ladderEntries}">
-						<td th:text="${ladderEntry.rank}"></td>
-						<td th:text="${ladderEntry.leagueId}"></td>
-						<td>
-							<a
-								th:text="${ladderEntry.character.accountName}"
-								th:href="|https://www.pathofexile.com/account/view-profile/${ladderEntry.character.accountName}/characters?characterName=${ladderEntry.character.name}|"
-								target="_blank"></a>
-						</td>
-						<td>
-							<a
-								th:if="${ladderEntry.isPublic}"
-								th:text="${ladderEntry.character.name}"
-								th:href="|/characters/${ladderEntry.character.name}|"
-								target="_blank"></a>
-							<span
-								th:unless="${ladderEntry.isPublic}"
-								th:text="${ladderEntry.character.name}"></span>
-						</td>
-						<td th:text="${ladderEntry.character.level}"></td>
-						<td th:text="${ladderEntry.character.characterClass}"></td>
-						<td th:text="${ladderEntry.isPublic}"></td>
-						<td th:text="${ladderEntry.lastUpdateAt}"></td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="flex-column">
+				<span th:text="|Found ${ladderPage.totalElements} character(s)|"></span>
+
+				<table>
+					<thead>
+						<tr>
+							<th>rank</th>
+							<th>leagueId</th>
+							<th>account</th>
+							<th>character</th>
+							<th>level</th>
+							<th>class</th>
+							<th>isPublic</th>
+							<th>lastUpdateAt</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ladderEntry: ${ladderPage.ladderEntries}">
+							<td th:text="${ladderEntry.rank}"></td>
+							<td th:text="${ladderEntry.leagueId}"></td>
+							<td>
+								<a
+									th:text="${ladderEntry.character.accountName}"
+									th:href="|https://www.pathofexile.com/account/view-profile/${ladderEntry.character.accountName}/characters?characterName=${ladderEntry.character.name}|"
+									target="_blank"></a>
+							</td>
+							<td>
+								<a
+									th:if="${ladderEntry.isPublic}"
+									th:text="${ladderEntry.character.name}"
+									th:href="|/characters/${ladderEntry.character.name}|"
+									target="_blank"></a>
+								<span
+									th:unless="${ladderEntry.isPublic}"
+									th:text="${ladderEntry.character.name}"></span>
+							</td>
+							<td th:text="${ladderEntry.character.level}"></td>
+							<td th:text="${ladderEntry.character.characterClass}"></td>
+							<td th:text="${ladderEntry.isPublic}"></td>
+							<td th:text="${ladderEntry.lastUpdateAt}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 		</form>
 
