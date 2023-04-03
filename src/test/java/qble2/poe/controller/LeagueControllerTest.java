@@ -1,6 +1,5 @@
 package qble2.poe.controller;
 
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -10,9 +9,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static qble2.poe.utils.TestUtils.RESOURCES_NOT_FOUND_ERROR_MESSAGE;
+import static qble2.poe.utils.TestUtils.toUriString;
 import static qble2.poe.utils.TestUtils.verifyReponseHeaderContentType;
 import static qble2.poe.utils.TestUtils.verifyResponseError;
-import java.util.Collections;
 import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.util.UriComponentsBuilder;
 import qble2.poe.exception.LeagueNotFoundException;
 import qble2.poe.league.League;
 import qble2.poe.league.LeagueController;
@@ -45,28 +44,14 @@ public class LeagueControllerTest {
   private LeagueService leagueService;
 
   @Test
-  void given_noLeagues_getLeagues_willReturnEmptyList() throws Exception {
-    // given
-    given(leagueService.getLeagues()).willReturn(Collections.emptyList());
-
-    // when
-    // then
-    String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).build().toString();
-    final ResultActions resultActions = mockMvc.perform(get(urlTemplate)).andDo(print())
-        .andExpect(status().isOk()).andExpect(jsonPath("$", empty()));
-
-    verifyReponseHeaderContentType(resultActions);
-  }
-
-  @Test
-  void given_leaguesExist_getLeagues_willReturnExistingLeagues() throws Exception {
+  void given_validRequest_getLeagues_willReturnExistingLeagues() throws Exception {
     // given
     List<LeagueDto> leagues = List.of(new LeagueDto());
     given(leagueService.getLeagues()).willReturn(leagues);
 
     // when
     // then
-    String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).build().toString();
+    String urlTemplate = toUriString(LEAGUES_PATH);
     final ResultActions resultActions = mockMvc.perform(get(urlTemplate)).andDo(print())
         .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(leagues.size())));
 
@@ -74,14 +59,14 @@ public class LeagueControllerTest {
   }
 
   @Test
-  void given_none_reloadLeagues_willReturnReloadedLeagues() throws Exception {
+  void given_validRequest_reloadLeagues_willReturnReloadedLeagues() throws Exception {
     // given
     List<LeagueDto> leagues = List.of(new LeagueDto());
     given(leagueService.reloadLeagues()).willReturn(leagues);
 
     // when
     // then
-    String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).build().toString();
+    String urlTemplate = toUriString(LEAGUES_PATH);
     final ResultActions resultActions = mockMvc.perform(post(urlTemplate)).andDo(print())
         .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(leagues.size())));
 
@@ -89,35 +74,33 @@ public class LeagueControllerTest {
   }
 
   @Test
-  void given_leagueDoesNotExist_getLeague_willReturnLeagueNotFound() throws Exception {
+  void given_unknownLeagueId_getLeague_willReturnLeagueNotFound() throws Exception {
     // given
-    String leagueId = "xxx";
-    given(leagueService.getLeague(anyString())).willThrow(new LeagueNotFoundException(leagueId));
+    String unknownLeagueId = "any";
+    given(leagueService.getLeague(anyString()))
+        .willThrow(new LeagueNotFoundException(unknownLeagueId));
 
     // when
     // then
-    String urlTemplate =
-        UriComponentsBuilder.fromPath(LEAGUES_PATH).path("/{leagueId}").build(leagueId).toString();
-    final ResultActions resultActions =
-        mockMvc.perform(get(urlTemplate)).andDo(print()).andExpect(status().isNotFound());
+    String urlTemplate = toUriString(LEAGUES_PATH + "/{leagueId}", unknownLeagueId);
+    final ResultActions resultActions = mockMvc.perform(get(urlTemplate)).andDo(print());
 
     verifyReponseHeaderContentType(resultActions);
     verifyResponseError(resultActions, urlTemplate, status().isNotFound(), HttpStatus.NOT_FOUND,
-        LeagueNotFoundException.getFormattedMessage("League", leagueId));
+        RESOURCES_NOT_FOUND_ERROR_MESSAGE);
   }
 
   @Test
   void given_leagueExists_getLeague_willReturnRequestedLeague() throws Exception {
     // given
-    League league = League.builder().id("xxx").build();
+    League league = League.builder().id("any").build();
     LeagueDto leagueDto = new LeagueDto();
     BeanUtils.copyProperties(leagueDto, league);
     given(leagueService.getLeague(anyString())).willReturn(leagueDto);
 
     // when
     // then
-    String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).path("/{leagueId}")
-        .build(league.getId()).toString();
+    String urlTemplate = toUriString(LEAGUES_PATH + "/{leagueId}", league.getId());
     final ResultActions resultActions = mockMvc.perform(get(urlTemplate)).andDo(print())
         .andExpect(status().isOk()).andExpect(jsonPath("$.id", is(league.getId())));
 
@@ -125,17 +108,33 @@ public class LeagueControllerTest {
   }
 
   @Test
+  void given_unknownLeagueId_reloadLeague_willReturnLeagueNotFound() throws Exception {
+    // given
+    String unknownLeagueId = "any";
+    given(leagueService.reloadLeague(anyString()))
+        .willThrow(new LeagueNotFoundException(unknownLeagueId));
+
+    // when
+    // then
+    String urlTemplate = toUriString(LEAGUES_PATH + "/{leagueId}", unknownLeagueId);
+    final ResultActions resultActions = mockMvc.perform(post(urlTemplate)).andDo(print());
+
+    verifyReponseHeaderContentType(resultActions);
+    verifyResponseError(resultActions, urlTemplate, status().isNotFound(), HttpStatus.NOT_FOUND,
+        RESOURCES_NOT_FOUND_ERROR_MESSAGE);
+  }
+
+  @Test
   void given_leagueExists_reloadLeague_willReturnReloadedLeague() throws Exception {
     // given
-    League league = League.builder().id("xxx").build();
+    League league = League.builder().id("any").build();
     LeagueDto leagueDto = new LeagueDto();
     BeanUtils.copyProperties(leagueDto, league);
     given(leagueService.reloadLeague(anyString())).willReturn(leagueDto);
 
     // when
     // then
-    String urlTemplate = UriComponentsBuilder.fromPath(LEAGUES_PATH).path("/{leagueId}")
-        .build(league.getId()).toString();
+    String urlTemplate = toUriString(LEAGUES_PATH + "/{leagueId}", league.getId());
     final ResultActions resultActions = mockMvc.perform(post(urlTemplate)).andDo(print())
         .andExpect(status().isOk()).andExpect(jsonPath("$.id", is(league.getId())));
 

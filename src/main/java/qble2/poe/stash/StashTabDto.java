@@ -3,6 +3,7 @@ package qble2.poe.stash;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,6 +35,7 @@ public class StashTabDto {
   @JsonProperty("items")
   private List<ItemDto> items = new ArrayList<>();
 
+  @JsonIgnore
   public String getHexColor() {
     return String.format("#%06X", (0xFFFFFF & this.color));
   }
