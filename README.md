@@ -2,7 +2,7 @@
 >- *This project main purpose was a learning experience to tackle Thymeleaf and HTMX integration with Spring Boot.*
 >- *It may contain unpolished, experimental or rushed code that needs to be refactored and modernized.*
 
-# POE Spring 
+# POE Spring App
 
 A Java [Spring Boot](https://spring.io/projects/spring-boot) web application that acts as a bridge between a user and two third party APIs [[1]](https://www.pathofexile.com/developer/docs/reference) [[2]](https://github.com/5k-mirrors/misc-poe-tools/blob/master/doc/poe-ninja-api.md).  
 The application allows the user to fetch and store data locally, for a later offline access.  
