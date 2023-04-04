@@ -59,7 +59,9 @@ public class LadderService {
   // Fixing UnexpectedRollbackException: change return from void to CompletableFuture<Void>
   // Transaction silently rolled back because it has been marked as rollback-only
   @Async
-  public CompletableFuture<Void> reloadLadder(String leagueId, int start, int end) {
+  public CompletableFuture<Void> reloadLadder(@NotNull String leagueId, int start, int end) {
+    leagueService.findLeagueByIdOrThrow(leagueId);
+
     if (!this.singlePermitSemaphore.tryAcquire()) {
       log.warn("Reloading ladder discarded, a ladder task is already running");
       return null;
@@ -84,7 +86,9 @@ public class LadderService {
   // Fixing UnexpectedRollbackException: change return from void to CompletableFuture<Void>
   // Transaction silently rolled back because it has been marked as rollback-only
   @Async
-  public CompletableFuture<Void> reloadLadderItems(String leagueId) {
+  public CompletableFuture<Void> reloadLadderItems(@NotNull String leagueId) {
+    leagueService.findLeagueByIdOrThrow(leagueId);
+
     if (!this.singlePermitSemaphore.tryAcquire()) {
       log.warn("Reloading ladder items discarded, a ladder task is already running");
       return null;

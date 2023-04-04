@@ -81,6 +81,7 @@ public class LadderControllerTest {
     verifyReponseHeaderContentType(resultActions);
   }
 
+  // TODO what's the best way to unit test @Async methods
   @Test
   void given_unknownLeagueId_reloadLadder_willReturnLeagueNotFound() throws Exception {
     // given
@@ -114,6 +115,7 @@ public class LadderControllerTest {
     // verifyReponseHeaderContentType(resultActions);
   }
 
+  // TODO what's the best way to unit test @Async methods
   @Test
   void given_unknownLeagueId_reloadLadderItems_willReturnLeagueNotFound() throws Exception {
     // given
