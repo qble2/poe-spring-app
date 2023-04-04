@@ -28,13 +28,13 @@ The project's build is managed by [Maven](https://maven.apache.org).
 
 ## Features:
 The application allows the user to access:
-- The active leagues
-- The characters of his account
-- The inventory of a character (2D view)
-- The stash tabs of his account
-- The content of a stash tab (table view and 2D view)
-- The market overview of a specified league
-- The ladder of a specified league
+- The active leagues.
+- The characters of his account.
+- The inventory of a character (2D view).
+- The stash tabs of his account.
+- The content of a stash tab (table view and 2D view).
+- The market overview of a specified league.
+- The ladder of a specified league.
 
 ## Built with:
 - Java 17
