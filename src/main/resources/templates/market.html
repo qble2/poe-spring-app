@@ -12,7 +12,8 @@
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
 
-		<div th:replace="fragments/leagues-frags :: select-league-dropdown-menu"></div>
+		<div th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/market-overviews/table', targetElementToUpdate='#market-overviews-table')"></div>
+		
 		<button
 			class="outline"
 			hx-trigger="click"
@@ -24,7 +25,7 @@
 			hx-swap="outerHTML">Reload Market</button>
 
 		<div
-			th:replace="fragments/market-frags :: market-overviews-table(marketOverviewsPage=${marketOverviewsPage})"></div>
+			th:replace="fragments/market-frags :: market-overviews-table(marketOverviewPage=${marketOverviewPage})"></div>
 
 	</section>
 </body>

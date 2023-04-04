@@ -12,35 +12,30 @@
 	<div
 		th:fragment="market-overviews-table"
 		id="market-overviews-table">
-		<nav>
+
+		<nav th:if="${marketOverviewPage != null && marketOverviewPage.totalPages > 1}">
 			<ul class="pagination">
 				<li class="page-item">
 					<a
-						th:disabled="${marketOverviewsPage.currentPage == 0}"
+						th:disabled="${marketOverviewPage.currentPage == 0}"
 						hx-ext="loading-states"
 						data-loading-aria-busy
 						hx-trigger="click"
-						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewsPage.currentPage - 1}|"
+						hx-include="#select-league-dropdown-menu-select"
+						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewPage.currentPage - 1}|"
 						hx-target="#market-overviews-table"
 						hx-swap="outerHTML">Previous</a>
 				</li>
-				<!-- 				<li -->
-				<!-- 					th:each="page: ${#numbers.sequence(0, marketOverviewsPage.totalPages)}" -->
-				<!-- 					class="page-item"> -->
-				<!-- 					<a -->
-				<!-- 						class="page-link" -->
-				<!-- 						th:href="|/market-overviews?page=${page}|" -->
-				<!-- 						th:text="${page}"></a> -->
-				<!-- 				</li> -->
 				<li
-					th:text="|Page ${marketOverviewsPage.currentPage} / ${marketOverviewsPage.totalPages}|"></li>
+					th:text="|Page ${marketOverviewPage.currentPage +1} / ${marketOverviewPage.totalPages -1}|"></li>
 				<li class="page-item">
 					<a
-						th:disabled="${marketOverviewsPage.currentPage == marketOverviewsPage.totalPages}"
+						th:disabled="${marketOverviewPage.currentPage == marketOverviewPage.totalPages}"
 						hx-ext="loading-states"
 						data-loading-aria-busy
 						hx-trigger="click"
-						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewsPage.currentPage + 1}|"
+						hx-include="#select-league-dropdown-menu-select"
+						th:attr="hx-get=|/market-overviews/table?page=${marketOverviewPage.currentPage + 1}|"
 						hx-target="#market-overviews-table"
 						hx-swap="outerHTML">Next</a>
 				</li>
@@ -64,7 +59,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="marketOverview: ${marketOverviewsPage.marketOverviews}">
+				<tr th:each="marketOverview: ${marketOverviewPage.marketOverviews}">
 					<td class="align-center">
 						<img th:src="${marketOverview.icon}">
 					</td>

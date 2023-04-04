@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Builder
 @AllArgsConstructor
 @JsonPropertyOrder({"currentPage", "totalPages", "totalElements", "marketOverviews"})
-public class MarketOverviewsPageDto {
+public class MarketOverviewPageDto {
 
   @Builder.Default
   List<MarketOverviewDto> marketOverviews = new ArrayList<>();

@@ -49,7 +49,7 @@ public class LeagueService {
   /////
   /////
 
-  private League findLeagueByIdOrThrow(String leagueId) {
+  public League findLeagueByIdOrThrow(String leagueId) {
     return this.leagueRepository.findById(leagueId)
         .orElseThrow(() -> new LeagueNotFoundException(leagueId));
   }

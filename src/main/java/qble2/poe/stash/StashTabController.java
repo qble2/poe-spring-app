@@ -38,7 +38,7 @@ public class StashTabController {
     return this.stashTabService.getStashTabItems(stashTabId);
   }
 
-  @PostMapping("/{stashTabId}/items")
+  @PostMapping(path = "/{stashTabId}/items")
   public List<ItemDto> reloadStashTabItems(
       @PathVariable(name = "stashTabId", required = true) String stashTabId,
       @RequestParam(name = "accountName", required = true) String accountName,

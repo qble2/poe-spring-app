@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +18,10 @@ public class MarketOverviewController {
   @Autowired
   private MarketOverviewService marketOverviewService;
 
-  @GetMapping(path = "/leagues/{leagueId}/types/{type}")
-  public MarketOverviewsPageDto getMarketOverview(
+  @GetMapping(path = "/leagues/{leagueId}")
+  public MarketOverviewPageDto getMarketOverview(
       @PathVariable(name = "leagueId", required = true) String leagueId,
-      @PathVariable(name = "type", required = true) MarketOverviewTypePoeNinjaEnum type,
+      @RequestParam(name = "type", required = false) MarketOverviewTypePoeNinjaEnum type,
       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
       @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
     Pageable pageable = PageRequest.of(page, size);
@@ -31,22 +30,14 @@ public class MarketOverviewController {
   }
 
   @PostMapping(path = "/leagues/{leagueId}")
-  public MarketOverviewsPageDto reloadMarketOverview(
+  public MarketOverviewPageDto reloadMarketOverview(
       @PathVariable(name = "leagueId", required = true) String leagueId,
+      @RequestParam(name = "type", required = false) MarketOverviewTypePoeNinjaEnum type,
       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
       @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
     Pageable pageable = PageRequest.of(page, size);
 
-    return marketOverviewService.reloadMarketOverview(pageable, leagueId);
-  }
-
-  @PostMapping(path = "/leagues/{leagueId}/types/{type}")
-  public ResponseEntity<Void> reloadMarketOverviewType(
-      @PathVariable(name = "leagueId", required = true) String leagueId,
-      @PathVariable(name = "type", required = true) MarketOverviewTypePoeNinjaEnum type) {
-    marketOverviewService.reloadMarketOverviewType(leagueId, type);
-
-    return ResponseEntity.ok().build();
+    return marketOverviewService.reloadMarketOverview(pageable, leagueId, type);
   }
 
 }

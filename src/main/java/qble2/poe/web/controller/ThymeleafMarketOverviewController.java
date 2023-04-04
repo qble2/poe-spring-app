@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import qble2.poe.marketoverview.MarketOverviewPageDto;
 import qble2.poe.marketoverview.MarketOverviewService;
-import qble2.poe.marketoverview.MarketOverviewsPageDto;
+import qble2.poe.marketoverview.MarketOverviewTypePoeNinjaEnum;
 
 @Controller
 @RequestMapping(path = "market-overviews")
@@ -28,41 +30,22 @@ public class ThymeleafMarketOverviewController {
   }
 
   @GetMapping
-  public String getMarketOverview(
-      @RequestParam(name = "leagueId", required = false) String leagueId,
-      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-      @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
-
-    Pageable pageable = PageRequest.of(page, size);
-    MarketOverviewsPageDto marketOverviewsPage =
-        this.marketOverviewService.getMarketOverview(pageable, null, null);
-    model.addAttribute("marketOverviewsPage", marketOverviewsPage);
-
-    return "market";
-  }
-
-  @PostMapping
-  public String reloadMarketOverview(
-      @RequestParam(name = "leagueId", required = true) String leagueId,
-      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-      @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
-    Pageable pageable = PageRequest.of(page, size);
-    MarketOverviewsPageDto marketOverviewsPage =
-        this.marketOverviewService.reloadMarketOverview(pageable, leagueId);
-    model.addAttribute("marketOverviewsPage", marketOverviewsPage);
+  public String getMarketOverviewPage(
+      @ModelAttribute("marketOverviewPage") MarketOverviewPageDto marketOverviewPage, Model model) {
 
     return "market";
   }
 
   @GetMapping(path = "table", headers = "HX-Request")
   public String getMarketOverviewTableFragment(
-      @RequestParam(name = "leagueId", required = false) String leagueId,
+      @RequestParam(name = "leagueId", required = true) String leagueId,
+      @RequestParam(name = "type", required = false) MarketOverviewTypePoeNinjaEnum type,
       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
       @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
     Pageable pageable = PageRequest.of(page, size);
-    MarketOverviewsPageDto marketOverviewsPage =
-        this.marketOverviewService.getMarketOverview(pageable, null, null);
-    model.addAttribute("marketOverviewsPage", marketOverviewsPage);
+    MarketOverviewPageDto marketOverviewPage =
+        this.marketOverviewService.getMarketOverview(pageable, leagueId, type);
+    model.addAttribute("marketOverviewPage", marketOverviewPage);
 
     return "fragments/market-frags :: market-overviews-table";
   }
@@ -70,12 +53,13 @@ public class ThymeleafMarketOverviewController {
   @PostMapping(path = "table", headers = "HX-Request")
   public String reloadMarketOverviewTableFragment(
       @RequestParam(name = "leagueId", required = true) String leagueId,
+      @RequestParam(name = "type", required = false) MarketOverviewTypePoeNinjaEnum type,
       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
       @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
     Pageable pageable = PageRequest.of(page, size);
-    MarketOverviewsPageDto marketOverviewsPage =
-        this.marketOverviewService.reloadMarketOverview(pageable, leagueId);
-    model.addAttribute("marketOverviewsPage", marketOverviewsPage);
+    MarketOverviewPageDto marketOverviewPage =
+        this.marketOverviewService.reloadMarketOverview(pageable, leagueId, type);
+    model.addAttribute("marketOverviewPage", marketOverviewPage);
 
     return "fragments/market-frags :: market-overviews-table";
   }

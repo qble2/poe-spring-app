@@ -51,7 +51,7 @@ public class ThymeleafLeagueController {
     return "league";
   }
 
-  @PostMapping("/{leagueId}")
+  @PostMapping(path = "/{leagueId}")
   public String reloadLeague(@PathVariable(name = "leagueId", required = true) String leagueId,
       Model model) {
     LeagueDto league = this.leagueService.reloadLeague(leagueId);

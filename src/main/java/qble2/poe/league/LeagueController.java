@@ -31,7 +31,7 @@ public class LeagueController {
     return this.leagueService.getLeague(leagueId);
   }
 
-  @PostMapping("/{leagueId}")
+  @PostMapping(path = "/{leagueId}")
   public LeagueDto reloadLeague(@PathVariable(name = "leagueId", required = true) String leagueId) {
     return this.leagueService.reloadLeague(leagueId);
   }

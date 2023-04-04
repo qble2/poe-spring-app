@@ -15,6 +15,4 @@ public interface MarketOverviewRepository extends JpaRepository<MarketOverview, 
 
   Page<MarketOverview> findAllByLeagueId(Pageable pageable, String leagueId);
 
-  Page<MarketOverview> findAllByType(Pageable pageable, MarketOverviewTypePoeNinjaEnum type);
-
 }

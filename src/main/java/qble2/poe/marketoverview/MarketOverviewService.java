@@ -2,13 +2,16 @@ package qble2.poe.marketoverview;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import javax.annotation.Nullable;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemCategoryResolverService;
+import qble2.poe.league.LeagueService;
 import qble2.poe.stash.StashTab;
 
 @Service
@@ -30,35 +33,38 @@ public class MarketOverviewService {
   @Autowired
   private MarketOverviewMapper marketOverviewMapper;
 
-  public MarketOverviewsPageDto getMarketOverview(Pageable pageable, String leagueId,
-      MarketOverviewTypePoeNinjaEnum type) {
-    if (leagueId != null && type != null) {
+  @Autowired
+  private LeagueService leagueService;
+
+  public MarketOverviewPageDto getMarketOverview(Pageable pageable, @NotNull String leagueId,
+      @Nullable MarketOverviewTypePoeNinjaEnum type) {
+    leagueService.findLeagueByIdOrThrow(leagueId);
+
+    if (type != null) {
       return toMarketOverviewsPage(
           this.marketOverviewRepository.findAllByLeagueIdAndType(pageable, leagueId, type));
     }
-
-    if (leagueId != null) {
-      return toMarketOverviewsPage(
-          this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
-    }
-
-    if (type != null) {
-      return toMarketOverviewsPage(this.marketOverviewRepository.findAllByType(pageable, type));
-    }
-
-    return toMarketOverviewsPage(this.marketOverviewRepository.findAll(pageable));
-  }
-
-  public MarketOverviewsPageDto reloadMarketOverview(Pageable pageable, String leagueId) {
-    MarketOverviewTypePoeNinjaEnum.getValues()
-        .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
 
     return toMarketOverviewsPage(
         this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
   }
 
-  public void reloadMarketOverviewType(String leagueId, MarketOverviewTypePoeNinjaEnum type) {
-    reloadAndStoreMarketOverviewType(leagueId, type);
+  public MarketOverviewPageDto reloadMarketOverview(Pageable pageable, String leagueId,
+      MarketOverviewTypePoeNinjaEnum type) {
+    leagueService.findLeagueByIdOrThrow(leagueId);
+
+    if (type != null) {
+      reloadAndStoreMarketOverviewType(leagueId, type);
+
+      return toMarketOverviewsPage(
+          this.marketOverviewRepository.findAllByLeagueIdAndType(pageable, leagueId, type));
+    }
+
+    MarketOverviewTypePoeNinjaEnum.getValues()
+        .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
+
+    return toMarketOverviewsPage(
+        this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
   }
 
   public void updateMarketValue(StashTab stashTab) {
@@ -97,8 +103,8 @@ public class MarketOverviewService {
     this.marketOverviewRepository.saveAll(listOfMarketOverview);
   }
 
-  private MarketOverviewsPageDto toMarketOverviewsPage(Page<MarketOverview> page) {
-    return MarketOverviewsPageDto.builder()
+  private MarketOverviewPageDto toMarketOverviewsPage(Page<MarketOverview> page) {
+    return MarketOverviewPageDto.builder()
         .marketOverviews(this.marketOverviewMapper.toDtoListFromEntityList(page.getContent()))
         .currentPage(page.getNumber()).totalPages(page.getTotalPages())
         .totalElements(page.getTotalElements()).build();
