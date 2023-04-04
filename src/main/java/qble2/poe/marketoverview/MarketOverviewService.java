@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemCategoryResolverService;
 import qble2.poe.league.LeagueService;
@@ -16,6 +17,8 @@ import qble2.poe.stash.StashTab;
 
 @Service
 @Transactional
+// @AllArgsConstructor needed to be able to inject mocked dependencies for unit testing
+@AllArgsConstructor
 public class MarketOverviewService {
 
   @Autowired

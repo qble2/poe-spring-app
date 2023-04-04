@@ -1,28 +1,35 @@
 package qble2.poe.league;
 
 import java.util.List;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 import qble2.poe.exception.LeagueNotFoundException;
 
 @Service
+@Transactional
+// @AllArgsConstructor needed to be able to inject mocked dependencies for unit testing
+@AllArgsConstructor
 public class LeagueService {
 
   @Autowired
   private LeagueRepository leagueRepository;
 
   @Autowired
-  private LeagueWebClientGgg leagueWebClientGgg;
-
-  @Autowired
   private LeagueMapper leagueMapper;
 
+  @Autowired
+  private LeagueWebClientGgg leagueWebClientGgg;
+
   public List<LeagueDto> getLeagues() {
-    return this.leagueMapper
-        .toDtoListFromEntityList(this.leagueRepository.findAllByOrderByStartAtDesc());
+    List<League> leagues = this.leagueRepository.findAllByOrderByStartAtDesc();
+
+    return this.leagueMapper.toDtoListFromEntityList(leagues);
   }
 
-  public LeagueDto getLeague(String leagueId) {
+  public LeagueDto getLeague(@NotNull String leagueId) {
     League league = findLeagueByIdOrThrow(leagueId);
 
     return this.leagueMapper.toDtoFromEntity(league);
@@ -30,26 +37,32 @@ public class LeagueService {
 
   public List<LeagueDto> reloadLeagues() {
     List<LeagueDto> listOfLeagueDto = this.leagueWebClientGgg.retrieveLeagues();
-    this.leagueRepository.saveAll(this.leagueMapper.toEntityListFromDtoList(listOfLeagueDto));
+    List<League> entityListFromDtoList = this.leagueMapper.toEntityListFromDtoList(listOfLeagueDto);
 
-    return this.leagueMapper
-        .toDtoListFromEntityList(this.leagueRepository.findAllByOrderByStartAtDesc());
+    // we do directly map and return the saved data, because we will perform a custom find query
+    this.leagueRepository.saveAll(entityListFromDtoList);
+
+    List<League> findAllByOrderByStartAtDesc = this.leagueRepository.findAllByOrderByStartAtDesc();
+
+    return this.leagueMapper.toDtoListFromEntityList(findAllByOrderByStartAtDesc);
   }
 
-  public LeagueDto reloadLeague(String leagueId) {
+  public LeagueDto reloadLeague(@NotNull String leagueId) {
     findLeagueByIdOrThrow(leagueId);
 
     LeagueDto leagueDto = this.leagueWebClientGgg.retrieveLeague(leagueId);
-    this.leagueRepository.save(this.leagueMapper.toEntityFromDto(leagueDto));
+    League entityFromDto = this.leagueMapper.toEntityFromDto(leagueDto);
 
-    return this.leagueMapper.toDtoFromEntity(findLeagueByIdOrThrow(leagueId));
+    entityFromDto = this.leagueRepository.save(entityFromDto);
+
+    return this.leagueMapper.toDtoFromEntity(entityFromDto);
   }
 
   /////
   /////
   /////
 
-  public League findLeagueByIdOrThrow(String leagueId) {
+  public League findLeagueByIdOrThrow(@NotNull String leagueId) {
     return this.leagueRepository.findById(leagueId)
         .orElseThrow(() -> new LeagueNotFoundException(leagueId));
   }

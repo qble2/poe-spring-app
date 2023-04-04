@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 import qble2.poe.exception.StashTabNotFoundException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -12,6 +13,8 @@ import qble2.poe.marketoverview.MarketOverviewService;
 
 @Service
 @Transactional
+// @AllArgsConstructor needed to be able to inject mocked dependencies for unit testing
+@AllArgsConstructor
 public class StashTabService {
 
   @Autowired

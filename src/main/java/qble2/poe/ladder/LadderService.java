@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.character.Character;
 import qble2.poe.character.CharacterService;
@@ -21,6 +22,8 @@ import qble2.poe.web.ThymeleafLadderForm;
 
 @Service
 @Transactional
+// @AllArgsConstructor needed to be able to inject mocked dependencies for unit testing
+@AllArgsConstructor
 @Slf4j
 public class LadderService {
 
