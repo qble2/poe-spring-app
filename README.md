@@ -18,7 +18,7 @@ The frontend is built using [Thymeleaf](https://www.thymeleaf.org) coupled with 
 The frontend form-based authentication process is managed by [Spring Security](https://docs.spring.io/spring-security/reference/index.html) using a custom authentication provider (to be eventually replaced by OATH 2).  
 Reloading partial views of a page is made possible using [HTMX](https://htmx.org).  
 The styling is done with the Minimal CSS Framework [Pico.css](https://picocss.com).  
-[Bootstrap Table](https://bootstrap-table.com) adds sorting and searching capabilities to some tables.
+[Bootstrap Table](https://bootstrap-table.com) adds sorting and searching capabilities to some tables.  
 Frontend dependencies, such as JavaScript and CSS libraries, are managed through [Maven](https://maven.apache.org) via [Webjars](https://www.webjars.org).  
 
 
