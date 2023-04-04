@@ -26,7 +26,7 @@ public class MarketOverviewController {
       @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
     Pageable pageable = PageRequest.of(page, size);
 
-    return marketOverviewService.getMarketOverview(pageable, leagueId, type);
+    return marketOverviewService.getMarketOverview(leagueId, type, pageable);
   }
 
   @PostMapping(path = "/leagues/{leagueId}")
@@ -37,7 +37,7 @@ public class MarketOverviewController {
       @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
     Pageable pageable = PageRequest.of(page, size);
 
-    return marketOverviewService.reloadMarketOverview(pageable, leagueId, type);
+    return marketOverviewService.reloadMarketOverview(leagueId, type, pageable);
   }
 
 }

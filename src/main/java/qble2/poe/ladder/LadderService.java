@@ -5,6 +5,7 @@ import java.util.concurrent.Semaphore;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import qble2.poe.character.Character;
 import qble2.poe.character.CharacterService;
 import qble2.poe.exception.TooManyRequestsException;
 import qble2.poe.ladder.specification.LadderSpecifications;
+import qble2.poe.league.LeagueService;
 import qble2.poe.web.ThymeleafLadderForm;
 
 @Service
@@ -36,7 +38,12 @@ public class LadderService {
   @Autowired
   private CharacterService characterService;
 
-  public LadderPageDto getLadder(String leagueId, Pageable pageable) {
+  @Autowired
+  private LeagueService leagueService;
+
+  public LadderPageDto getLadder(@NotNull String leagueId, Pageable pageable) {
+    leagueService.findLeagueByIdOrThrow(leagueId);
+
     return toLadderPageDto(
         this.ladderRepository.findAllByLeagueIdOrderByLeagueIdAscRankAsc(leagueId, pageable));
   }

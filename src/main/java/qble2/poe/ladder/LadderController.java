@@ -20,10 +20,9 @@ public class LadderController {
   private LadderService ladderService;
 
   @GetMapping(path = "/leagues/{leagueId}")
-  public LadderPageDto getLadder(
+  public LadderPageDto getLadder(@PathVariable(name = "leagueId", required = true) String leagueId,
       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-      @RequestParam(name = "size", required = false, defaultValue = "50") int size,
-      @PathVariable(name = "leagueId", required = true) String leagueId) {
+      @RequestParam(name = "size", required = false, defaultValue = "50") int size) {
     Pageable pageable = PageRequest.of(page, size);
 
     return this.ladderService.getLadder(leagueId, pageable);

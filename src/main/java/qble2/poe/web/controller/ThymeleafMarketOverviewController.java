@@ -44,7 +44,7 @@ public class ThymeleafMarketOverviewController {
       @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
     Pageable pageable = PageRequest.of(page, size);
     MarketOverviewPageDto marketOverviewPage =
-        this.marketOverviewService.getMarketOverview(pageable, leagueId, type);
+        this.marketOverviewService.getMarketOverview(leagueId, type, pageable);
     model.addAttribute("marketOverviewPage", marketOverviewPage);
 
     return "fragments/market-frags :: market-overviews-table";
@@ -58,7 +58,7 @@ public class ThymeleafMarketOverviewController {
       @RequestParam(name = "size", required = false, defaultValue = "50") int size, Model model) {
     Pageable pageable = PageRequest.of(page, size);
     MarketOverviewPageDto marketOverviewPage =
-        this.marketOverviewService.reloadMarketOverview(pageable, leagueId, type);
+        this.marketOverviewService.reloadMarketOverview(leagueId, type, pageable);
     model.addAttribute("marketOverviewPage", marketOverviewPage);
 
     return "fragments/market-frags :: market-overviews-table";

@@ -36,35 +36,35 @@ public class MarketOverviewService {
   @Autowired
   private LeagueService leagueService;
 
-  public MarketOverviewPageDto getMarketOverview(Pageable pageable, @NotNull String leagueId,
-      @Nullable MarketOverviewTypePoeNinjaEnum type) {
+  public MarketOverviewPageDto getMarketOverview(@NotNull String leagueId,
+      @Nullable MarketOverviewTypePoeNinjaEnum type, Pageable pageable) {
     leagueService.findLeagueByIdOrThrow(leagueId);
 
     if (type != null) {
       return toMarketOverviewsPage(
-          this.marketOverviewRepository.findAllByLeagueIdAndType(pageable, leagueId, type));
+          this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type, pageable));
     }
 
     return toMarketOverviewsPage(
-        this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
+        this.marketOverviewRepository.findAllByLeagueId(leagueId, pageable));
   }
 
-  public MarketOverviewPageDto reloadMarketOverview(Pageable pageable, String leagueId,
-      MarketOverviewTypePoeNinjaEnum type) {
+  public MarketOverviewPageDto reloadMarketOverview(String leagueId,
+      MarketOverviewTypePoeNinjaEnum type, Pageable pageable) {
     leagueService.findLeagueByIdOrThrow(leagueId);
 
     if (type != null) {
       reloadAndStoreMarketOverviewType(leagueId, type);
 
       return toMarketOverviewsPage(
-          this.marketOverviewRepository.findAllByLeagueIdAndType(pageable, leagueId, type));
+          this.marketOverviewRepository.findAllByLeagueIdAndType(leagueId, type, pageable));
     }
 
     MarketOverviewTypePoeNinjaEnum.getValues()
         .forEach(typeEnum -> reloadAndStoreMarketOverviewType(leagueId, typeEnum));
 
     return toMarketOverviewsPage(
-        this.marketOverviewRepository.findAllByLeagueId(pageable, leagueId));
+        this.marketOverviewRepository.findAllByLeagueId(leagueId, pageable));
   }
 
   public void updateMarketValue(StashTab stashTab) {
