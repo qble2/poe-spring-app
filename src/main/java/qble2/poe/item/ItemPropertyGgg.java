@@ -21,19 +21,12 @@ public class ItemPropertyGgg {
     if (!values.isEmpty()) {
       firstValue = values.get(0).get(0);
 
-      switch (this.name) {
-        case "Level": {
-          this.value = firstValue.replaceAll("\\s\\(Max\\)", "");
-          break;
-        }
-        case "Quality": {
-          this.value = firstValue.replaceAll("\\+", "").replaceAll("%", "");
-          break;
-        }
-        default:
-          this.value = firstValue;
-          break;
-      }
+      this.value = switch (this.name) {
+        case "Level" -> this.value = firstValue.replaceAll("\\s\\(Max\\)", "");
+        case "Quality" -> this.value = firstValue.replaceAll("\\+", "").replaceAll("%", "");
+
+        default -> firstValue;
+      };
     }
   }
 
