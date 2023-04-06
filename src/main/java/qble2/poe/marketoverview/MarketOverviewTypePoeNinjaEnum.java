@@ -1,5 +1,6 @@
 package qble2.poe.marketoverview;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -60,7 +61,7 @@ public enum MarketOverviewTypePoeNinjaEnum {
   }
 
   public static Stream<MarketOverviewTypePoeNinjaEnum> getValues() {
-    return Stream.of(MarketOverviewTypePoeNinjaEnum.values())
+    return Arrays.stream(MarketOverviewTypePoeNinjaEnum.values())
         .filter(type -> type.getValue() != null);
   }
 
