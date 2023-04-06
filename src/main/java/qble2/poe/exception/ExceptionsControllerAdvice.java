@@ -18,7 +18,7 @@ public class ExceptionsControllerAdvice {
   public static final String INTERNAL_SERVER_ERROR_MESSAGE =
       "Internal Server Error (Please contact the administrator)";
 
-  @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   public ResponseEntity<ResponseErrorDto> handleHttpRequestMethodNotSupportedException(
       HttpServletRequest request, HttpRequestMethodNotSupportedException exception) {
     return createErrorResponseEntity(request, HttpStatus.METHOD_NOT_ALLOWED, exception);
