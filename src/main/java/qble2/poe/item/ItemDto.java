@@ -1,8 +1,8 @@
 package qble2.poe.item;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import qble2.poe.marketoverview.ItemCategoryEnum;
@@ -86,13 +86,7 @@ public class ItemDto {
 
   @JsonProperty("requirements")
   private List<ItemRequirementDto> requirements = new ArrayList<>();
-
-  // @JsonProperty("sockets")
-  // private Socket[] sockets;
-
-  // @JsonProperty("socketedItems")
-  // private SocketedItem[] socketedItems;
-
+  
   @JsonProperty("enchantMods")
   private List<String> enchantMods = new ArrayList<>();
 

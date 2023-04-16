@@ -18,22 +18,4 @@ public class CurrencyOverviewLinePoeNinja {
   @JsonProperty("chaosEquivalent")
   private Double chaosEquivalent; // 101417.86
 
-  // @JsonProperty("pay")
-  // private Object pay;
-
-  // @JsonProperty("receive")
-  // private Object receive;
-
-  // @JsonProperty("paySparkLine")
-  // private Object paySparkLine;
-
-  // @JsonProperty("receiveSparkLine")
-  // private Object receiveSparkLine;
-
-  // @JsonProperty("lowConfidencePaySparkLine")
-  // private Object lowConfidencePaySparkLine;
-
-  // @JsonProperty("lowConfidenceReceiveSparkLine")
-  // private Object lowConfidenceReceiveSparkLine;
-
 }

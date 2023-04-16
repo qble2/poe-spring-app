@@ -1,6 +1,8 @@
 package qble2.poe.stash;
 
+import java.util.Collections;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.NumberUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.exception.TooManyRequestsException;
 import qble2.poe.item.ItemDto;
@@ -39,9 +40,9 @@ public class StashWebClientGgg {
 
   private static final WebClient webClient =
       WebClient.builder().filters(exchangeFilterFunctions -> {
-        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).exchangeStrategies(exchangeStrategies)
+            exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+            exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+          }).defaultHeader("User-Agent", BROWSER_USER_AGENT).exchangeStrategies(exchangeStrategies)
           .baseUrl(GGG_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
   // GGG does not provide a dedicated endpoint to retrieve stash tab headers alone
@@ -50,12 +51,15 @@ public class StashWebClientGgg {
       String leagueId) {
     log.info("Retrieving stash tabs headers (accountName: {} , leagueId: {}) from GGG...",
         accountName, leagueId);
-    List<StashTabGgg> listOfStashTabGgg =
-        retrieveStash(accountName, poeSessionId, leagueId, 0, true).getTabs();
-    log.info("Stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
-        accountName, leagueId);
+    GetStashItemsGgg getStashItemsGgg = retrieveStash(accountName, poeSessionId, leagueId, 0, true);
+    if (getStashItemsGgg != null) {
+      List<StashTabGgg> listOfStashTabGgg = getStashItemsGgg.getTabs();
+      log.info("Stash tabs headers (accountName: {} , leagueId: {}) have been retrieved from GGG.",
+          accountName, leagueId);
+      return this.stashMapper.toDtoListFromGggList(listOfStashTabGgg, leagueId);
+    }
 
-    return this.stashMapper.toDtoListFromGggList(listOfStashTabGgg, leagueId);
+    return Collections.emptyList();
   }
 
   // https://www.pathofexile.com/character-window/get-stash-items?accountName=${accountName}&realm=pc&league=Sanctum?tabIndex=0
@@ -64,13 +68,19 @@ public class StashWebClientGgg {
     log.info(
         "Retrieving stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) from GGG...",
         accountName, leagueId, tabIndex);
-    List<ItemGgg> listOfItemGgg =
-        retrieveStash(accountName, poeSessionId, leagueId, tabIndex, false).getItems();
-    log.info(
-        "Stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
-        accountName, leagueId, tabIndex);
+    GetStashItemsGgg getStashItemsGgg = retrieveStash(accountName, poeSessionId, leagueId, tabIndex,
+        false);
+    if (getStashItemsGgg != null) {
+      List<ItemGgg> listOfItemGgg =
+          getStashItemsGgg.getItems();
+      log.info(
+          "Stash tab items (accountName: {} , leagueId: {} , tabIndex: {}) have been retrieved from GGG.",
+          accountName, leagueId, tabIndex);
 
-    return this.itemMapper.toDtoListFromGggList(listOfItemGgg);
+      return this.itemMapper.toDtoListFromGggList(listOfItemGgg);
+    }
+
+    return Collections.emptyList();
   }
 
   /////

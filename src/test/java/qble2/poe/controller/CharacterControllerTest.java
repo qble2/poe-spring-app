@@ -180,7 +180,7 @@ public class CharacterControllerTest {
       throws Exception {
     // given
     String unknownCharacterName = "any";
-    given(characterService.reloadCharacterItems(anyString(), anyString()))
+    given(characterService.reloadCharacterItems(anyString()))
         .willThrow(new CharacterNotFoundException(unknownCharacterName));
 
     // when
@@ -199,7 +199,7 @@ public class CharacterControllerTest {
     // given
     String characterName = "any";
     List<ItemDto> characterItems = List.of(new ItemDto());
-    given(characterService.reloadCharacterItems(anyString(), anyString()))
+    given(characterService.reloadCharacterItems(anyString()))
         .willReturn(characterItems);
 
     // when

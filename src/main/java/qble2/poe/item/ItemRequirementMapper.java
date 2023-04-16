@@ -10,10 +10,6 @@ import org.mapstruct.Named;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface ItemRequirementMapper {
 
-  // @Named("toItemRequirementDtoListFromGggList")
-  // @IterableMapping(qualifiedByName = "toItemRequirementDtoFromGgg")
-  // List<ItemRequirementDto> toDtoListFromGggList(List<ItemRequirementGgg> sourceList);
-
   @Named("toItemRequirementDtoFromGgg")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "name", source = "name")
@@ -24,10 +20,6 @@ public interface ItemRequirementMapper {
   /////
   /////
 
-  // @Named("toItemRequirementEntityListFromDtoList")
-  // @IterableMapping(qualifiedByName = "toItemRequirementEntityFromDto")
-  // List<ItemRequirement> toEntityListFromDtoList(List<ItemRequirementDto> sourceList);
-
   @Named("toItemRequirementEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "name", source = "name")
@@ -37,10 +29,6 @@ public interface ItemRequirementMapper {
   /////
   /////
   /////
-
-  // @Named("toItemRequirementDtoListFromEntityList")
-  // @IterableMapping(qualifiedByName = "toItemRequirementDtoFromEntity")
-  // List<ItemRequirementDto> toDtoListFromEntityList(List<ItemRequirement> sourceList);
 
   @Named("toItemRequirementDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)

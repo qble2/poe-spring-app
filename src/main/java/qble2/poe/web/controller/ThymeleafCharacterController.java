@@ -99,9 +99,7 @@ public class ThymeleafCharacterController {
   @PostMapping(path = "/{characterName}/inventory/2d", headers = "HX-Request")
   public String htmxReloadCharacterInventoryFragment(
       @PathVariable(name = "characterName", required = true) String characterName, Model model) {
-    String accountName = principalUtils.getAccountName();
-
-    List<ItemDto> items = this.characterService.reloadCharacterItems(accountName, characterName);
+    List<ItemDto> items = this.characterService.reloadCharacterItems(characterName);
     model.addAttribute("items", items);
     model.addAttribute("characterName", characterName);
 

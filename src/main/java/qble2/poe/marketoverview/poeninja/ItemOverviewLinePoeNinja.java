@@ -6,9 +6,6 @@ import lombok.Data;
 @Data
 public class ItemOverviewLinePoeNinja {
 
-  // @JsonProperty("id")
-  // private int id;
-
   @JsonProperty("detailsId")
   private String detailsId; // tainted-oil
 
@@ -23,21 +20,6 @@ public class ItemOverviewLinePoeNinja {
 
   @JsonProperty("stackSize")
   private int stackSize;
-
-  // @JsonProperty("itemClass")
-  // private int itemClass;
-
-  // @JsonProperty("sparkline")
-  // private Object sparkline;
-
-  // @JsonProperty("lowConfidenceSparkline")
-  // private Object lowConfidenceSparkline;
-
-  // @JsonProperty("implicitModifiers")
-  // private Object[] implicitModifiers;
-
-  // @JsonProperty("explicitModifiers")
-  // private Object[] explicitModifiers;
 
   @JsonProperty("count")
   private int count; //
@@ -84,6 +66,6 @@ public class ItemOverviewLinePoeNinja {
   private String itemType; // string (Gloves/Helmet/..)
 
   @JsonProperty("mapRegion")
-  private String mapRegion; // string;
+  private String mapRegion; // string
 
 }

@@ -46,9 +46,8 @@ public class CharacterController {
 
   @PostMapping(path = "/{characterName}/items")
   public List<ItemDto> reloadCharacterItems(
-      @PathVariable(name = "characterName", required = true) String characterName,
-      @RequestParam(name = "accountName", required = true) String accountName) {
-    return this.characterService.reloadCharacterItems(accountName, characterName);
+      @PathVariable(name = "characterName", required = true) String characterName) {
+    return this.characterService.reloadCharacterItems(characterName);
   }
 
 }

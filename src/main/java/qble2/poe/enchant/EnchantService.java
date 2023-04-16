@@ -2,9 +2,9 @@ package qble2.poe.enchant;
 
 import java.util.List;
 import javax.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -40,10 +40,7 @@ public class EnchantService {
 
   public List<EnchantedItemBaseWithOccurrenceProjectionDto> getEnchantItemBaseseWithOccurrenceByProjection(
       String enchantId, String leagueId) {
-    List<EnchantedItemBaseWithOccurrenceProjectionDto> items =
-        this.itemRepository.findEnchantItemBasesWithOccurrenceByProjection(enchantId, leagueId);
-
-    return items;
+    return this.itemRepository.findEnchantItemBasesWithOccurrenceByProjection(enchantId, leagueId);
   }
 
 }

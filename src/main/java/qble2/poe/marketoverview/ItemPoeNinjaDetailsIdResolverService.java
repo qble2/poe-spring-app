@@ -1,11 +1,11 @@
 package qble2.poe.marketoverview;
 
+import com.google.common.base.Joiner;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import com.google.common.base.Joiner;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemPropertyEnum;
 
@@ -110,8 +110,8 @@ public class ItemPoeNinjaDetailsIdResolverService {
     // maelström -> maelstrom
     detailsId = StringUtils.stripAccents(detailsId);
 
-    detailsId = detailsId.replaceAll(" ", "-");
-    detailsId = detailsId.replaceAll("'", "");
+    detailsId = detailsId.replace(" ", "-");
+    detailsId = detailsId.replace("'", "");
 
     return detailsId;
   }

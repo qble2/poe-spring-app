@@ -102,11 +102,8 @@ public class ThymeleafStashTabController {
   @PostMapping(path = "/{stashTabId}/price-check", headers = "HX-Request")
   public String htmxPriceCheckedStashTabDetailsFragment(
       @PathVariable(name = "stashTabId", required = true) String stashTabId, Model model) {
-    String accountName = principalUtils.getAccountName();
-    String poeSessionId = principalUtils.getPoeSessionId();
-
     StashTabDto stashTab =
-        this.stashTabService.priceCheckStashTab(accountName, poeSessionId, stashTabId);
+        this.stashTabService.priceCheckStashTab(stashTabId);
     model.addAttribute("stashTab", stashTab);
 
     return "fragments/stash-frags :: stash-tab-details";

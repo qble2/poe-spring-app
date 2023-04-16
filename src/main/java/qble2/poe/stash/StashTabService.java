@@ -3,9 +3,9 @@ package qble2.poe.stash;
 import java.time.ZonedDateTime;
 import java.util.List;
 import javax.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
 import qble2.poe.exception.StashTabNotFoundException;
 import qble2.poe.item.ItemDto;
 import qble2.poe.item.ItemMapper;
@@ -25,9 +25,6 @@ public class StashTabService {
 
   @Autowired
   private StashMapper stashMapper;
-
-  // @Autowired
-  // private ItemService itemService;
 
   @Autowired
   private ItemMapper itemMapper;
@@ -69,7 +66,6 @@ public class StashTabService {
   }
 
   public List<ItemDto> getStashTabItems(String stashTabId) {
-    // return this.itemService.getStashTabItems(findStashTabByIdOrThrow(stashTabId).getId());
     return this.stashMapper.toDetailedDtoFromEntity(findStashTabByIdOrThrow(stashTabId)).getItems();
   }
 
@@ -83,12 +79,10 @@ public class StashTabService {
       String stashTabId) {
     StashTab stashTab = updateStashTabItems(accountName, poeSessionId, stashTabId);
 
-    // return this.itemService.getStashTabItems(stashTabId);
     return this.stashMapper.toDetailedDtoFromEntity(stashTab).getItems();
   }
 
-  public StashTabDto priceCheckStashTab(String accountName, String poeSessionId,
-      String stashTabId) {
+  public StashTabDto priceCheckStashTab(String stashTabId) {
     StashTab stashTab = updateStashTabItemsMarketValue(findStashTabByIdOrThrow(stashTabId));
 
     return this.stashMapper.toDetailedDtoFromEntity(stashTab);

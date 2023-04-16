@@ -37,19 +37,18 @@ public interface TradeMapper {
     }
 
     target.getQuery().getStatFilterGroups()
-        .addAll(source.getStatFilterGroups().stream().map(statFilterGroupSource -> {
-          return StatFilterGroupGgg.builder().type(statFilterGroupSource.getType().getValue())
-              .value(new NumericalFilterValueGgg(statFilterGroupSource.getMin(),
-                  statFilterGroupSource.getMax()))
-              .filters(statFilterGroupSource.getItemMods().stream()
-                  .map(statItemModFilterSource -> StatItemModFilterGgg.builder()
-                      .id(statItemModFilterSource.getId())
-                      .value(new NumericalFilterValueGgg(statItemModFilterSource.getMin(),
-                          statItemModFilterSource.getMax()))
-                      .build())
-                  .toList())
-              .build();
-        }).toList());
+        .addAll(source.getStatFilterGroups().stream().map(statFilterGroupSource ->
+            StatFilterGroupGgg.builder().type(statFilterGroupSource.getType().getValue())
+                .value(new NumericalFilterValueGgg(statFilterGroupSource.getMin(),
+                    statFilterGroupSource.getMax()))
+                .filters(statFilterGroupSource.getItemMods().stream()
+                    .map(statItemModFilterSource -> StatItemModFilterGgg.builder()
+                        .id(statItemModFilterSource.getId())
+                        .value(new NumericalFilterValueGgg(statItemModFilterSource.getMin(),
+                            statItemModFilterSource.getMax()))
+                        .build())
+                    .toList())
+                .build()).toList());
   }
 
   /////

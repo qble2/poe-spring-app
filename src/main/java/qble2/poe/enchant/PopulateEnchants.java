@@ -1,24 +1,21 @@
 package qble2.poe.enchant;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.StreamSupport;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 public class PopulateEnchants implements ApplicationListener<ApplicationReadyEvent> {
-
-  // @Autowired
-  // private DataSource dataSource;
 
   private static final String AWAKENED_POE_TRADE_STATS_NDJSON = "stats.ndjson";
 
@@ -47,7 +44,7 @@ public class PopulateEnchants implements ApplicationListener<ApplicationReadyEve
           String enchantId = node.get("ref").asText();
           List<String> enchantTradeIds =
               StreamSupport.stream(enchantTradeIdsNode.spliterator(), false)
-                  .map(jsonNode -> jsonNode.asText()).toList();
+                  .map(JsonNode::asText).toList();
           Enchant enchant = Enchant.builder().id(enchantId).tradeIds(enchantTradeIds).build();
           // not overriding existing data/relationships
           if (this.enchantRepository.findById(enchantId).isEmpty()) {

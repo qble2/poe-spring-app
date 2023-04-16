@@ -81,30 +81,22 @@ public class CharacterService {
   ///// character . items
   /////
 
-  public CharacterDto reloadDetailedCharacter(String accountName, String characterName) {
-    Character character = reloadCharacterItems(findCharacterByIdOrThrow(characterName));
-
-    return this.characterMapper.toDetailedDtoFromEntity(character);
-  }
-
   public List<ItemDto> getCharacterItems(String characterName) {
     return this.itemService.getCharacterItemsDto(findCharacterByIdOrThrow(characterName));
   }
 
-  public List<ItemDto> reloadCharacterItems(String accountName, String characterName) {
+  public List<ItemDto> reloadCharacterItems(String characterName) {
     reloadCharacterItems(findCharacterByIdOrThrow(characterName));
 
     return getCharacterItems(characterName);
   }
 
-  public Character reloadCharacterItems(Character character) {
+  public void reloadCharacterItems(Character character) {
     List<Item> listOfItem = this.itemService.reloadCharacterItems(character);
 
     character.getItems().clear();
-    listOfItem.stream().forEach(character::addItem);
-    character = this.characterRepository.save(character);
-
-    return character;
+    listOfItem.forEach(character::addItem);
+    this.characterRepository.save(character);
   }
 
   /////

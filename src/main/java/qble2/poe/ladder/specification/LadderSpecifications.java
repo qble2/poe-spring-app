@@ -46,21 +46,15 @@ public class LadderSpecifications {
   }
 
   public static Specification<LadderEntry> getLadderByLeagueId(String leagueId) {
-    return (root, query, cb) -> {
-      return cb.equal(root.get(LadderEntry_.leagueId), leagueId);
-    };
+    return (root, query, cb) -> cb.equal(root.get(LadderEntry_.leagueId), leagueId);
   }
 
   public static Specification<LadderEntry> getLadderByMinRank(int minRank) {
-    return (root, query, cb) -> {
-      return cb.ge(root.get(LadderEntry_.rank), minRank);
-    };
+    return (root, query, cb) -> cb.ge(root.get(LadderEntry_.rank), minRank);
   }
 
   public static Specification<LadderEntry> getLadderByMaxRank(int maxRank) {
-    return (root, query, cb) -> {
-      return cb.le(root.get(LadderEntry_.rank), maxRank);
-    };
+    return (root, query, cb) -> cb.le(root.get(LadderEntry_.rank), maxRank);
   }
 
   public static Specification<LadderEntry> getLadderByCharacterName(String characterName) {

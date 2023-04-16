@@ -27,9 +27,6 @@ public class MarketOverviewDto {
   @JsonProperty("baseType")
   private String baseType;
 
-  // @JsonProperty("flavourText")
-  // private String flavourText;
-
   @JsonProperty("stackSize")
   private Integer stackSize;
 

@@ -2,6 +2,8 @@ package qble2.poe.character;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -9,7 +11,6 @@ import org.springframework.util.NumberUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.exception.ForbiddenRequestException;
 import qble2.poe.exception.TooManyRequestsException;
@@ -41,9 +42,9 @@ public class CharacterWebClientGgg {
 
   private static final WebClient webClient =
       WebClient.builder().filters(exchangeFilterFunctions -> {
-        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+            exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+            exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+          }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
           .exchangeStrategies(exchangeStrategies).build();
 
   // https://www.pathofexile.com/character-window/get-characters
@@ -89,12 +90,13 @@ public class CharacterWebClientGgg {
               response -> Mono.error(ForbiddenRequestException::new))
           .bodyToMono(GetCharacterItemsGgg.class);
 
-      GetCharacterItemsGgg getCharacterItemsGgg = mono.block();
-      log.info(
-          "Character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
-          accountName, characterName);
-
-      return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.getItems());
+      Optional<GetCharacterItemsGgg> getCharacterItemsGgg = mono.blockOptional();
+      if (getCharacterItemsGgg.isPresent()) {
+        log.info(
+            "Character items (accountName: {} , characterName: {}) have been retrieved from GGG.",
+            accountName, characterName);
+        return this.itemMapper.toDtoListFromGggList(getCharacterItemsGgg.get().getItems());
+      }
     } catch (WebClientResponseException e) {
       log.error("An error has occurred", e);
     }

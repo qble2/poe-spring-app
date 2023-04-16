@@ -1,7 +1,7 @@
 package qble2.poe.item;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -81,12 +81,6 @@ public class ItemGgg {
 
   @JsonProperty("requirements")
   private List<ItemRequirementGgg> requirements;
-
-  // @JsonProperty("sockets")
-  // private Socket[] sockets;
-
-  // @JsonProperty("socketedItems")
-  // private SocketedItem[] socketedItems;
 
   @JsonProperty("enchantMods")
   private List<String> enchantMods;

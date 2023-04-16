@@ -116,9 +116,6 @@ public class Item {
   @ToString.Exclude
   private List<ItemRequirement> requirements = new ArrayList<>();
 
-  // private Socket[] sockets;
-  // private SocketedItem[] socketedItems;
-
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
   @ToString.Exclude

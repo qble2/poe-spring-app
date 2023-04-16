@@ -1,9 +1,9 @@
 package qble2.poe.item;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.marketoverview.ItemCategoryEnum;
 
 @Service
@@ -23,7 +23,7 @@ public class ItemCategoryResolverService {
   /////
 
   private ItemCategoryEnum resolveItemCategory(Item item) {
-    ItemCategoryEnum itemCategory = ItemCategoryEnum.UNKNOWN;
+    ItemCategoryEnum itemCategory;
 
     if (!item.isIdentified()) {
       itemCategory = ItemCategoryEnum.UNIDENTIFIED;

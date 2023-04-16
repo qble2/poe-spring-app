@@ -1,11 +1,13 @@
 package qble2.poe.marketoverview;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.marketoverview.poeninja.CurrencyOverviewPoeNinja;
 import qble2.poe.marketoverview.poeninja.ItemOverviewPoeNinja;
@@ -34,9 +36,9 @@ public class PoeNinjaWebClient {
           .maxInMemorySize(MAX_IN_MEMORY_SIZE_IN_MB * 1024 * 1024)).build();
 
   private final WebClient webClient = WebClient.builder().filters(exchangeFilterFunctions -> {
-    exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-    exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-  }).defaultHeader("User-Agent", BROWSER_USER_AGENT).exchangeStrategies(exchangeStrategies)
+        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).exchangeStrategies(exchangeStrategies)
       .baseUrl(POE_NINJA_BASE_URL).exchangeStrategies(exchangeStrategies).build();
 
   // https://poe.ninja/api/data/currencyoverview?league=Standard&type=Currency
@@ -51,12 +53,15 @@ public class PoeNinjaWebClient {
             .queryParam("type", type).build())
         .retrieve().bodyToMono(CurrencyOverviewPoeNinja.class);
 
-    CurrencyOverviewPoeNinja currencyOverviewPoeNinja = mono.block();
-    log.info("Currency overview (league: {} , type: {}) have been retrieved from poe.ninja.",
-        leagueId, type);
+    Optional<CurrencyOverviewPoeNinja> currencyOverviewPoeNinja = mono.blockOptional();
+    if (currencyOverviewPoeNinja.isPresent()) {
+      log.info("Currency overview (league: {} , type: {}) have been retrieved from poe.ninja.",
+          leagueId, type);
+      return this.marketOverviewMapper.toDtoListFromCurrencyOverviewPoeNinjaList(
+          currencyOverviewPoeNinja.get().getLines(), leagueId, typeEnum);
+    }
 
-    return this.marketOverviewMapper.toDtoListFromCurrencyOverviewPoeNinjaList(
-        currencyOverviewPoeNinja.getLines(), leagueId, typeEnum);
+    return Collections.emptyList();
   }
 
   // https://poe.ninja/api/data/itemoverview?league=Standard&type=Oil
@@ -71,12 +76,17 @@ public class PoeNinjaWebClient {
                 .queryParam("type", type).build())
             .retrieve().bodyToMono(ItemOverviewPoeNinja.class);
 
-    ItemOverviewPoeNinja itemOverviewPoeNinja = mono.block();
-    log.info("Item overview (league: {} , type: {}) have been retrieved from poe.ninja.", leagueId,
-        type);
+    Optional<ItemOverviewPoeNinja> itemOverviewPoeNinja = mono.blockOptional();
+    if (itemOverviewPoeNinja.isPresent()) {
+      log.info("Item overview (league: {} , type: {}) have been retrieved from poe.ninja.",
+          leagueId,
+          type);
+      return this.marketOverviewMapper
+          .toDtoListFromItemOverviewPoeNinjaList(itemOverviewPoeNinja.get().getLines(), leagueId,
+              typeEnum);
+    }
 
-    return this.marketOverviewMapper
-        .toDtoListFromItemOverviewPoeNinjaList(itemOverviewPoeNinja.getLines(), leagueId, typeEnum);
+    return Collections.emptyList();
   }
 
 }

@@ -10,10 +10,6 @@ import org.mapstruct.Named;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface ItemPropertyMapper {
 
-  // @Named("toItemPropertyDtoListFromGggList")
-  // @IterableMapping(qualifiedByName = "toItemPropertyDtoFromGgg")
-  // List<ItemPropertyDto> toDtoListFromGggList(List<ItemPropertyGgg> sourceList);
-
   @Named("toItemPropertyDtoFromGgg")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "name", source = "name")
@@ -24,10 +20,6 @@ public interface ItemPropertyMapper {
   /////
   /////
 
-  // @Named("toItemPropertyEntityListFromDtoList")
-  // @IterableMapping(qualifiedByName = "toItemPropertyEntityFromDto")
-  // List<ItemProperty> toEntityListFromDtoList(List<ItemPropertyDto> sourceList);
-
   @Named("toItemPropertyEntityFromDto")
   @BeanMapping(ignoreByDefault = true)
   @Mapping(target = "name", source = "name")
@@ -37,10 +29,6 @@ public interface ItemPropertyMapper {
   /////
   /////
   /////
-
-  // @Named("toItemPropertyDtoListFromEntityList")
-  // @IterableMapping(qualifiedByName = "toItemPropertyDtoFromEntity")
-  // List<ItemPropertyDto> toDtoListFromEntityList(List<ItemProperty> sourceList);
 
   @Named("toItemPropertyDtoFromEntity")
   @BeanMapping(ignoreByDefault = true)
