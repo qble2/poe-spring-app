@@ -4,6 +4,8 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import qble2.poe.character.Character;
 import qble2.poe.character.Character_;
@@ -11,6 +13,7 @@ import qble2.poe.ladder.LadderEntry;
 import qble2.poe.ladder.LadderEntry_;
 import qble2.poe.web.ThymeleafLadderForm;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public class LadderSpecifications {
 

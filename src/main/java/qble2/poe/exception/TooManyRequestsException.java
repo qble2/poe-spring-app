@@ -6,7 +6,7 @@ import lombok.Getter;
 public class TooManyRequestsException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
-  private int retryAfter;
+  private final int retryAfter;
 
   public TooManyRequestsException(String message, int retryAfter) {
     super(message);

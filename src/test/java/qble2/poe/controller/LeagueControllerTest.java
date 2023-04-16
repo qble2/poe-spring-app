@@ -33,7 +33,7 @@ import qble2.poe.league.LeagueService;
 @WebMvcTest(controllers = LeagueController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
-public class LeagueControllerTest {
+class LeagueControllerTest {
 
   private static final String LEAGUES_PATH = "/api/leagues";
 

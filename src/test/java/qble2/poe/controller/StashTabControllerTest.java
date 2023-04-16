@@ -33,7 +33,7 @@ import qble2.poe.stash.StashTabService;
 @WebMvcTest(controllers = StashTabController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
-public class StashTabControllerTest {
+class StashTabControllerTest {
 
   private static final String STASH_TABS_PATH = "/api/stash-tabs";
   private static final String REQUIRED_REQUEST_PARAMETER_LEAGUE_ID = "leagueId";

@@ -83,7 +83,7 @@ public class LadderService {
       this.singlePermitSemaphore.release();
     }
 
-    return new CompletableFuture<Void>();
+    return new CompletableFuture<>();
   }
 
   // Fixing UnexpectedRollbackException: change return from void to CompletableFuture<Void>
@@ -114,7 +114,7 @@ public class LadderService {
       this.singlePermitSemaphore.release();
     }
 
-    return new CompletableFuture<Void>();
+    return new CompletableFuture<>();
   }
 
   /////
@@ -130,13 +130,14 @@ public class LadderService {
       log.warn("Retry-After: {}", e.getRetryAfter());
       try {
         log.warn("Sleeping : {} second...", e.getRetryAfter());
-        Thread.sleep(e.getRetryAfter() * 1000);
+        Thread.sleep(e.getRetryAfter() * 1_000L);
 
         // resume and retry
         log.warn("Thread has resumed");
         reloadLadderFragmentRetryOnError(leagueId, start, end);
       } catch (InterruptedException e1) {
         log.error("an error has occured", e1);
+        Thread.currentThread().interrupt();
       }
     }
   }
@@ -153,13 +154,14 @@ public class LadderService {
 
       try {
         log.warn("Sleeping : {} seconds...", e.getRetryAfter());
-        Thread.sleep(e.getRetryAfter() * 1000);
+        Thread.sleep(e.getRetryAfter() * 1_000L);
 
         // resume and retry
         log.warn("Thread has resumed");
         reloadLadderEntryItemsRetryOnError(ladderEntry);
       } catch (InterruptedException e1) {
         log.error("an error has occured", e1);
+        Thread.currentThread().interrupt();
       }
     }
   }

@@ -145,10 +145,6 @@ ol, ul, li {
 		" reload-characters-list-button select-league-dropdown-menu select-league-dropdown-menu "
 		" characters-list               character-inventory-2d         character-inventory-2d         "
 		/ 300px 1fr 1fr;
-	;
-}
-.reload-stash-tabs-list-button {
-	grid-area: reload-stash-tabs-list-button;
 }
 .characters-list {
 	grid-area: characters-list;
@@ -449,7 +445,6 @@ ol, ul, li {
 		" reload-stash-tabs-list-button select-league-dropdown-menu select-league-dropdown-menu "
 		" stash-tabs-list               stash-tab-details           stash-tab-details           "
 		/ 300px 1fr 1fr;
-	;
 }
 .reload-stash-tabs-list-button {
 	grid-area: reload-stash-tabs-list-button;

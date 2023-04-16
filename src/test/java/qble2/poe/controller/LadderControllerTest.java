@@ -34,7 +34,7 @@ import qble2.poe.ladder.LadderService;
 @WebMvcTest(controllers = LadderController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
-public class LadderControllerTest {
+class LadderControllerTest {
 
   private static final String LADDER_OVERVIEW_PATH = "/api/ladders";
 
@@ -81,7 +81,7 @@ public class LadderControllerTest {
     verifyReponseHeaderContentType(resultActions);
   }
 
-//TODO what's the best way to unit test @Async methods
+  // TODO what's the best way to unit test @Async methods
   @Test
   void given_unknownLeagueId_reloadLadder_willReturnLeagueNotFound() throws Exception {
     // given

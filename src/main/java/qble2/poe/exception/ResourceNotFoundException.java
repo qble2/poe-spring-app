@@ -9,10 +9,10 @@ public abstract class ResourceNotFoundException extends RuntimeException {
 
   private static final String MESSAGE_FORMAT = "%s '%s' not found";
 
-  private String resourceName;
-  private String resourceId;
+  private final String resourceName;
+  private final String resourceId;
 
-  public ResourceNotFoundException(String resourceName, String resourceId) {
+  protected ResourceNotFoundException(String resourceName, String resourceId) {
     super(getFormattedMessage(resourceName, resourceId));
 
     this.resourceName = resourceName;

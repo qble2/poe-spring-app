@@ -32,7 +32,7 @@ import qble2.poe.marketoverview.MarketOverviewService;
 @WebMvcTest(controllers = MarketOverviewController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
-public class MarketOverviewControllerTest {
+class MarketOverviewControllerTest {
 
   private static final String MARKET_OVERVIEW_PATH = "/api/market-overviews";
 

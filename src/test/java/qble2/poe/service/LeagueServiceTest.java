@@ -26,7 +26,7 @@ import qble2.poe.league.LeagueWebClientGgg;
 
 // unit testing
 @ExtendWith(MockitoExtension.class) // allows to get rid of the autoCloseable code
-public class LeagueServiceTest {
+class LeagueServiceTest {
 
   @Mock
   private LeagueRepository leagueRepository;

@@ -3,9 +3,13 @@ package qble2.poe;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+// @UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public class RequestLogUtils {
 
@@ -23,8 +27,6 @@ public class RequestLogUtils {
 
   public static ExchangeFilterFunction logResponse() {
     return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
-      // log.info("Response: {}", clientResponse.headers().asHttpHeaders().get("property-header"));
-      // return Mono.just(clientResponse);
       logStatus(clientResponse);
       logHeaders(clientResponse);
       // return logBody(clientResponse); // can be verbose
@@ -47,8 +49,7 @@ public class RequestLogUtils {
 
   @SuppressWarnings("unused")
   private static Mono<ClientResponse> logBody(ClientResponse response) {
-    if (response.statusCode() != null
-        && (response.statusCode().is4xxClientError() || response.statusCode().is5xxServerError())) {
+    if (response.statusCode().is4xxClientError() || response.statusCode().is5xxServerError()) {
       return response.bodyToMono(String.class).flatMap(body -> {
         log.info(TABULATION + TABULATION + "Body is {}", body);
         return Mono.just(response);

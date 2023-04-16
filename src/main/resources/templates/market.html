@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html
+	lang="en"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -12,8 +13,9 @@
 	<!-- /* Content of this page will be decorated by the elements of layout.html */ -->
 	<section layout:fragment="content">
 
-		<div th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/market-overviews/table', targetElementToUpdate='#market-overviews-table')"></div>
-		
+		<div
+			th:replace="fragments/leagues-frags :: select-league-dropdown-menu(callUrlOnLeagueChange='/market-overviews/table', targetElementToUpdate='#market-overviews-table')"></div>
+
 		<button
 			class="outline"
 			hx-trigger="click"

@@ -11,7 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.web.util.UriComponentsBuilder;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+// @UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestUtils {
 
   public static final String MISSING_REQUIRED_REQUEST_PARAMETER_ERROR_MESSAGE =

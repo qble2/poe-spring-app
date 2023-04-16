@@ -37,7 +37,7 @@ import qble2.poe.item.ItemDto;
 @WebMvcTest(controllers = CharacterController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 @ActiveProfiles("test")
-public class CharacterControllerTest {
+class CharacterControllerTest {
 
   private static final String CHARACTERS_PATH = "/api/characters";
   private static final String REQUIRED_REQUEST_PARAMETER_ACCOUNT_NAME = "accountName";
@@ -199,8 +199,7 @@ public class CharacterControllerTest {
     // given
     String characterName = "any";
     List<ItemDto> characterItems = List.of(new ItemDto());
-    given(characterService.reloadCharacterItems(anyString()))
-        .willReturn(characterItems);
+    given(characterService.reloadCharacterItems(anyString())).willReturn(characterItems);
 
     // when
     // then
