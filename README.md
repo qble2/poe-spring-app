@@ -38,7 +38,7 @@ The application allows the user to access:
 
 ## Built with:
 - Java 17
-- [Spring Boot 2.7.8](https://spring.io/projects/spring-boot)
+- [Spring Boot 2.7.10](https://spring.io/projects/spring-boot)
 - [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 - [Hibernate](https://hibernate.org)
