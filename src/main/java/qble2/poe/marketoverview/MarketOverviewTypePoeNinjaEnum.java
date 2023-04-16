@@ -1,9 +1,9 @@
 package qble2.poe.marketoverview;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.stream.Stream;
 import lombok.Getter;
 
 @Getter
@@ -45,7 +45,8 @@ public enum MarketOverviewTypePoeNinjaEnum {
   VIAL("Vial"), //
 
   // Expedition artifact
-  ARTIFACT("Artifact"),;
+  ARTIFACT("Artifact"),
+  ;
 
   @JsonValue
   private String value;

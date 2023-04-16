@@ -1,14 +1,14 @@
 package qble2.poe.trade;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.trade.ggg.TradeSearchPayloadGgg;
 import qble2.poe.trade.ggg.TradeSearchResponseGgg;
@@ -37,9 +37,9 @@ public class TradeWebClientGgg {
 
   private static final WebClient webClient =
       WebClient.builder().filters(exchangeFilterFunctions -> {
-        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+            exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+            exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+          }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
           .exchangeStrategies(exchangeStrategies).build();
 
   // TODO handle 400 Bad Request (Invalid query/sort/filter/...)

@@ -1,6 +1,7 @@
 package qble2.poe.security;
 
 import java.util.Collections;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.stash.StashTabService;
 
 // to be eventually replaced by OAuth 2

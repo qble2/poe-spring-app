@@ -1,17 +1,17 @@
 package qble2.poe.trade.ggg;
 
-import org.apache.commons.lang3.BooleanUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qble2.poe.trade.enums.TradeSearchFilterItemCategoryEnum;
+import org.apache.commons.lang3.BooleanUtils;
 import qble2.poe.trade.enums.ItemRarityEnum;
 import qble2.poe.trade.enums.ListedSinceEnum;
 import qble2.poe.trade.enums.OnlineStatusEnum;
 import qble2.poe.trade.enums.SortPriceEnum;
+import qble2.poe.trade.enums.TradeSearchFilterItemCategoryEnum;
 
 @JsonInclude(Include.NON_NULL)
 @Data
@@ -181,76 +181,76 @@ public class TradeSearchPayloadGgg {
   /////
   /**
    * <pre>
-      {
-        "query": {
-            "status": {
-                "option": "online"
-            },
-            "type": "Pig-Faced Bascinet",
-            "stats": [
-                {
-                    "type": "count",
-                    "filters": [
-                        {
-                            "id": "enchant.stat_939320550"
-                        },
-                        {
-                            "id": "enchant.stat_804667127"
-                        }
-                    ],
-                    "disabled": false,
-                    "value": {
-                        "min": 1
-                    }
-                },
-                {
-                    "filters": [
-                        {
-                            "id": "pseudo.pseudo_has_influence_count"
-                        }
-                    ],
-                    "type": "not"
-                }
-            ],
-            "filters": {
-                "misc_filters": {
-                    "filters": {
-                        "corrupted": {
-                            "option": "false"
-                        },
-                        "fractured_item": {
-                            "option": "false"
-                        },
-                        "mirrored": {
-                            "option": "false"
-                        },
-                        "ilvl": {
-                            "min": 85
-                        }
-                    },
-                    "disabled": false
-                },
-                "trade_filters": {
-                    "filters": {
-                        "collapse": {
-                            "option": "true"
-                        }
-                    },
-                    "disabled": false
-                },
-                "type_filters": {
-                    "filters": {
-                        "rarity": {
-                            "option": "nonunique"
-                        }
-                    }
-                }
-            }
-        },
-        "sort": {
-            "price": "asc"
-        }
-      }
+   {
+   "query": {
+   "status": {
+   "option": "online"
+   },
+   "type": "Pig-Faced Bascinet",
+   "stats": [
+   {
+   "type": "count",
+   "filters": [
+   {
+   "id": "enchant.stat_939320550"
+   },
+   {
+   "id": "enchant.stat_804667127"
+   }
+   ],
+   "disabled": false,
+   "value": {
+   "min": 1
+   }
+   },
+   {
+   "filters": [
+   {
+   "id": "pseudo.pseudo_has_influence_count"
+   }
+   ],
+   "type": "not"
+   }
+   ],
+   "filters": {
+   "misc_filters": {
+   "filters": {
+   "corrupted": {
+   "option": "false"
+   },
+   "fractured_item": {
+   "option": "false"
+   },
+   "mirrored": {
+   "option": "false"
+   },
+   "ilvl": {
+   "min": 85
+   }
+   },
+   "disabled": false
+   },
+   "trade_filters": {
+   "filters": {
+   "collapse": {
+   "option": "true"
+   }
+   },
+   "disabled": false
+   },
+   "type_filters": {
+   "filters": {
+   "rarity": {
+   "option": "nonunique"
+   }
+   }
+   }
+   }
+   },
+   "sort": {
+   "price": "asc"
+   }
+   }
    * </pre>
    */
 

@@ -1,8 +1,8 @@
 package qble2.poe.exception;
 
 import java.lang.reflect.Method;
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 
 @Slf4j
 public class AsyncExceptionHandler implements AsyncUncaughtExceptionHandler {

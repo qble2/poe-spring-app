@@ -1,7 +1,7 @@
 package qble2.poe.ladder;
 
-import java.time.ZonedDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.ZonedDateTime;
 import lombok.Data;
 import qble2.poe.character.CharacterDto;
 

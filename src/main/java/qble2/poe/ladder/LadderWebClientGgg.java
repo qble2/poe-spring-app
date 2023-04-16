@@ -1,12 +1,12 @@
 package qble2.poe.ladder;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.NumberUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import qble2.poe.exception.TooManyRequestsException;
 import qble2.poe.ladder.ggg.LadderGgg;
@@ -36,9 +36,9 @@ public class LadderWebClientGgg {
 
   private static final WebClient webClient =
       WebClient.builder().filters(exchangeFilterFunctions -> {
-        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
+            exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+            exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+          }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_BASE_URL)
           .exchangeStrategies(exchangeStrategies).build();
 
   // https://www.pathofexile.com/api/ladders?offset=0&limit=20&id=Sanctum&type=league&realm=pc

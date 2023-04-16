@@ -1,11 +1,11 @@
 package qble2.poe.league;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
-import lombok.extern.slf4j.Slf4j;
 import qble2.poe.RequestLogUtils;
 import reactor.core.publisher.Mono;
 
@@ -31,9 +31,9 @@ public class LeagueWebClientGgg {
 
   private static final WebClient webClient =
       WebClient.builder().filters(exchangeFilterFunctions -> {
-        exchangeFilterFunctions.add(RequestLogUtils.logRequest());
-        exchangeFilterFunctions.add(RequestLogUtils.logResponse());
-      }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_API_BASE_URL)
+            exchangeFilterFunctions.add(RequestLogUtils.logRequest());
+            exchangeFilterFunctions.add(RequestLogUtils.logResponse());
+          }).defaultHeader("User-Agent", BROWSER_USER_AGENT).baseUrl(GGG_API_BASE_URL)
           .exchangeStrategies(exchangeStrategies).build();
 
   // https://api.pathofexile.com/leagues

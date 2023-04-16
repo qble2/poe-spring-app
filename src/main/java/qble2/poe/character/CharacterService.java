@@ -2,9 +2,9 @@ package qble2.poe.character;
 
 import java.util.List;
 import javax.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.AllArgsConstructor;
 import qble2.poe.exception.CharacterNotFoundException;
 import qble2.poe.item.Item;
 import qble2.poe.item.ItemDto;

@@ -1,8 +1,8 @@
 package qble2.poe.stash;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import qble2.poe.item.ItemGgg;
 

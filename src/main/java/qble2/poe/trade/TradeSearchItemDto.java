@@ -2,8 +2,8 @@ package qble2.poe.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import qble2.poe.trade.enums.TradeSearchFilterItemCategoryEnum;
 import qble2.poe.trade.enums.ItemRarityEnum;
+import qble2.poe.trade.enums.TradeSearchFilterItemCategoryEnum;
 
 @Data
 public class TradeSearchItemDto {
