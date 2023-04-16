@@ -72,6 +72,11 @@ replay_pid*
 .settings/
 
 ###
+### IntelliJ
+###
+.idea
+
+###
 ### H2
 ###
 h2database/
