@@ -1,10 +1,12 @@
 package qble2.poe.ladder;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -12,10 +14,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true, fluent = false)
 public class LadderEntryId implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-  private int rank;
+    private int rank;
 
-  private String leagueId;
+    private String leagueId;
 
 }

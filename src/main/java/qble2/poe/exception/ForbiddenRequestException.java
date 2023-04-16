@@ -1,6 +1,9 @@
 package qble2.poe.exception;
 
+import java.io.Serial;
+
 public class ForbiddenRequestException extends RuntimeException {
-  private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 }
