@@ -39,6 +39,20 @@ public class SecurityConfiguration {
 
   @Bean
   @Order(2)
+  SecurityFilterChain filterChainOpenApi(HttpSecurity http) throws Exception {
+    http
+
+        .csrf().disable()
+
+        .authorizeRequests().antMatchers("/v3/api-docs/**", "/swagger-ui.html")
+        
+        .permitAll();
+
+    return http.build();
+  }
+
+  @Bean
+  @Order(3)
   SecurityFilterChain filterChainRestApi(HttpSecurity http) throws Exception {
     http
 
@@ -52,7 +66,7 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  @Order(3)
+  @Order(4)
   SecurityFilterChain filterChainWebApp(HttpSecurity http) throws Exception {
     http
 
